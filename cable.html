@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cable - Zuken E3.series Tutorial</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="brand">⚡ Zuken E3.series Tutorial <span class="badge">TH</span></a>
+        <nav class="main-nav">
+            <a href="index.html">หน้าแรก</a>
+            <a href="schematic.html">Schematics</a>
+            <a href="cable.html" class="active">Cable</a>
+            <a href="panel.html">Panel</a>
+            <a href="database-editor.html">Database Editor</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <h1>Cable: ออกแบบ Wiring & Cable Harness ด้วย E3.cable</h1>
+    <p class="lead">
+        E3.cable ต่อยอดจาก E3.schematic — ใช้ Symbol/Connection ชุดเดียวกัน แต่เพิ่มความสามารถเฉพาะสำหรับงาน Harness
+        ที่ต้องผลิตจริง เช่น Mating Connector, Dynamic Cable และ Block Function
+    </p>
+
+    <h2>1. Mating Connector อัตโนมัติ</h2>
+    <p>
+        เมื่อลาก Connection เข้าฝั่งตัวเมีย/ตัวผู้ของ Connector Device ระบบจะวาง <strong>Active Mating Connector</strong>
+        ที่กำหนดไว้ใน Component Properties ให้อัตโนมัติ — ถ้ายังไม่ได้กำหนด Active Mating Connector ไว้ จะไม่สามารถสร้าง
+        Connection ได้ และมีข้อความแจ้งเตือนที่ Status Bar
+    </p>
+    <ul>
+        <li><strong>Plug Connector Only on Valid Connector</strong> — บังคับให้เสียบได้เฉพาะ Mating Connector ที่กำหนดไว้ใน Component Properties เท่านั้น</li>
+        <li><strong>Plugging Only with Compatible Pin Gender</strong> — บังคับให้เสียบได้เฉพาะขั้วที่เข้ากันได้ (Pin Gender ตรงกัน) ป้องกัน Harness ผิดตั้งแต่ขั้นออกแบบ</li>
+    </ul>
+    <div class="note">
+        <strong>ข้อควรรู้:</strong> ถ้าเปลี่ยนการตั้งค่า Pin Gender ภายหลัง จะไม่กระทบ Connector ที่เสียบกันไปแล้วในโปรเจกต์ — ต้องตรวจ Connection เดิมด้วยตาอีกครั้งถ้าจำเป็น
+    </div>
+
+    <h2>2. Dynamic Cable</h2>
+    <p>
+        ต่างจาก Database Cable (Component ที่ดึงจากฐานข้อมูลตายตัว) <strong>Dynamic Cable</strong> ปรับจำนวนแกนสาย
+        (Conductor) และชื่อได้อิสระในโปรเจกต์เอง (Insert → Cable) เหมาะกับกรณีที่ยังไม่รู้จำนวนแกนแน่ชัดตอนออกแบบ
+    </p>
+    <ul>
+        <li>กำหนด Cross-Section, เส้นผ่านศูนย์กลาง และสีของแต่ละแกนได้ภายหลังใน Device Properties</li>
+        <li>ลาก Drag&Drop ย้ายแกนสายระหว่าง Dynamic Cable สองเส้น หรือจากโฟลเดอร์ "Wires" เข้า Dynamic Cable ได้ (ทำกับ Database Cable ไม่ได้)</li>
+        <li>Rename แกนสายเป็นชุดด้วยคำสั่ง <strong>Rename conductors/wires</strong> โดยกำหนดค่าเริ่มต้น–ค่าสิ้นสุด</li>
+        <li>แสดงแกนสายเป็นแบบ Shielded, Bundled หรือ Twisted ได้ใน Device Tree</li>
+    </ul>
+
+    <h2>3. Reuse วงจรด้วย Block Function (Dynamic Block)</h2>
+    <p>
+        Dynamic Block ใช้แทนฟังก์ชันที่ยังไม่นิยามครบ (Black Box) ในผังสาย — เป็นบล็อกที่ยังไม่มีอยู่ในฐานข้อมูลชิ้นส่วนและ
+        <em>ไม่</em> นับรวมใน BOM แต่ยังตั้ง Item Designation ให้ได้ ตั้งแต่เวอร์ชัน 2016 วาง Terminal, Connector และ Device
+        ไว้ข้างในบล็อกได้ ไม่ใช่แค่ Block Connector บนขอบเหมือนเดิม
+    </p>
+    <p>
+        ถ้าต้องการให้บล็อกถูกนับใน BOM จริง ให้สร้างเป็น <strong>Component ชนิด Block</strong> ในฐานข้อมูลแทน — ดูวิธีสร้างที่หน้า
+        <a href="database-editor.html">Database Editor</a> — กำหนด Block Connector ล่วงหน้า และเลือก Symbol Type เป็น "Block"
+        (ปรับขนาดได้หลังวาง) หรือ "Block fix" (ขนาดคงที่)
+    </p>
+
+    <h2>4. คำนวณเส้นผ่านศูนย์กลางมัดสาย (Bundle)</h2>
+    <p>โปรเจกต์ที่มี Wire หลายเส้นเดินเส้นทางเดียวกันในโลกจริง ควรจัดกลุ่มเป็น Bundle เดียวเพื่อดู Net Segment Diameter รวม</p>
+    <pre><code>-- แนวคิดข้อมูล Bundle
+Bundle "Motor_Harness_01"
+  Wires: 12
+  Core size: 0.75 mm^2 (each)
+  Calculated bundle diameter: ~9.2 mm
+</code></pre>
+    <p><strong>คำถามฝึกคิด:</strong> ทำไมต้องคำนวณเส้นผ่านศูนย์กลาง Bundle ตั้งแต่ขั้นออกแบบ ทั้งที่ยังไม่ได้ผลิตสายจริง?</p>
+    <div class="tip"><strong>เฉลย:</strong> ขนาด Bundle ที่แท้จริงมีผลต่อการเลือกท่อร้อยสาย (Conduit) และ Cable Duct ในตู้ควบคุม/เครื่องจักร (ดูเพิ่มเติมที่หน้า <a href="panel.html">Panel</a>) ถ้าคำนวณผิดตั้งแต่แบบ อาจเจอปัญหาสายเดินไม่พอที่ตอนประกอบจริง ซึ่งแก้ไขยากและแพงกว่าการแก้ในขั้นออกแบบมาก</div>
+
+    <div class="tip">
+        <strong>Tip:</strong> ตั้งชื่อ Sheet, Wire Label และ Cable ให้เป็นระบบเดียวกันทั้งโปรเจกต์ (เช่น กำหนด Naming Convention
+        ตั้งแต่ต้น) เพราะเมื่อโปรเจกต์มีหลายร้อยชีท การไล่หา Cross-Reference จะยากมากถ้าตั้งชื่อไม่เป็นระบบ
+    </div>
+
+    <div class="page-nav">
+        <a href="schematic.html">← ก่อนหน้า: Schematics</a>
+        <a href="panel.html">ถัดไป: Panel →</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม
+</footer>
+</body>
+</html>

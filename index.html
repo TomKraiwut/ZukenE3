@@ -12,10 +12,10 @@
         <a href="index.html" class="brand">⚡ Zuken E3.series Tutorial <span class="badge">TH</span></a>
         <nav class="main-nav">
             <a href="index.html" class="active">หน้าแรก</a>
-            <a href="basic.html">Basic</a>
-            <a href="advanced.html">Advanced</a>
+            <a href="schematic.html">Schematics</a>
+            <a href="cable.html">Cable</a>
             <a href="panel.html">Panel</a>
-            <a href="examples.html">Example File</a>
+            <a href="database-editor.html">Database Editor</a>
         </nav>
     </div>
 </header>
@@ -27,25 +27,25 @@
     </section>
 
     <div class="card-grid">
-        <a href="basic.html" class="card">
+        <a href="schematic.html" class="card">
             <div class="icon">🧩</div>
-            <h3>Basic</h3>
+            <h3>Schematics</h3>
             <p>รู้จักหน้าตาโปรแกรม, Symbol/Component/Device, Item Designation ตามมาตรฐาน IEC 81346, การสร้างวงจรแรกและตรวจสอบความถูกต้อง</p>
         </a>
-        <a href="advanced.html" class="card">
-            <div class="icon">⚙️</div>
-            <h3>Advanced</h3>
-            <p>สร้าง Symbol/Component ใน Database Editor, ออกแบบ Cable Harness (Mating Connector, Dynamic Cable, Block Function)</p>
+        <a href="cable.html" class="card">
+            <div class="icon">🔌</div>
+            <h3>Cable</h3>
+            <p>ออกแบบ Wiring & Cable Harness: Mating Connector อัตโนมัติ, Dynamic Cable, Block Function และคำนวณ Bundle</p>
         </a>
         <a href="panel.html" class="card">
             <div class="icon">🗄️</div>
             <h3>Panel</h3>
             <p>ออกแบบตู้คอนโทรล (Panel Layout): Mounting Rail, Cable Duct, Terminal Strip, Autoconnect และ 3D Panel</p>
         </a>
-        <a href="examples.html" class="card">
-            <div class="icon">📂</div>
-            <h3>Example File</h3>
-            <p>ตัวอย่างวงจรและ Harness จริงพร้อมคำอธิบายทีละขั้นตอน</p>
+        <a href="database-editor.html" class="card">
+            <div class="icon">⚙️</div>
+            <h3>Database Editor</h3>
+            <p>สร้าง Symbol, Component และ Model เองเมื่อของมาตรฐานไม่พอ พร้อมตรวจสอบฐานข้อมูลด้วย COM API</p>
         </a>
     </div>
 
@@ -65,11 +65,16 @@
 
     <h2>ใช้เว็บนี้ยังไง</h2>
     <ol>
-        <li>เริ่มที่เมนู <strong>Basic</strong> ถ้ายังไม่เคยเปิดโปรแกรมมาก่อน</li>
-        <li>ไปที่ <strong>Advanced</strong> เมื่อเข้าใจ Object พื้นฐานแล้ว และอยากสร้าง Library/Harness แบบมืออาชีพ</li>
-        <li>ดู <strong>Panel</strong> เมื่อจะออกแบบเลย์เอาต์ตู้คอนโทรลจริง (Mounting Rail/Cable Duct/Terminal)</li>
-        <li>ดู <strong>Example File</strong> เพื่อฝึกทำตามวงจรจริงทีละขั้นตอน</li>
+        <li>เริ่มที่เมนู <strong>Schematics</strong> ถ้ายังไม่เคยเปิดโปรแกรมมาก่อน — มีทั้งพื้นฐานและตัวอย่างฝึกทำในหน้าเดียว</li>
+        <li>ไปที่ <strong>Cable</strong> เมื่อจะออกแบบ Wiring/Cable Harness ที่ต้องผลิตจริง</li>
+        <li>ดู <strong>Panel</strong> เมื่อจะออกแบบเลย์เอาต์ตู้คอนโทรล (Mounting Rail/Cable Duct/Terminal)</li>
+        <li>ดู <strong>Database Editor</strong> เมื่อของมาตรฐานในฐานข้อมูลไม่พอ ต้องสร้าง Symbol/Component/Model เอง</li>
     </ol>
+
+    <p class="note">
+        <strong>ไฟล์ตัวอย่างจริง:</strong> วางไฟล์โปรเจกต์ <code>.e3s</code> ของคุณไว้ในโฟลเดอร์
+        <a href="https://github.com/TomKraiwut/ZukenE3/tree/main/examples">examples/</a> ของ repo นี้ได้ แล้วใส่ลิงก์ดาวน์โหลดในหน้าโมดูลที่เกี่ยวข้อง
+    </p>
 </main>
 
 <footer class="site-footer">

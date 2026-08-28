@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Database Editor - Zuken E3.series Tutorial</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="brand">⚡ Zuken E3.series Tutorial <span class="badge">TH</span></a>
+        <nav class="main-nav">
+            <a href="index.html">หน้าแรก</a>
+            <a href="schematic.html">Schematics</a>
+            <a href="cable.html">Cable</a>
+            <a href="panel.html">Panel</a>
+            <a href="database-editor.html" class="active">Database Editor</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <h1>Database Editor: สร้าง Symbol, Component และ Model เอง</h1>
+    <p class="lead">
+        เมื่อของมาตรฐานในฐานข้อมูลไม่พอ ใช้ Database Editor สร้าง Symbol/Component ใหม่สำหรับ Schematic/Cable
+        และสร้าง Model ใหม่สำหรับ Panel — ทุกอย่างอ้างอิงข้อมูลชุดเดียวกันทั้งระบบ
+    </p>
+
+    <h2>1. เปิดใช้งาน Database Editor</h2>
+    <p>
+        เปิดได้จากคำสั่ง <strong>New Symbol</strong> / <strong>New Component</strong> ในเมนูคลิกขวาของ Database Window
+        โปรแกรมจะเปิดหน้าต่างแยกต่างหาก สังเกตได้จากชื่อ <code>E3.dbe</code> บน Title Bar — โหมดนี้แก้ไข "ต้นแบบ" ในฐานข้อมูล
+        โดยไม่กระทบ Device ที่วางไปแล้วในโปรเจกต์ และยังเปิดโปรเจกต์คู่ขนานไปพร้อมกันได้ (แยกสีหน้าต่างให้เห็นชัดว่าอยู่โหมดไหน)
+    </p>
+    <div class="note">
+        <strong>ก่อนเริ่ม:</strong> อย่าสร้าง Symbol/Component/Model ใหม่ซ้ำกับที่มีอยู่แล้ว — ค้นหาในฐานข้อมูลก่อนเสมอ และถ้าต้อง
+        แก้ไขของเดิม ใช้คำสั่ง <strong>Symbol/Component Edit</strong> แล้วบันทึกทับชื่อเดิม ไม่ใช่สร้างใหม่ซ้ำซ้อน
+    </div>
+
+    <h2>2. สร้าง Symbol ใหม่ (สำหรับ Schematic/Cable)</h2>
+    <p><strong>Symbol Checklist:</strong></p>
+    <ol class="steps">
+        <li>กำหนด Symbol Properties — ชนิดและชื่อ Symbol</li>
+        <li>Insert Symbol Graphic (รองรับ Import DXF/DWG) — กราฟิกแก้ไขไม่ได้อีกในโหมด Project</li>
+        <li>วาง Node บนตำแหน่งที่ต้องการให้ Connection เข้ามาต่อ พร้อมกำหนดทิศทางการเชื่อมต่อ (Connection Direction)</li>
+        <li>วาง Text Placeholder สำหรับข้อมูลที่ระบบ/ผู้ใช้จะเติมทีหลัง เช่น Item Designation</li>
+        <li>ตรวจสอบ/กำหนด Space Requirement และ Symbol Origin (จุดอ้างอิงตอนวาง)</li>
+    </ol>
+    <p>
+        ส่วน <strong>Component</strong> ผูก Symbol เข้ากับข้อมูลอุปกรณ์จริง (Manufacturer, Part Number, จำนวนขา) — ฐานข้อมูลของ
+        E3.series รองรับ Component หลายชนิดที่มีพฤติกรรมต่างกัน เลือกใช้ให้ตรงกับลักษณะอุปกรณ์จริง:
+    </p>
+    <table>
+        <tr><th>Component Type</th><th>ใช้กับ</th></tr>
+        <tr><td>Cable / Wire Group</td><td>สายเคเบิลหรือกลุ่มสายที่มีจำนวนแกนคงที่ ดึงจากฐานข้อมูลได้ทันที</td></tr>
+        <tr><td>Terminal</td><td>ขั้วต่อบน Terminal Strip</td></tr>
+        <tr><td>Connector</td><td>ปลั๊ก/ขั้วต่อหลายขา รองรับ Mating Connector, Cavity Part Group</td></tr>
+        <tr><td>Busbar</td><td>บัสบาร์ตัวนำกระแสรวม</td></tr>
+        <tr><td>Subcircuit</td><td>วงจรย่อยสำเร็จรูปที่ผูกไว้กับ Component เพื่อดึงมาวางซ้ำได้</td></tr>
+        <tr><td>Assembly / Block</td><td>กลุ่มอุปกรณ์ที่ประกอบเป็นชุดเดียว หรือ Block ที่มี Block Connector สำหรับงาน Cable Harness</td></tr>
+    </table>
+
+    <h2>3. สร้าง Model ใหม่ (สำหรับ Panel)</h2>
+    <p>
+        Model คือรูปทรง 2D/3D ของ Component ที่ใช้แสดงในผัง <a href="panel.html">Panel</a> — ต่างจาก Symbol ที่ใช้ใน Schematic
+        เปิดจากคำสั่งเดียวกัน (New Symbol/New Component) แต่เลือกสร้าง Model ต่อในขั้นตอนถัดไป
+    </p>
+    <p><strong>Model Checklist:</strong></p>
+    <ol class="steps">
+        <li>กำหนด Model Properties</li>
+        <li>กำหนด Space Requirement (พื้นที่ครอบครองบนแนวแกน X/Y)</li>
+        <li>Insert Graphics — รองรับ Import STEP File สำหรับมุมมอง 3D</li>
+        <li>วาง Node (Slot/Pin) และ<strong>ตรวจลำดับ Slot ให้ถูกต้อง</strong></li>
+    </ol>
+    <div class="tip">
+        <strong>Tip:</strong> ลำดับ Slot ที่ผิดเป็นสาเหตุอันดับต้นๆ ที่ทำให้ Panel Autoconnect หาเส้นทางไม่เจอ — ตรวจ Slots/Pins Tab
+        ให้ครบก่อนบันทึก Model ทุกครั้ง
+    </div>
+
+    <h2>4. ตรวจสอบฐานข้อมูลด้วย COM API (เสริม)</h2>
+    <p>
+        นอกจากแก้ไขในหน้าต่าง Database Editor แล้ว E3.series ยังมี COM API (E3.Application) ให้เขียน Macro ตรวจสอบข้อมูลอัตโนมัติ
+        เช่น ไล่ตรวจว่า Symbol ตัวไหนในโปรเจกต์ยังไม่ผูก Part — เหมาะกับงาน QA ก่อนส่งแบบ มากกว่าการแทนที่ Database Editor
+    </p>
+    <pre><code>' ตัวอย่าง Macro (VBA-like) ตรวจสอบ Symbol ที่ยังไม่ผูก Part Number
+Dim e3 As Object
+Dim job As Object
+Dim sym As Object
+Dim symbols() As Long
+Dim i As Integer
+
+Set e3 = GetObject(, "CT.Application")
+Set job = e3.CreateJobObject
+job.GetAllSymbolIds symbols
+
+For i = 0 To UBound(symbols)
+    Set sym = e3.CreateSymbolObject
+    sym.SetId symbols(i)
+    If sym.GetPartId() = 0 Then
+        Debug.Print "Missing part: " & sym.GetName()
+    End If
+Next i
+</code></pre>
+
+    <div class="page-nav">
+        <a href="panel.html">← ก่อนหน้า: Panel</a>
+        <a href="index.html">กลับหน้าแรก</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม
+</footer>
+</body>
+</html>

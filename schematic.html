@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Basic - Zuken E3.series Tutorial</title>
+<title>Schematics - Zuken E3.series Tutorial</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -12,16 +12,16 @@
         <a href="index.html" class="brand">⚡ Zuken E3.series Tutorial <span class="badge">TH</span></a>
         <nav class="main-nav">
             <a href="index.html">หน้าแรก</a>
-            <a href="basic.html" class="active">Basic</a>
-            <a href="advanced.html">Advanced</a>
+            <a href="schematic.html" class="active">Schematics</a>
+            <a href="cable.html">Cable</a>
             <a href="panel.html">Panel</a>
-            <a href="examples.html">Example File</a>
+            <a href="database-editor.html">Database Editor</a>
         </nav>
     </div>
 </header>
 
 <main>
-    <h1>Basic: เริ่มต้นใช้งาน E3.series</h1>
+    <h1>Schematics: ออกแบบวงจรไฟฟ้าด้วย E3.schematic</h1>
     <p class="lead">พื้นฐานที่ต้องรู้ก่อนสร้างวงจรไฟฟ้าแรกของคุณ</p>
 
     <h2>1. หน้าตาโปรแกรม (User Interface)</h2>
@@ -40,7 +40,8 @@
     <p>
         E3.series เป็นระบบ Object-Oriented ที่ Symbol และ Component ทุกตัวเก็บอยู่ในฐานข้อมูลกลาง
         เมื่อ "วาง" (Place) ลงในโปรเจกต์ ระบบจะสร้างสำเนาเป็น <strong>Device</strong> แยกจากฐานข้อมูล
-        ทำให้โปรเจกต์เป็นอิสระจากฐานข้อมูลต้นทาง (แก้ Device ในโปรเจกต์ไม่กระทบฐานข้อมูล)
+        ทำให้โปรเจกต์เป็นอิสระจากฐานข้อมูลต้นทาง (แก้ Device ในโปรเจกต์ไม่กระทบฐานข้อมูล) — ถ้าต้องการสร้าง Symbol/Component
+        เองดูวิธีทำได้ที่หน้า <a href="database-editor.html">Database Editor</a>
     </p>
     <table>
         <tr><th>Object</th><th>ความหมาย</th></tr>
@@ -80,7 +81,8 @@
         <strong>Terminal</strong> เป็น Component ชนิดพิเศษ เมื่อวางจาก Database Window ระบบจะสร้าง Device ชนิด
         Terminal Strip ให้อัตโนมัติ — ถ้าวาง Terminal ชนิดเดียวกันซ้ำหลายตัวจะถูกจัดเข้า Terminal Strip เดียวกัน
         แต่ถ้าวาง Terminal ต่างชนิดกัน ระบบจะแยกสร้าง Strip ใหม่ให้แต่ละชนิดโดยอัตโนมัติ ระบบยังตรวจจำนวนสายที่เข้าขั้ว
-        และ Cross-Section ให้ด้วย ถ้าเกินที่กำหนดจะแจ้งเตือนที่ Status Bar
+        และ Cross-Section ให้ด้วย ถ้าเกินที่กำหนดจะแจ้งเตือนที่ Status Bar (Terminal Strip เดียวกันนี้ยังใช้จัดวางจริงต่อได้ในหน้า
+        <a href="panel.html">Panel</a>)
     </p>
     <table>
         <tr><th>คีย์ลัด</th><th>คำสั่ง</th></tr>
@@ -104,9 +106,30 @@
         รายงานหรือส่งออกไฟล์ ไม่งั้นอาจได้ BOM/Harness ที่ไม่ตรงกับวงจรจริง
     </div>
 
+    <h2>6. ตัวอย่างฝึกทำ</h2>
+
+    <h3>ตัวอย่างที่ 1: วงจรสวิตช์-หลอดไฟอย่างง่าย</h3>
+    <p><strong>โครงสร้าง:</strong> <code>Power Supply → Switch → Lamp → Ground</code></p>
+    <ul>
+        <li>Symbol: 4 ตัว (Power Supply, Switch, Lamp, Ground)</li>
+        <li>Wire: 3 เส้นเชื่อมต่อเรียงตามลำดับ</li>
+    </ul>
+    <p><strong>คำถามฝึกคิด:</strong> วาดวงจรเสร็จแล้ว รัน Check Design ผ่านหมด แต่ BOM ที่ Generate ออกมาไม่มีราคาหรือผู้ผลิตของ Switch ปรากฏ เกิดจากอะไร?</p>
+    <div class="tip"><strong>เฉลย:</strong> Check Design ตรวจแค่ความถูกต้องทางไฟฟ้าของการเชื่อมต่อ ไม่ได้ตรวจว่าผูก Part ครบหรือไม่ — ต้องเปิด Symbol ของ Switch แล้วเลือก Part จาก Component Database ให้ครบก่อน BOM ถึงจะมีข้อมูลผู้ผลิตครบ</div>
+
+    <h3>ตัวอย่างที่ 2: Connector หลายขาเชื่อมหลายชีท</h3>
+    <p><strong>โครงสร้าง:</strong> <code>Connector (8-pin) เชื่อมสัญญาณจากชีท 1 ไปยังชีท 2-3</code></p>
+    <p>ใช้ Cross-Reference ติดตามว่าสัญญาณแต่ละขาของ Connector ไปโผล่ที่ชีทไหนบ้าง</p>
+    <p><strong>คำถามฝึกคิด:</strong> ทำไมโปรเจกต์ที่มีหลายชีทถึงต้องพึ่ง Cross-Reference แทนการไล่ดู Wire ทีละเส้นด้วยตา?</p>
+    <div class="tip"><strong>เฉลย:</strong> เมื่อ Connector ตัวเดียวกันปรากฏในหลายชีท (เช่น ขาแต่ละขาต่อไปยังวงจรคนละส่วน) การไล่ตาจะพลาดง่ายและช้ามาก Cross-Reference จะอัปเดตอัตโนมัติทุกครั้งที่แก้วงจร ทำให้มั่นใจได้ว่าเอกสารตรงกับแบบจริงเสมอ</div>
+
+    <p class="note">
+        <strong>ไฟล์ตัวอย่างจริง:</strong> วางไฟล์โปรเจกต์ <code>.e3s</code> ของคุณไว้ในโฟลเดอร์ <code>examples/</code> ของ repo นี้ได้
+    </p>
+
     <div class="page-nav">
         <span></span>
-        <a href="advanced.html">ถัดไป: Advanced →</a>
+        <a href="cable.html">ถัดไป: Cable →</a>
     </div>
 </main>
 

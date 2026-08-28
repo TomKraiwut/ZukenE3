@@ -12,10 +12,10 @@
         <a href="index.html" class="brand">⚡ Zuken E3.series Tutorial <span class="badge">TH</span></a>
         <nav class="main-nav">
             <a href="index.html">หน้าแรก</a>
-            <a href="basic.html">Basic</a>
-            <a href="advanced.html">Advanced</a>
+            <a href="schematic.html">Schematics</a>
+            <a href="cable.html">Cable</a>
             <a href="panel.html" class="active">Panel</a>
-            <a href="examples.html">Example File</a>
+            <a href="database-editor.html">Database Editor</a>
         </nav>
     </div>
 </header>
@@ -72,14 +72,24 @@
     </p>
 
     <div class="tip">
-        <strong>Tip:</strong> สร้าง Model ใหม่ใน Database Editor (E3.panel Database) เมื่อของมาตรฐานไม่พอ โดยทำตาม
-        Model Checklist: กำหนด Model Properties → กำหนด Space Requirement (X/Y) → Insert Graphics → วาง Slot/Pin →
-        ตรวจลำดับ Slot ให้ถูกต้อง — ลำดับ Slot ที่ผิดเป็นสาเหตุอันดับต้นๆ ที่ทำให้ Autoconnect หาเส้นทางไม่เจอ
+        <strong>Tip:</strong> ถ้ายังไม่มี Model ของอุปกรณ์ที่ต้องการ สร้างเองได้ที่หน้า
+        <a href="database-editor.html">Database Editor</a> — ลำดับ Slot ที่ผิดตอนสร้าง Model เป็นสาเหตุอันดับต้นๆ
+        ที่ทำให้ Autoconnect หาเส้นทางไม่เจอ
     </div>
 
+    <h2>6. ตัวอย่างฝึกทำ</h2>
+    <h3>Terminal Strip บน Panel เชื่อมกับสายจาก Schematic</h3>
+    <p><strong>โครงสร้าง:</strong> <code>Terminal Strip 12 ขั้ว บน Panel Sheet เชื่อมสัญญาณจาก Schematic 3 ชีท</code></p>
+    <ul>
+        <li>วาง Terminal Component ชนิดเดียวกัน 12 ครั้งจาก Schematic → รวมเป็น Terminal Strip เดียวโดยอัตโนมัติ</li>
+        <li>Terminal Strip เดียวกันนี้ปรากฏใน Panel Sheet ด้วย (Object เดียวกัน ไม่ต้องสร้างซ้ำ)</li>
+    </ul>
+    <p><strong>คำถามฝึกคิด:</strong> วาง Terminal Strip บน Mounting Rail ใน Panel แล้ว แต่สั่ง Panel Autoconnect แล้วสายบางเส้นไม่ถูกเดินให้ เกิดจากอะไรได้บ้าง?</p>
+    <div class="tip"><strong>เฉลย:</strong> สาเหตุที่พบบ่อยคือ Slot/Pin ของ Model ที่ผูกกับ Terminal นั้นเรียงลำดับผิดตอนสร้างใน Database Editor หรือ Wire เส้นนั้นไม่ตรงกับเงื่อนไข Wire Selection ที่ตั้งไว้ใน Autoconnect Settings — ให้ตรวจ Slot Order ของ Model ก่อน แล้วค่อยไล่ดู Autoconnect Settings</div>
+
     <div class="page-nav">
-        <a href="advanced.html">← ก่อนหน้า: Advanced</a>
-        <a href="examples.html">ถัดไป: Example File →</a>
+        <a href="cable.html">← ก่อนหน้า: Cable</a>
+        <a href="database-editor.html">ถัดไป: Database Editor →</a>
     </div>
 </main>
 
