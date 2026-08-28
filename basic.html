@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basic - Zuken E3.series Tutorial</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="brand">⚡ Zuken E3.series Tutorial <span class="badge">TH</span></a>
+        <nav class="main-nav">
+            <a href="index.html">หน้าแรก</a>
+            <a href="basic.html" class="active">Basic</a>
+            <a href="advanced.html">Advanced</a>
+            <a href="examples.html">Example File</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <h1>Basic: เริ่มต้นใช้งาน E3.series</h1>
+    <p class="lead">พื้นฐานที่ต้องรู้ก่อนสร้างวงจรไฟฟ้าแรกของคุณ</p>
+
+    <h2>1. หน้าตาโปรแกรม (User Interface)</h2>
+    <p>เมื่อเปิดโปรแกรมและสร้างโปรเจกต์ใหม่ จะเจอส่วนหลักๆ ดังนี้</p>
+    <table>
+        <tr><th>ส่วนประกอบ</th><th>หน้าที่</th></tr>
+        <tr><td>Graphical Editor</td><td>พื้นที่วาดชีท (Sheet) วงจรไฟฟ้า วาง Symbol และลาก Wire เชื่อมต่อกันที่นี่</td></tr>
+        <tr><td>Navigator</td><td>โครงสร้างโปรเจกต์แบบ Tree แสดงชีททั้งหมด, Device, Cable, Connector</td></tr>
+        <tr><td>Symbol Library / Parts Browser</td><td>คลัง Symbol และฐานข้อมูลชิ้นส่วน (Component Database) ที่ลากมาวางในชีทได้</td></tr>
+        <tr><td>Cross-Reference / Wire List</td><td>รายงานอัตโนมัติที่รวบรวมการเชื่อมต่อและตำแหน่งอ้างอิงของ Symbol แต่ละตัว</td></tr>
+    </table>
+
+    <h2>2. Object พื้นฐานที่ใช้บ่อย</h2>
+    <table>
+        <tr><th>Object</th><th>ใช้ทำอะไร</th></tr>
+        <tr><td><strong>Symbol</strong></td><td>สัญลักษณ์กราฟิกแทนอุปกรณ์ไฟฟ้า เช่น สวิตช์ รีเลย์ หลอดไฟ วางบนชีทแล้วเชื่อมต่อกัน</td></tr>
+        <tr><td><strong>Wire</strong></td><td>เส้นเชื่อมต่อทางไฟฟ้าระหว่างขา (Pin) ของ Symbol สองตัว</td></tr>
+        <tr><td><strong>Connector</strong></td><td>อุปกรณ์หลายขาที่รวมสายไฟหลายเส้นเข้าด้วยกัน เช่น ปลั๊กหรือขั้วต่อ</td></tr>
+        <tr><td><strong>Cable / Bundle</strong></td><td>กลุ่มของ Wire ที่เดินรวมกันเป็นเส้นทางเดียวในความเป็นจริง (สายเคเบิลหรือมัดสายไฟ)</td></tr>
+        <tr><td><strong>Component Database</strong></td><td>ฐานข้อมูลกลางเก็บเลขที่ชิ้นส่วนจริง (Part Number) ของผู้ผลิต ผูกกับ Symbol เพื่อให้ BOM ถูกต้อง</td></tr>
+        <tr><td><strong>Cross-Reference</strong></td><td>ระบบอ้างอิงอัตโนมัติที่เชื่อมโยง Symbol ตัวเดียวกันที่ปรากฏหลายชีท (เช่น ขดรีเลย์กับหน้าสัมผัส)</td></tr>
+    </table>
+
+    <h2>3. สร้างวงจรแรก: สวิตช์ควบคุมหลอดไฟ</h2>
+    <p>ทำตามขั้นตอนนี้เพื่อสร้างวงจรง่ายๆ <code>แหล่งจ่ายไฟ → สวิตช์ → หลอดไฟ</code></p>
+    <ol class="steps">
+        <li>สร้างโปรเจกต์ใหม่ แล้วเลือก Sheet Template ที่ต้องการ (เช่น A3 Landscape)</li>
+        <li>เปิด Symbol Library ลาก Symbol แหล่งจ่ายไฟ, สวิตช์, และหลอดไฟ มาวางบนชีท</li>
+        <li>ลาก <strong>Wire</strong> เชื่อมขาของแต่ละ Symbol เรียงต่อกันเป็นวงจร</li>
+        <li>ดับเบิลคลิกแต่ละ Symbol แล้วเลือก Part Number จริงจาก <strong>Component Database</strong></li>
+        <li>สั่ง Generate Wire Number/Label อัตโนมัติจากเมนู Wiring</li>
+        <li>รันคำสั่ง <strong>Check Design</strong> เพื่อตรวจสอบความถูกต้องของวงจรก่อนออกแบบจริง</li>
+    </ol>
+
+    <div class="tip">
+        <strong>Tip:</strong> ถ้า Symbol ไม่มี Part Number ผูกไว้ รายงาน BOM/Wire List จะไม่สมบูรณ์ — ควรผูก Component Database
+        ให้ครบทุก Symbol ตั้งแต่ขั้นตอนออกแบบ ไม่ใช่ค่อยมาเติมทีหลัง
+    </div>
+
+    <h2>4. ดูผลลัพธ์เบื้องต้น</h2>
+    <p>หลังวาดวงจรเสร็จ ตรวจสอบผลได้จาก:</p>
+    <ul>
+        <li><strong>BOM (Bill of Materials)</strong> — รายการชิ้นส่วนทั้งหมดพร้อมจำนวนและ Part Number</li>
+        <li><strong>Wire List</strong> — รายการสายไฟทั้งหมดพร้อมจุดต้นทาง-ปลายทาง</li>
+        <li><strong>Cross-Reference Report</strong> — ตำแหน่งอ้างอิงของ Symbol ที่ปรากฏซ้ำในหลายชีท</li>
+    </ul>
+
+    <div class="note">
+        <strong>ข้อควรระวัง:</strong> ต้องรัน <strong>Check Design</strong> (การตรวจสอบความสมบูรณ์ของวงจร) ทุกครั้งก่อน Generate
+        รายงานหรือส่งออกไฟล์ ไม่งั้นอาจได้ BOM/Harness ที่ไม่ตรงกับวงจรจริง
+    </div>
+
+    <div class="page-nav">
+        <span></span>
+        <a href="advanced.html">ถัดไป: Advanced →</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม
+</footer>
+</body>
+</html>

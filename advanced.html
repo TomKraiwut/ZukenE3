@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced - Zuken E3.series Tutorial</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="brand">⚡ Zuken E3.series Tutorial <span class="badge">TH</span></a>
+        <nav class="main-nav">
+            <a href="index.html">หน้าแรก</a>
+            <a href="basic.html">Basic</a>
+            <a href="advanced.html" class="active">Advanced</a>
+            <a href="examples.html">Example File</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <h1>Advanced: บริหาร Component Database และออกแบบ Cable/Harness</h1>
+    <p class="lead">
+        E3.series ไม่มีภาษาสคริปต์สำหรับ "ควบคุมพฤติกรรม" แบบ Plant Simulation หรือ NX MCD เพราะไม่ใช่ซอฟต์แวร์จำลองพฤติกรรม
+        — งานขั้นสูงของ E3.series คือการบริหารจัดการ Library/Component Database ให้เป็นระบบ และออกแบบ Harness ให้นำกลับมาใช้ซ้ำได้
+    </p>
+
+    <h2>1. Component Database: หัวใจของความถูกต้องของแบบ</h2>
+    <p>
+        ทุก Symbol ควรผูกกับ Part Number จริงใน Component Database ที่มีข้อมูลครบ เช่น ผู้ผลิต, เบอร์ขา (Pin), พิกัดกระแส/แรงดัน
+        เมื่อ Database เป็นกลาง (Shared Database) ทั้งทีมจะใช้ชิ้นส่วนชุดเดียวกัน ลดปัญหาแบบแต่ละคนใช้ Part Number ไม่ตรงกัน
+    </p>
+    <ol class="steps">
+        <li>เปิด <strong>Database Manager</strong> จากเมนู Options/Database</li>
+        <li>สร้าง Part ใหม่ กำหนด Manufacturer, Part Number, จำนวนขา และ Symbol ที่ใช้แทน</li>
+        <li>กำหนดคุณสมบัติทางไฟฟ้า เช่น พิกัดกระแสสูงสุด สำหรับใช้ตรวจสอบ Cross-Section ภายหลัง</li>
+        <li>เผยแพร่ Database กลางให้ทั้งทีมเชื่อมต่อใช้งานร่วมกัน (Shared/Network Database)</li>
+    </ol>
+
+    <div class="note">
+        <strong>ก่อนเริ่ม:</strong> อย่าสร้าง Part ใหม่ซ้ำกับที่มีอยู่แล้วในฐานข้อมูล — ค้นหาก่อนเสมอ (Search by Manufacturer/PN)
+        เพื่อไม่ให้เกิด Part ซ้ำซ้อนหลายรายการที่จริงๆ คือชิ้นเดียวกัน
+    </div>
+
+    <h2>2. ออกแบบ Cable และ Wiring Harness</h2>
+    <p>
+        เมื่อวงจร Schematic เสร็จแล้ว ใช้โมดูล <strong>Cable/Harness Design</strong> จัดกลุ่ม Wire ที่เดินเส้นทางเดียวกันในโลกจริง
+        เป็น Bundle เดียว พร้อมคำนวณเส้นผ่านศูนย์กลางมัดสาย (Cross-Section) และสร้างแบบ Formboard สำหรับขึ้นรูปสาย 1:1
+    </p>
+    <ul>
+        <li><strong>Cable</strong> — กำหนดจำนวนแกนสาย (Core) และมาตรฐานสายที่ใช้จริง</li>
+        <li><strong>Bundle</strong> — กลุ่มสายที่เดินร่วมเส้นทางเดียวกัน คำนวณเส้นผ่านศูนย์กลางรวมอัตโนมัติ</li>
+        <li><strong>Formboard</strong> — แบบ Layout สาย 1:1 ใช้ในกระบวนการผลิต Harness จริง</li>
+    </ul>
+
+    <h2>3. Reuse วงจรด้วย Block/Macro Symbol</h2>
+    <p>
+        รวมชุด Symbol ที่ใช้งานร่วมกันบ่อย (เช่น วงจรควบคุมมอเตอร์มาตรฐาน) เป็น <strong>Block Symbol</strong> เดียว
+        แล้วเก็บใน Library กลาง เพื่อดึงมาวางซ้ำในหลายโปรเจกต์ โดยไม่ต้องวาด Symbol ทีละตัวใหม่ทุกครั้ง
+    </p>
+
+    <h2>4. ออโตเมชันด้วย E3 API/Macro</h2>
+    <p>
+        E3.series มี COM API (E3.Application) ให้เขียน Macro อัตโนมัติงานที่ทำซ้ำๆ เช่น ดึงรายชื่อ Symbol ทั้งหมดในโปรเจกต์
+        เพื่อตรวจสอบว่าผูก Part Number ครบทุกตัวหรือไม่
+    </p>
+    <pre><code>' ตัวอย่าง Macro (VBA-like) ตรวจสอบ Symbol ที่ยังไม่ผูก Part Number
+Dim e3 As Object
+Dim job As Object
+Dim sym As Object
+Dim symbols() As Long
+Dim i As Integer
+
+Set e3 = GetObject(, "CT.Application")
+Set job = e3.CreateJobObject
+job.GetAllSymbolIds symbols
+
+For i = 0 To UBound(symbols)
+    Set sym = e3.CreateSymbolObject
+    sym.SetId symbols(i)
+    If sym.GetPartId() = 0 Then
+        Debug.Print "Missing part: " & sym.GetName()
+    End If
+Next i
+</code></pre>
+
+    <div class="tip">
+        <strong>Tip:</strong> ตั้งชื่อ Sheet, Wire Label และ Cable ให้เป็นระบบเดียวกันทั้งโปรเจกต์ (เช่น กำหนด Naming Convention
+        ตั้งแต่ต้น) เพราะเมื่อโปรเจกต์มีหลายร้อยชีท การไล่หา Cross-Reference จะยากมากถ้าตั้งชื่อไม่เป็นระบบ
+    </div>
+
+    <div class="page-nav">
+        <a href="basic.html">← ก่อนหน้า: Basic</a>
+        <a href="examples.html">ถัดไป: Example File →</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม
+</footer>
+</body>
+</html>
