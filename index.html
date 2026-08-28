@@ -14,6 +14,7 @@
             <a href="index.html" class="active">หน้าแรก</a>
             <a href="basic.html">Basic</a>
             <a href="advanced.html">Advanced</a>
+            <a href="panel.html">Panel</a>
             <a href="examples.html">Example File</a>
         </nav>
     </div>
@@ -29,12 +30,17 @@
         <a href="basic.html" class="card">
             <div class="icon">🧩</div>
             <h3>Basic</h3>
-            <p>รู้จักหน้าตาโปรแกรม, Object พื้นฐาน (Symbol, Wire, Connector, Component Database), การสร้างวงจรแรกและตรวจสอบความถูกต้อง</p>
+            <p>รู้จักหน้าตาโปรแกรม, Symbol/Component/Device, Item Designation ตามมาตรฐาน IEC 81346, การสร้างวงจรแรกและตรวจสอบความถูกต้อง</p>
         </a>
         <a href="advanced.html" class="card">
             <div class="icon">⚙️</div>
             <h3>Advanced</h3>
-            <p>บริหารจัดการ Component Database, ออกแบบ Cable/Harness แบบ Reusable, และออโตเมชันด้วย E3 API/Macro</p>
+            <p>สร้าง Symbol/Component ใน Database Editor, ออกแบบ Cable Harness (Mating Connector, Dynamic Cable, Block Function)</p>
+        </a>
+        <a href="panel.html" class="card">
+            <div class="icon">🗄️</div>
+            <h3>Panel</h3>
+            <p>ออกแบบตู้คอนโทรล (Panel Layout): Mounting Rail, Cable Duct, Terminal Strip, Autoconnect และ 3D Panel</p>
         </a>
         <a href="examples.html" class="card">
             <div class="icon">📂</div>
@@ -45,16 +51,23 @@
 
     <h2>Zuken E3.series คืออะไร?</h2>
     <p class="lead">
-        E3.series เป็นซอฟต์แวร์ของ Zuken สำหรับออกแบบระบบไฟฟ้า (Electrical Schematic), ระบบสายไฟ/สายเคเบิล
-        (Wiring & Cable Harness), และแผงควบคุม (Panel Layout) ใช้กันแพร่หลายในอุตสาหกรรมยานยนต์ เครื่องจักรอุตสาหกรรม
-        และระบบราง เชื่อมโยงข้อมูล Symbol กับฐานข้อมูลชิ้นส่วน (Component Database) เพื่อให้ BOM, Wire List
-        และรายงานต่างๆ ตรงกับแบบจริงเสมอ
+        E3.series เป็นซอฟต์แวร์ของ Zuken สำหรับออกแบบระบบไฟฟ้า (E3.schematic), ระบบสายไฟ/สายเคเบิล
+        (E3.cable — Wiring & Cable Harness), และแผงควบคุม (E3.panel — Panel Layout) ใช้กันแพร่หลายในอุตสาหกรรมยานยนต์
+        เครื่องจักรอุตสาหกรรม และระบบราง ทุกโมดูลอ้างอิงข้อมูลชุดเดียวกันแบบ Object-Oriented (Symbol/Component ในฐานข้อมูล
+        กลายเป็น Device เมื่อวางในโปรเจกต์) ทำให้ BOM, Wire List และรายงานต่างๆ ตรงกับแบบจริงเสมอ โดยไม่ต้องส่งข้อมูลข้ามโมดูลเอง
     </p>
+
+    <div class="note">
+        <strong>อัพเดทที่น่าสนใจใน E3.series 2026:</strong> Search and Replace สำหรับ Texts/Attributes, คำสั่ง Update All Models
+        in Project, ปรับปรุง Database Editor (ลบ Contour และบันทึกออบเจกต์ผ่าน Tree View ได้โดยตรง) และปรับปรุงการ Import STEP
+        ไฟล์ในฝั่ง Panel Database — อ้างอิงจากคู่มือ <em>E3.Update 2026</em>
+    </div>
 
     <h2>ใช้เว็บนี้ยังไง</h2>
     <ol>
         <li>เริ่มที่เมนู <strong>Basic</strong> ถ้ายังไม่เคยเปิดโปรแกรมมาก่อน</li>
-        <li>ไปที่ <strong>Advanced</strong> เมื่อเข้าใจ Object พื้นฐานแล้ว และอยากบริหาร Library/Harness แบบมืออาชีพ</li>
+        <li>ไปที่ <strong>Advanced</strong> เมื่อเข้าใจ Object พื้นฐานแล้ว และอยากสร้าง Library/Harness แบบมืออาชีพ</li>
+        <li>ดู <strong>Panel</strong> เมื่อจะออกแบบเลย์เอาต์ตู้คอนโทรลจริง (Mounting Rail/Cable Duct/Terminal)</li>
         <li>ดู <strong>Example File</strong> เพื่อฝึกทำตามวงจรจริงทีละขั้นตอน</li>
     </ol>
 </main>

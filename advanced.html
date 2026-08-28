@@ -14,56 +14,78 @@
             <a href="index.html">หน้าแรก</a>
             <a href="basic.html">Basic</a>
             <a href="advanced.html" class="active">Advanced</a>
+            <a href="panel.html">Panel</a>
             <a href="examples.html">Example File</a>
         </nav>
     </div>
 </header>
 
 <main>
-    <h1>Advanced: บริหาร Component Database และออกแบบ Cable/Harness</h1>
+    <h1>Advanced: Database Editor และออกแบบ Cable Harness</h1>
     <p class="lead">
-        E3.series ไม่มีภาษาสคริปต์สำหรับ "ควบคุมพฤติกรรม" แบบ Plant Simulation หรือ NX MCD เพราะไม่ใช่ซอฟต์แวร์จำลองพฤติกรรม
-        — งานขั้นสูงของ E3.series คือการบริหารจัดการ Library/Component Database ให้เป็นระบบ และออกแบบ Harness ให้นำกลับมาใช้ซ้ำได้
+        งานขั้นสูงของ E3.series แบ่งเป็นสองเรื่องหลัก คือสร้าง Symbol/Component เองใน <strong>Database Editor</strong>
+        เมื่อของในฐานข้อมูลมาตรฐานไม่พอ และใช้โมดูล <strong>E3.cable</strong> ออกแบบ Harness ให้พร้อมผลิตจริง
+        (Mating Connector, Dynamic Cable, Block Function)
     </p>
 
-    <h2>1. Component Database: หัวใจของความถูกต้องของแบบ</h2>
+    <h2>1. สร้าง Symbol/Component ด้วย Database Editor</h2>
     <p>
-        ทุก Symbol ควรผูกกับ Part Number จริงใน Component Database ที่มีข้อมูลครบ เช่น ผู้ผลิต, เบอร์ขา (Pin), พิกัดกระแส/แรงดัน
-        เมื่อ Database เป็นกลาง (Shared Database) ทั้งทีมจะใช้ชิ้นส่วนชุดเดียวกัน ลดปัญหาแบบแต่ละคนใช้ Part Number ไม่ตรงกัน
+        เปิด Database Editor ได้จากคำสั่ง <strong>New Symbol</strong> / <strong>New Component</strong> ในเมนูคลิกขวาของ Database Window
+        โปรแกรมจะเปิดหน้าต่างแยกต่างหาก สังเกตได้จากชื่อ <code>E3.dbe</code> บน Title Bar — โหมดนี้แก้ไข "ต้นแบบ" ในฐานข้อมูล
+        โดยไม่กระทบ Device ที่วางไปแล้วในโปรเจกต์ และยังเปิดโปรเจกต์คู่ขนานไปพร้อมกันได้
     </p>
+    <p><strong>Symbol Checklist</strong> (สร้าง Symbol ใหม่):</p>
     <ol class="steps">
-        <li>เปิด <strong>Database Manager</strong> จากเมนู Options/Database</li>
-        <li>สร้าง Part ใหม่ กำหนด Manufacturer, Part Number, จำนวนขา และ Symbol ที่ใช้แทน</li>
-        <li>กำหนดคุณสมบัติทางไฟฟ้า เช่น พิกัดกระแสสูงสุด สำหรับใช้ตรวจสอบ Cross-Section ภายหลัง</li>
-        <li>เผยแพร่ Database กลางให้ทั้งทีมเชื่อมต่อใช้งานร่วมกัน (Shared/Network Database)</li>
+        <li>กำหนด Symbol Properties — ชนิดและชื่อ Symbol</li>
+        <li>Insert Symbol Graphic (รองรับ Import DXF/DWG) — กราฟิกแก้ไขไม่ได้อีกในโหมด Project</li>
+        <li>วาง Node บนตำแหน่งที่ต้องการให้ Connection เข้ามาต่อ พร้อมกำหนดทิศทางการเชื่อมต่อ (Connection Direction)</li>
+        <li>วาง Text Placeholder สำหรับข้อมูลที่ระบบ/ผู้ใช้จะเติมทีหลัง เช่น Item Designation</li>
+        <li>ตรวจสอบ/กำหนด Space Requirement และ Symbol Origin (จุดอ้างอิงตอนวาง)</li>
     </ol>
+    <p>
+        ส่วน <strong>Component</strong> ผูก Symbol เข้ากับข้อมูลอุปกรณ์จริง (Manufacturer, Part Number, จำนวนขา) — ฐานข้อมูลของ
+        E3.series ยังรองรับ Component หลายชนิดที่มีพฤติกรรมต่างกัน เช่น Cable, Wire Group, Terminal, Connector, Busbar,
+        Subcircuit และ Assembly ให้เลือกใช้ตามลักษณะอุปกรณ์จริง
+    </p>
 
     <div class="note">
-        <strong>ก่อนเริ่ม:</strong> อย่าสร้าง Part ใหม่ซ้ำกับที่มีอยู่แล้วในฐานข้อมูล — ค้นหาก่อนเสมอ (Search by Manufacturer/PN)
-        เพื่อไม่ให้เกิด Part ซ้ำซ้อนหลายรายการที่จริงๆ คือชิ้นเดียวกัน
+        <strong>ก่อนเริ่ม:</strong> อย่าสร้าง Symbol/Component ใหม่ซ้ำกับที่มีอยู่แล้ว — ค้นหาในฐานข้อมูลก่อนเสมอ และถ้าต้อง
+        แก้ไขของเดิม ใช้คำสั่ง <strong>Symbol/Component Edit</strong> แล้วบันทึกทับชื่อเดิม ไม่ใช่สร้างใหม่ซ้ำซ้อน
     </div>
 
-    <h2>2. ออกแบบ Cable และ Wiring Harness</h2>
+    <h2>2. Mating Connector และ Dynamic Cable (E3.cable)</h2>
     <p>
-        เมื่อวงจร Schematic เสร็จแล้ว ใช้โมดูล <strong>Cable/Harness Design</strong> จัดกลุ่ม Wire ที่เดินเส้นทางเดียวกันในโลกจริง
-        เป็น Bundle เดียว พร้อมคำนวณเส้นผ่านศูนย์กลางมัดสาย (Cross-Section) และสร้างแบบ Formboard สำหรับขึ้นรูปสาย 1:1
+        เมื่อวงจร Schematic เสร็จแล้ว โมดูล E3.cable เพิ่มความสามารถด้าน Harness ให้ โดยยังใช้ฟังก์ชันของ E3.schematic
+        ได้ทั้งหมด สองกลไกสำคัญที่ช่วยลดงานซ้ำคือ:
     </p>
     <ul>
-        <li><strong>Cable</strong> — กำหนดจำนวนแกนสาย (Core) และมาตรฐานสายที่ใช้จริง</li>
-        <li><strong>Bundle</strong> — กลุ่มสายที่เดินร่วมเส้นทางเดียวกัน คำนวณเส้นผ่านศูนย์กลางรวมอัตโนมัติ</li>
-        <li><strong>Formboard</strong> — แบบ Layout สาย 1:1 ใช้ในกระบวนการผลิต Harness จริง</li>
+        <li>
+            <strong>Mating Connector อัตโนมัติ</strong> — เมื่อลาก Connection เข้าฝั่งตัวเมีย/ตัวผู้ของ Connector
+            ระบบจะวาง Active Mating Connector ที่กำหนดไว้ใน Component Properties ให้อัตโนมัติ และมีตัวเลือกบังคับให้เสียบได้
+            เฉพาะ Mating Connector ที่ถูกต้อง หรือเฉพาะ Pin Gender ที่เข้ากันได้เท่านั้น (ป้องกัน Harness ผิดตั้งแต่ขั้นออกแบบ)
+        </li>
+        <li>
+            <strong>Dynamic Cable</strong> — ต่างจาก Database Cable ตรงที่ปรับจำนวนแกนสาย (Conductor) และชื่อได้อิสระ
+            (Insert → Cable) กำหนด Cross-Section, เส้นผ่านศูนย์กลาง และสีของแต่ละแกนได้ในภายหลัง และ Rename แกนสายเป็นชุด
+            ด้วยค่าเริ่มต้น–ค่าสิ้นสุดในคำสั่ง Rename conductors/wires
+        </li>
     </ul>
 
-    <h2>3. Reuse วงจรด้วย Block/Macro Symbol</h2>
+    <h2>3. Reuse วงจรด้วย Block Function (Dynamic Block)</h2>
     <p>
-        รวมชุด Symbol ที่ใช้งานร่วมกันบ่อย (เช่น วงจรควบคุมมอเตอร์มาตรฐาน) เป็น <strong>Block Symbol</strong> เดียว
-        แล้วเก็บใน Library กลาง เพื่อดึงมาวางซ้ำในหลายโปรเจกต์ โดยไม่ต้องวาด Symbol ทีละตัวใหม่ทุกครั้ง
+        Dynamic Block ใช้แทนฟังก์ชันที่ยังไม่นิยามครบ (Black Box) ในผังสาย — เป็นบล็อกที่ยังไม่มีอยู่ในฐานข้อมูลชิ้นส่วนและ
+        <em>ไม่</em> นับรวมใน BOM แต่ยังตั้ง Item Designation ให้ได้ ตั้งแต่เวอร์ชัน 2016 วาง Terminal, Connector และ Device
+        ไว้ข้างในบล็อกได้ ไม่ใช่แค่ Block Connector บนขอบเหมือนเดิม
+    </p>
+    <p>
+        ถ้าต้องการให้บล็อกถูกนับใน BOM จริง ให้สร้างเป็น <strong>Component ชนิด Block</strong> ในฐานข้อมูลแทน — กำหนด
+        Block Connector ล่วงหน้า และเลือก Symbol Type เป็น "Block" (ปรับขนาดได้หลังวาง) หรือ "Block fix" (ขนาดคงที่)
     </p>
 
-    <h2>4. ออโตเมชันด้วย E3 API/Macro</h2>
+    <h2>4. ออโตเมชันด้วย E3 API/Macro (เสริม)</h2>
     <p>
-        E3.series มี COM API (E3.Application) ให้เขียน Macro อัตโนมัติงานที่ทำซ้ำๆ เช่น ดึงรายชื่อ Symbol ทั้งหมดในโปรเจกต์
-        เพื่อตรวจสอบว่าผูก Part Number ครบทุกตัวหรือไม่
+        นอกจาก Database Editor แล้ว E3.series ยังมี COM API (E3.Application) ให้เขียน Macro อัตโนมัติงานที่ทำซ้ำๆ ได้
+        เช่น ไล่ตรวจว่า Symbol ตัวไหนยังไม่ผูก Part — เหมาะกับงาน QA ก่อนส่งแบบ มากกว่าการแทนที่ Database Editor
     </p>
     <pre><code>' ตัวอย่าง Macro (VBA-like) ตรวจสอบ Symbol ที่ยังไม่ผูก Part Number
 Dim e3 As Object
@@ -92,7 +114,7 @@ Next i
 
     <div class="page-nav">
         <a href="basic.html">← ก่อนหน้า: Basic</a>
-        <a href="examples.html">ถัดไป: Example File →</a>
+        <a href="panel.html">ถัดไป: Panel →</a>
     </div>
 </main>
 

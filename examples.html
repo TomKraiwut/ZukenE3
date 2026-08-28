@@ -14,6 +14,7 @@
             <a href="index.html">หน้าแรก</a>
             <a href="basic.html">Basic</a>
             <a href="advanced.html">Advanced</a>
+            <a href="panel.html">Panel</a>
             <a href="examples.html" class="active">Example File</a>
         </nav>
     </div>
@@ -54,8 +55,17 @@ Bundle "Motor_Harness_01"
     <p><strong>คำถามฝึกคิด:</strong> ทำไมต้องคำนวณเส้นผ่านศูนย์กลาง Bundle ตั้งแต่ขั้นออกแบบ ทั้งที่ยังไม่ได้ผลิตสายจริง?</p>
     <div class="tip"><strong>เฉลย:</strong> ขนาด Bundle ที่แท้จริงมีผลต่อการเลือกท่อร้อยสาย (Conduit) และช่องเดินสายในตู้ควบคุม/เครื่องจักร ถ้าคำนวณผิดตั้งแต่แบบ อาจเจอปัญหาสายเดินไม่พอที่ตอนประกอบจริง ซึ่งแก้ไขยากและแพงกว่าการแก้ในขั้นออกแบบมาก</div>
 
+    <h2>ตัวอย่างที่ 4: Terminal Strip บน Panel เชื่อมกับสายจาก Schematic</h2>
+    <p><strong>โครงสร้าง:</strong> <code>Terminal Strip 12 ขั้ว บน Panel Sheet เชื่อมสัญญาณจาก Schematic 3 ชีท</code></p>
+    <ul>
+        <li>วาง Terminal Component ชนิดเดียวกัน 12 ครั้งจาก Schematic → รวมเป็น Terminal Strip เดียวโดยอัตโนมัติ</li>
+        <li>Terminal Strip เดียวกันนี้ปรากฏใน Panel Sheet ด้วย (Object เดียวกัน ไม่ต้องสร้างซ้ำ)</li>
+    </ul>
+    <p><strong>คำถามฝึกคิด:</strong> วาง Terminal Strip บน Mounting Rail ใน Panel แล้ว แต่สั่ง Panel Autoconnect แล้วสายบางเส้นไม่ถูกเดินให้ เกิดจากอะไรได้บ้าง?</p>
+    <div class="tip"><strong>เฉลย:</strong> สาเหตุที่พบบ่อยคือ Slot/Pin ของ Model ที่ผูกกับ Terminal นั้นเรียงลำดับผิดตอนสร้างใน Database Editor หรือ Wire เส้นนั้นไม่ตรงกับเงื่อนไข Wire Selection ที่ตั้งไว้ใน Autoconnect Settings — ให้ตรวจ Slot Order ของ Model ก่อน แล้วค่อยไล่ดู Autoconnect Settings</div>
+
     <div class="page-nav">
-        <a href="advanced.html">← ก่อนหน้า: Advanced</a>
+        <a href="panel.html">← ก่อนหน้า: Panel</a>
         <a href="index.html">กลับหน้าแรก</a>
     </div>
 </main>

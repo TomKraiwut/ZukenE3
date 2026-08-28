@@ -5,11 +5,14 @@
 ## โครงสร้างเว็บ
 
 - [index.html](index.html) — หน้าแรก
-- [basic.html](basic.html) — พื้นฐานการใช้งาน
-- [advanced.html](advanced.html) — บริหาร Component Database และออกแบบ Cable/Harness
+- [basic.html](basic.html) — พื้นฐานการใช้งาน (UI, Symbol/Component/Device, Item Designation)
+- [advanced.html](advanced.html) — Database Editor และออกแบบ Cable Harness (Mating Connector, Dynamic Cable, Block Function)
+- [panel.html](panel.html) — ออกแบบเลย์เอาต์ตู้คอนโทรล (Mounting Rail, Cable Duct, Terminal Strip, Autoconnect, 3D Panel)
 - [examples.html](examples.html) — ตัวอย่างวงจรและ Harness จริง
 - [assets/style.css](assets/style.css) — สไตล์ชีตกลางของทุกหน้า
 - [examples/](examples/) — ไฟล์ตัวอย่าง `.e3s` (เพิ่มเองได้)
+
+เนื้อหาในเว็บนี้อ้างอิงจากคู่มือทางการ E3.series 2026 (E3.schematic, E3.cable, E3.panel, Database Editor, E3.Update)
 
 ## วิธีเปิดใช้งานเป็นเว็บไซต์ (GitHub Pages)
 

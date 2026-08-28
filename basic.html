@@ -14,6 +14,7 @@
             <a href="index.html">หน้าแรก</a>
             <a href="basic.html" class="active">Basic</a>
             <a href="advanced.html">Advanced</a>
+            <a href="panel.html">Panel</a>
             <a href="examples.html">Example File</a>
         </nav>
     </div>
@@ -24,43 +25,73 @@
     <p class="lead">พื้นฐานที่ต้องรู้ก่อนสร้างวงจรไฟฟ้าแรกของคุณ</p>
 
     <h2>1. หน้าตาโปรแกรม (User Interface)</h2>
-    <p>เมื่อเปิดโปรแกรมและสร้างโปรเจกต์ใหม่ จะเจอส่วนหลักๆ ดังนี้</p>
+    <p>เมื่อเปิดโปรแกรมและสร้างโปรเจกต์ใหม่ จะเจอหน้าต่างหลักๆ ตามคู่มือ E3.schematic ดังนี้</p>
     <table>
         <tr><th>ส่วนประกอบ</th><th>หน้าที่</th></tr>
-        <tr><td>Graphical Editor</td><td>พื้นที่วาดชีท (Sheet) วงจรไฟฟ้า วาง Symbol และลาก Wire เชื่อมต่อกันที่นี่</td></tr>
-        <tr><td>Navigator</td><td>โครงสร้างโปรเจกต์แบบ Tree แสดงชีททั้งหมด, Device, Cable, Connector</td></tr>
-        <tr><td>Symbol Library / Parts Browser</td><td>คลัง Symbol และฐานข้อมูลชิ้นส่วน (Component Database) ที่ลากมาวางในชีทได้</td></tr>
-        <tr><td>Cross-Reference / Wire List</td><td>รายงานอัตโนมัติที่รวบรวมการเชื่อมต่อและตำแหน่งอ้างอิงของ Symbol แต่ละตัว</td></tr>
+        <tr><td>Project Window</td><td>โครงสร้างโปรเจกต์แบบ Tree แสดงชีท (Sheet), Device, Cable, Connector ทั้งหมด — ใช้ Jump to ไปยัง Object ที่ต้องการได้</td></tr>
+        <tr><td>Database Window</td><td>คลัง Symbol/Component ในฐานข้อมูล ค้นหาและลากมาวางบนชีทได้โดยตรง</td></tr>
+        <tr><td>Graphical Editor (Sheet)</td><td>พื้นที่วาดวงจร วาง Symbol และลาก Connection เชื่อมกันที่นี่</td></tr>
+        <tr><td>Preview Window / 3D Preview Window</td><td>แสดงตัวอย่างกราฟิกของ Symbol/Component ก่อนวาง รวมถึงมุมมอง 3D ของอุปกรณ์</td></tr>
+        <tr><td>Properties Window</td><td>แก้ไขคุณสมบัติของ Symbol/Device ที่เลือกอยู่ เช่น Attribute, Item Designation</td></tr>
+        <tr><td>Output Window / Status Bar</td><td>แสดงข้อความแจ้งเตือนและผลของคำสั่งตรวจสอบ (เช่น Check Design)</td></tr>
     </table>
 
-    <h2>2. Object พื้นฐานที่ใช้บ่อย</h2>
+    <h2>2. Symbol, Component และ Device ต่างกันอย่างไร</h2>
+    <p>
+        E3.series เป็นระบบ Object-Oriented ที่ Symbol และ Component ทุกตัวเก็บอยู่ในฐานข้อมูลกลาง
+        เมื่อ "วาง" (Place) ลงในโปรเจกต์ ระบบจะสร้างสำเนาเป็น <strong>Device</strong> แยกจากฐานข้อมูล
+        ทำให้โปรเจกต์เป็นอิสระจากฐานข้อมูลต้นทาง (แก้ Device ในโปรเจกต์ไม่กระทบฐานข้อมูล)
+    </p>
     <table>
-        <tr><th>Object</th><th>ใช้ทำอะไร</th></tr>
-        <tr><td><strong>Symbol</strong></td><td>สัญลักษณ์กราฟิกแทนอุปกรณ์ไฟฟ้า เช่น สวิตช์ รีเลย์ หลอดไฟ วางบนชีทแล้วเชื่อมต่อกัน</td></tr>
-        <tr><td><strong>Wire</strong></td><td>เส้นเชื่อมต่อทางไฟฟ้าระหว่างขา (Pin) ของ Symbol สองตัว</td></tr>
-        <tr><td><strong>Connector</strong></td><td>อุปกรณ์หลายขาที่รวมสายไฟหลายเส้นเข้าด้วยกัน เช่น ปลั๊กหรือขั้วต่อ</td></tr>
-        <tr><td><strong>Cable / Bundle</strong></td><td>กลุ่มของ Wire ที่เดินรวมกันเป็นเส้นทางเดียวในความเป็นจริง (สายเคเบิลหรือมัดสายไฟ)</td></tr>
-        <tr><td><strong>Component Database</strong></td><td>ฐานข้อมูลกลางเก็บเลขที่ชิ้นส่วนจริง (Part Number) ของผู้ผลิต ผูกกับ Symbol เพื่อให้ BOM ถูกต้อง</td></tr>
-        <tr><td><strong>Cross-Reference</strong></td><td>ระบบอ้างอิงอัตโนมัติที่เชื่อมโยง Symbol ตัวเดียวกันที่ปรากฏหลายชีท (เช่น ขดรีเลย์กับหน้าสัมผัส)</td></tr>
+        <tr><th>Object</th><th>ความหมาย</th></tr>
+        <tr><td><strong>Symbol</strong></td><td>รูปกราฟิกแทนฟังก์ชันทางไฟฟ้า/นิวเมติก/ไฮดรอลิก ประกอบด้วย Graphic, Pin, Text Placeholder และ Attribute</td></tr>
+        <tr><td><strong>Component</strong></td><td>อุปกรณ์จริงที่นิยามไว้ในฐานข้อมูล อาจประกอบด้วย Symbol หนึ่งตัวหรือหลายตัว (เช่น รีเลย์ = ขดลวด + หน้าสัมผัสหลายชุด)</td></tr>
+        <tr><td><strong>Device</strong></td><td>Component ที่ถูกวางลงในโปรเจกต์แล้ว และได้รับ Item Designation เฉพาะตัว</td></tr>
     </table>
+
+    <p>Device ทุกตัวจะได้ <strong>Item Designation</strong> ตามมาตรฐาน IEC 81346 / DIN 40719 ประกอบด้วย 4 ส่วน:</p>
+    <table>
+        <tr><th>สัญลักษณ์นำหน้า</th><th>ความหมาย</th></tr>
+        <tr><td><code>=</code></td><td>Higher Level Assignment (HLA) — กลุ่ม/ระบบย่อยที่อุปกรณ์สังกัด</td></tr>
+        <tr><td><code>+</code></td><td>Location — ตำแหน่งติดตั้งจริง เช่น ตู้คอนโทรลไหน</td></tr>
+        <tr><td><code>-</code></td><td>Device Designation — หมายเลขอุปกรณ์ (ส่วนที่ใช้บ่อยที่สุด ถ้าใช้ตัวนี้ตัวเดียวสามารถละเครื่องหมาย <code>-</code> ได้)</td></tr>
+        <tr><td><code>:</code></td><td>Pin Name — ชื่อขา/สายที่ต่อกับ Device นั้น</td></tr>
+    </table>
+    <p>ลำดับเต็มคือ <code>=HLA +Location -Device:Pin</code> เช่น <code>=K1+PANEL1-Q3:14</code> — ถ้าไม่กำหนด HLA/Location ให้กับ Sheet และ Device จะรับค่ามาจาก Sheet Header โดยอัตโนมัติ</p>
 
     <h2>3. สร้างวงจรแรก: สวิตช์ควบคุมหลอดไฟ</h2>
     <p>ทำตามขั้นตอนนี้เพื่อสร้างวงจรง่ายๆ <code>แหล่งจ่ายไฟ → สวิตช์ → หลอดไฟ</code></p>
     <ol class="steps">
-        <li>สร้างโปรเจกต์ใหม่ แล้วเลือก Sheet Template ที่ต้องการ (เช่น A3 Landscape)</li>
-        <li>เปิด Symbol Library ลาก Symbol แหล่งจ่ายไฟ, สวิตช์, และหลอดไฟ มาวางบนชีท</li>
-        <li>ลาก <strong>Wire</strong> เชื่อมขาของแต่ละ Symbol เรียงต่อกันเป็นวงจร</li>
-        <li>ดับเบิลคลิกแต่ละ Symbol แล้วเลือก Part Number จริงจาก <strong>Component Database</strong></li>
-        <li>สั่ง Generate Wire Number/Label อัตโนมัติจากเมนู Wiring</li>
+        <li>สร้างโปรเจกต์ใหม่ แล้ว Insert Sheet เลือก Sheet Format ที่ต้องการ (เช่น A3 Landscape)</li>
+        <li>เปิด <strong>Database Window</strong> ค้นหาและลาก Symbol แหล่งจ่ายไฟ, สวิตช์, และหลอดไฟ มาวางบนชีท (Placing from the Database)</li>
+        <li>กด <code>C</code> เพื่อใช้คำสั่ง Insert Connection แล้วคลิกขา (Pin) ของแต่ละ Symbol เรียงต่อกันเป็นวงจร — ถ้าเลือกหลายขาพร้อมกันด้วยกรอบสี่เหลี่ยม ระบบจะ Auto Route ให้อัตโนมัติ</li>
+        <li>ดับเบิลคลิกแต่ละ Symbol เพื่อเปิด Properties Window แล้วตรวจสอบ Component Tab ว่าผูก Part จริงจากฐานข้อมูลไว้ครบ</li>
+        <li>ตั้ง Item Designation ให้แต่ละ Device (HLA/Location/Device Designation) ให้สอดคล้องกับตำแหน่งติดตั้งจริง</li>
         <li>รันคำสั่ง <strong>Check Design</strong> เพื่อตรวจสอบความถูกต้องของวงจรก่อนออกแบบจริง</li>
     </ol>
 
     <div class="tip">
-        <strong>Tip:</strong> ถ้า Symbol ไม่มี Part Number ผูกไว้ รายงาน BOM/Wire List จะไม่สมบูรณ์ — ควรผูก Component Database
-        ให้ครบทุก Symbol ตั้งแต่ขั้นตอนออกแบบ ไม่ใช่ค่อยมาเติมทีหลัง
+        <strong>Tip:</strong> ถ้า Symbol ไม่มี Part ผูกไว้ รายงาน BOM/Wire List จะไม่สมบูรณ์ — ควรผูก Component ให้ครบทุก Symbol
+        ตั้งแต่ขั้นตอนออกแบบ ไม่ใช่ค่อยมาเติมทีหลัง
     </div>
 
-    <h2>4. ดูผลลัพธ์เบื้องต้น</h2>
+    <h2>4. Terminals และการเชื่อมต่อที่ใช้บ่อย</h2>
+    <p>
+        <strong>Terminal</strong> เป็น Component ชนิดพิเศษ เมื่อวางจาก Database Window ระบบจะสร้าง Device ชนิด
+        Terminal Strip ให้อัตโนมัติ — ถ้าวาง Terminal ชนิดเดียวกันซ้ำหลายตัวจะถูกจัดเข้า Terminal Strip เดียวกัน
+        แต่ถ้าวาง Terminal ต่างชนิดกัน ระบบจะแยกสร้าง Strip ใหม่ให้แต่ละชนิดโดยอัตโนมัติ ระบบยังตรวจจำนวนสายที่เข้าขั้ว
+        และ Cross-Section ให้ด้วย ถ้าเกินที่กำหนดจะแจ้งเตือนที่ Status Bar
+    </p>
+    <table>
+        <tr><th>คีย์ลัด</th><th>คำสั่ง</th></tr>
+        <tr><td><code>C</code></td><td>Insert Connection (ลากเส้นเชื่อมต่อทีละเส้น กด Space หรือคลิกซ้ายเพื่อหักมุม)</td></tr>
+        <tr><td><code>Alt+C</code></td><td>Insert Busbar Connection</td></tr>
+        <tr><td><code>B</code></td><td>Insert Curve Connection</td></tr>
+        <tr><td>Shift + ลาก</td><td>สร้างเส้นเชื่อมต่อแนวทแยง (Diagonal Connection)</td></tr>
+        <tr><td>คลุมด้วยกรอบสี่เหลี่ยม</td><td>Connect Multiple Connections Automatically (เชื่อมหลายขาพร้อมกันตามแนวนอน/ตั้ง)</td></tr>
+    </table>
+
+    <h2>5. ดูผลลัพธ์เบื้องต้น</h2>
     <p>หลังวาดวงจรเสร็จ ตรวจสอบผลได้จาก:</p>
     <ul>
         <li><strong>BOM (Bill of Materials)</strong> — รายการชิ้นส่วนทั้งหมดพร้อมจำนวนและ Part Number</li>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel - Zuken E3.series Tutorial</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="brand">⚡ Zuken E3.series Tutorial <span class="badge">TH</span></a>
+        <nav class="main-nav">
+            <a href="index.html">หน้าแรก</a>
+            <a href="basic.html">Basic</a>
+            <a href="advanced.html">Advanced</a>
+            <a href="panel.html" class="active">Panel</a>
+            <a href="examples.html">Example File</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <h1>Panel: ออกแบบเลย์เอาต์ตู้คอนโทรล (E3.panel)</h1>
+    <p class="lead">
+        E3.panel ใช้ข้อมูล Symbol/Component ชุดเดียวกับ Schematic มาจัดวางเป็นแบบติดตั้งจริงบน Mounting Plate
+        พร้อมคำนวณพื้นที่ Mounting Rail และ Cable Duct ให้อัตโนมัติ
+    </p>
+
+    <h2>1. สร้าง Panel Sheet</h2>
+    <p>
+        สั่ง Insert → Sheet แล้วเลือก Type เป็น <strong>Panel</strong> (เปลี่ยนชนิดภายหลังไม่ได้) จากนั้นกำหนด Region
+        (พื้นที่ของ "Panel World" ที่ชีทนี้ครอบคลุม) ด้วยค่า Reference X/Y และ Scale ถ้าเลือก Scale เป็น Automatic
+        ระบบจะคำนวณจากพื้นที่ที่เลือกให้เอง
+    </p>
+    <div class="note">
+        <strong>ข้อควรระวัง:</strong> ถ้ามีหลาย Panel Sheet ห้ามให้พื้นที่ (Region) ทับกัน ไม่งั้นอาจเกิด "วางอุปกรณ์ทับอุปกรณ์"
+        โดยไม่รู้ตัว และคำนวณความยาวสายผิดเมื่อ Routing ข้ามชีทที่ทับกัน — ตั้งแต่เวอร์ชัน 2025 โปรแกรมช่วยหาพื้นที่ว่างให้
+        อัตโนมัติเมื่อสร้าง Panel Sheet ใหม่
+    </div>
+
+    <h2>2. วาง Model และจัดตำแหน่ง</h2>
+    <p>
+        แต่ละ Component ที่จะโชว์ใน Panel ต้องมี <strong>Model</strong> (รูปทรง 2D/3D สำหรับใช้ในผัง Panel) ผูกไว้ ค้นหาและวาง
+        Model ได้จาก Component Tree เช่นเดียวกับ Schematic แล้วจัดตำแหน่งด้วยเครื่องมือ Align (Toolbar, Context Menu
+        หรือกรอกระยะห่างเป็นตัวเลขตรงๆ) ระบบตรวจ Model Overlapping และเช็คว่า Model วางพอดีกับ Slot ให้อัตโนมัติ
+    </p>
+
+    <h2>3. Mounting Rail และ Cable Duct</h2>
+    <table>
+        <tr><th>Object</th><th>ใช้ทำอะไร</th></tr>
+        <tr><td><strong>Dynamic Mounting Rail</strong></td><td>สร้างจาก Insert → Mount กำหนดความยาวด้วยการลากเมาส์ — <em>ไม่นับใน BOM</em> ต่างจาก Mounting Rail แบบ Component ที่ดึงจากฐานข้อมูล</td></tr>
+        <tr><td><strong>Dynamic Cable Duct</strong></td><td>ราง/ท่อร้อยสายที่ปรับขนาดได้อิสระ ระบบแสดง Fill Size (สัดส่วนพื้นที่ที่ใช้ไปจริง) พร้อม Correction Factor สำหรับพื้นที่ที่ต้องเผื่อ</td></tr>
+        <tr><td><strong>Cable Duct Inlet/Outlet</strong></td><td>จุดเข้า-ออกของ Cable Duct ใช้ตอน Routing เพื่อบอกเส้นทางสายจริง</td></tr>
+    </table>
+    <p>เมื่อรางแน่นเกินไป Highlight Connected Cable Ducts และ Fill Size จะช่วยดูได้ทันทีว่ารางเส้นไหนใกล้เต็ม ก่อนเดินสายจริงในกระบวนการผลิต</p>
+
+    <h2>4. Terminal Strip บน Panel</h2>
+    <p>
+        Terminal ที่วางใน Schematic จะปรากฏใน Panel ด้วยเช่นกัน (เชื่อมโยงเป็น Object เดียวกันแบบ Object-Oriented)
+        สามารถ <strong>Merge Individual Terminals into Multi-Level Terminal</strong> เพื่อรวมขั้วต่อหลายชั้นเป็นบล็อกเดียว
+        และใช้ <strong>Automatically Supply Terminal Strips with Additional Parts</strong> เพื่อเติมอุปกรณ์เสริม เช่น End Plate
+        หรือ Partition ให้ Terminal Strip โดยไม่ต้องวางเองทีละชิ้น
+    </p>
+
+    <h2>5. Panel Autoconnect และมุมมอง 3D</h2>
+    <p>
+        <strong>Panel Autoconnect</strong> เดินเส้น Wire ในผัง Panel ให้อัตโนมัติตามเส้นทาง Mounting Rail/Cable Duct ที่วางไว้
+        กำหนด Routing Offset และเงื่อนไขเลือก Wire ที่จะให้ Autoconnect จัดการได้ ช่วยลดเวลาการลากสายด้วยมือทีละเส้นเมื่อ
+        Panel มีอุปกรณ์จำนวนมาก ส่วน <strong>3D Panel Display</strong> แสดงตู้คอนโทรลเป็นโมเดล 3 มิติจริง (รองรับ Import STEP)
+        ใช้ตรวจระยะห่างและการชนกันทางกายภาพก่อนผลิตจริง
+    </p>
+
+    <div class="tip">
+        <strong>Tip:</strong> สร้าง Model ใหม่ใน Database Editor (E3.panel Database) เมื่อของมาตรฐานไม่พอ โดยทำตาม
+        Model Checklist: กำหนด Model Properties → กำหนด Space Requirement (X/Y) → Insert Graphics → วาง Slot/Pin →
+        ตรวจลำดับ Slot ให้ถูกต้อง — ลำดับ Slot ที่ผิดเป็นสาเหตุอันดับต้นๆ ที่ทำให้ Autoconnect หาเส้นทางไม่เจอ
+    </div>
+
+    <div class="page-nav">
+        <a href="advanced.html">← ก่อนหน้า: Advanced</a>
+        <a href="examples.html">ถัดไป: Example File →</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม
+</footer>
+</body>
+</html>
