@@ -6,14 +6,14 @@
 <title>Cable - Zuken E3.series Tutorial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 <div id="wrapper">
     <div id="main">
         <div class="inner">
             <header id="header">
-                <a href="index.html" class="logo"><span>Zuken E3.series Tutorial</span></a>
+                <a href="../index.html" class="logo"><span>Zuken E3.series Tutorial</span></a>
                 <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
             </header>
 
@@ -57,7 +57,7 @@
     </p>
     <p>
         ถ้าต้องการให้บล็อกถูกนับใน BOM จริง ให้สร้างเป็น <strong>Component ชนิด Block</strong> ในฐานข้อมูลแทน — ดูวิธีสร้างที่หน้า
-        <a href="database-editor.html">Database Editor</a> — กำหนด Block Connector ล่วงหน้า และเลือก Symbol Type เป็น "Block"
+        <a href="../database-editor/index.html">Database Editor</a> — กำหนด Block Connector ล่วงหน้า และเลือก Symbol Type เป็น "Block"
         (ปรับขนาดได้หลังวาง) หรือ "Block fix" (ขนาดคงที่)
     </p>
 
@@ -70,7 +70,7 @@ Bundle "Motor_Harness_01"
   Calculated bundle diameter: ~9.2 mm
 </code></pre>
     <p><strong>คำถามฝึกคิด:</strong> ทำไมต้องคำนวณเส้นผ่านศูนย์กลาง Bundle ตั้งแต่ขั้นออกแบบ ทั้งที่ยังไม่ได้ผลิตสายจริง?</p>
-    <div class="tip"><strong>เฉลย:</strong> ขนาด Bundle ที่แท้จริงมีผลต่อการเลือกท่อร้อยสาย (Conduit) และ Cable Duct ในตู้ควบคุม/เครื่องจักร (ดูเพิ่มเติมที่หน้า <a href="panel.html">Panel</a>) ถ้าคำนวณผิดตั้งแต่แบบ อาจเจอปัญหาสายเดินไม่พอที่ตอนประกอบจริง ซึ่งแก้ไขยากและแพงกว่าการแก้ในขั้นออกแบบมาก</div>
+    <div class="tip"><strong>เฉลย:</strong> ขนาด Bundle ที่แท้จริงมีผลต่อการเลือกท่อร้อยสาย (Conduit) และ Cable Duct ในตู้ควบคุม/เครื่องจักร (ดูเพิ่มเติมที่หน้า <a href="../panel/index.html">Panel</a>) ถ้าคำนวณผิดตั้งแต่แบบ อาจเจอปัญหาสายเดินไม่พอที่ตอนประกอบจริง ซึ่งแก้ไขยากและแพงกว่าการแก้ในขั้นออกแบบมาก</div>
 
     <div class="tip">
         <strong>Tip:</strong> ตั้งชื่อ Sheet, Wire Label และ Cable ให้เป็นระบบเดียวกันทั้งโปรเจกต์ (เช่น กำหนด Naming Convention
@@ -78,8 +78,8 @@ Bundle "Motor_Harness_01"
     </div>
 
     <div class="page-nav">
-        <a href="worksheet-10.html">← ก่อนหน้า: บทที่ 10</a>
-        <a href="panel.html">ถัดไป: Panel →</a>
+        <a href="../schematic/10.html">← ก่อนหน้า: บทที่ 10</a>
+        <a href="../panel/index.html">ถัดไป: Panel →</a>
     </div>
         </div>
     </div>
@@ -89,26 +89,26 @@ Bundle "Motor_Harness_01"
             <nav id="menu">
                 <header class="major"><h2>เมนู</h2></header>
                 <ul>
-                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li><a href="../index.html">หน้าแรก</a></li>
                     <li class="has-children">
-                        <a href="schematic.html">Schematics</a>
+                        <a href="../schematic/index.html">Schematics</a>
                         <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู Schematics">▾</button>
                         <ul class="submenu">
-                            <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
-                            <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
-                            <li><a href="worksheet-03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
-                            <li><a href="worksheet-04.html">4. Fields &amp; Levels</a></li>
-                            <li><a href="worksheet-05.html">5. Signals &amp; Signal Tree</a></li>
-                            <li><a href="worksheet-06.html">6. Search &amp; Replace</a></li>
-                            <li><a href="worksheet-07.html">7. Terminals &amp; Terminal Plan</a></li>
-                            <li><a href="worksheet-08.html">8. Subcircuits</a></li>
-                            <li><a href="worksheet-09.html">9. DBE: สร้าง Symbol</a></li>
-                            <li><a href="worksheet-10.html">10. Sync &amp; Report</a></li>
+                            <li><a href="../schematic/01.html">1. UI และโปรเจกต์</a></li>
+                            <li><a href="../schematic/02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
+                            <li><a href="../schematic/03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
+                            <li><a href="../schematic/04.html">4. Fields &amp; Levels</a></li>
+                            <li><a href="../schematic/05.html">5. Signals &amp; Signal Tree</a></li>
+                            <li><a href="../schematic/06.html">6. Search &amp; Replace</a></li>
+                            <li><a href="../schematic/07.html">7. Terminals &amp; Terminal Plan</a></li>
+                            <li><a href="../schematic/08.html">8. Subcircuits</a></li>
+                            <li><a href="../schematic/09.html">9. DBE: สร้าง Symbol</a></li>
+                            <li><a href="../schematic/10.html">10. Sync &amp; Report</a></li>
                         </ul>
                     </li>
-                    <li class="active"><a href="cable.html">Cable</a></li>
-                    <li><a href="panel.html">Panel</a></li>
-                    <li><a href="database-editor.html">Database Editor</a></li>
+                    <li class="active"><a href="index.html">Cable</a></li>
+                    <li><a href="../panel/index.html">Panel</a></li>
+                    <li><a href="../database-editor/index.html">Database Editor</a></li>
                 </ul>
             </nav>
             <footer id="footer">
@@ -118,6 +118,6 @@ Bundle "Motor_Harness_01"
     </div>
 </div>
 
-<script src="assets/main.js"></script>
+<script src="../assets/main.js"></script>
 </body>
 </html>

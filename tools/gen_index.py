@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zuken E3.series Tutorial</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-<div id="wrapper">
-    <div id="main">
-        <div class="inner">
-            <header id="header">
-                <a href="index.html" class="logo"><span>Zuken E3.series Tutorial</span></a>
-                <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
-            </header>
+"""Homepage (index.html). Ported verbatim from the original flat index.html."""
+import gen_site as gs
 
-            <section id="banner">
+TITLE = "Zuken E3.series Tutorial"
+
+BODY = '''            <section id="banner">
                 <h1>เรียนรู้ Zuken E3.series</h1>
                 <p class="tagline">เว็บไซต์สอนการใช้งานโปรแกรมออกแบบวงจรไฟฟ้าและระบบสายไฟ (Electrical Schematic &amp; Wiring Harness Design) ตั้งแต่พื้นฐานจนถึงขั้นสูง</p>
                 <p>E3.series เป็นซอฟต์แวร์ของ Zuken สำหรับออกแบบระบบไฟฟ้า (E3.schematic), ระบบสายไฟ/สายเคเบิล (E3.cable) และแผงควบคุม (E3.panel) — ใช้กันแพร่หลายในอุตสาหกรรมยานยนต์ เครื่องจักรอุตสาหกรรม และระบบราง</p>
@@ -26,22 +12,22 @@
             <section>
                 <header class="major"><h2>เลือกโมดูลที่จะเรียน</h2></header>
                 <div class="card-grid">
-                    <a href="schematic/index.html" class="card">
+                    <a href="schematic.html" class="card">
                         <div class="icon">🧩</div>
                         <h3>Schematics</h3>
                         <p>รู้จักหน้าตาโปรแกรม, Symbol/Component/Device, Item Designation ตามมาตรฐาน IEC 81346, การสร้างวงจรแรกและตรวจสอบความถูกต้อง</p>
                     </a>
-                    <a href="cable/index.html" class="card">
+                    <a href="cable.html" class="card">
                         <div class="icon">🔌</div>
                         <h3>Cable</h3>
                         <p>ออกแบบ Wiring &amp; Cable Harness: Mating Connector อัตโนมัติ, Dynamic Cable, Block Function และคำนวณ Bundle</p>
                     </a>
-                    <a href="panel/index.html" class="card">
+                    <a href="panel.html" class="card">
                         <div class="icon">🗄️</div>
                         <h3>Panel</h3>
                         <p>ออกแบบตู้คอนโทรล (Panel Layout): Mounting Rail, Cable Duct, Terminal Strip, Autoconnect และ 3D Panel</p>
                     </a>
-                    <a href="database-editor/index.html" class="card">
+                    <a href="database-editor.html" class="card">
                         <div class="icon">⚙️</div>
                         <h3>Database Editor</h3>
                         <p>สร้าง Symbol, Component และ Model เองเมื่อของมาตรฐานไม่พอ พร้อมตรวจสอบฐานข้อมูลด้วย COM API</p>
@@ -79,48 +65,11 @@
             <p class="note">
                 <strong>ไฟล์ตัวอย่างจริง:</strong> วางไฟล์โปรเจกต์ <code>.e3s</code> ของคุณไว้ในโฟลเดอร์
                 <a href="https://github.com/TomKraiwut/ZukenE3/tree/main/examples">examples/</a> ของ repo นี้ได้ แล้วใส่ลิงก์ดาวน์โหลดในหน้าโมดูลที่เกี่ยวข้อง
-            </p>
-        </div>
-    </div>
+            </p>'''
 
-    <div id="sidebar">
-        <div class="inner">
-            <nav id="menu">
-                <header class="major"><h2>เมนู</h2></header>
-                <ul>
-                    <li class="active"><a href="index.html">หน้าแรก</a></li>
-                    <li class="has-children">
-                        <a href="schematic/index.html">Schematics</a>
-                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู Schematics">▾</button>
-                        <ul class="submenu">
-                            <li><a href="schematic/01.html">1. UI และโปรเจกต์</a></li>
-                            <li><a href="schematic/02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
-                            <li><a href="schematic/03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
-                            <li><a href="schematic/04.html">4. Fields &amp; Levels</a></li>
-                            <li><a href="schematic/05.html">5. Signals &amp; Signal Tree</a></li>
-                            <li><a href="schematic/06.html">6. Search &amp; Replace</a></li>
-                            <li><a href="schematic/07.html">7. Terminals &amp; Terminal Plan</a></li>
-                            <li><a href="schematic/08.html">8. Subcircuits</a></li>
-                            <li><a href="schematic/09.html">9. DBE: สร้าง Symbol</a></li>
-                            <li><a href="schematic/10.html">10. Sync &amp; Report</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="cable/index.html">Cable</a></li>
-                    <li><a href="panel/index.html">Panel</a></li>
-                    <li><a href="database-editor/index.html">Database Editor</a></li>
-                </ul>
-            </nav>
-            <section class="about">
+EXTRA_SIDEBAR = '''            <section class="about">
                 <header class="major"><h2>วิธีใช้เว็บนี้</h2></header>
                 <p>เริ่มที่ <strong>Schematics</strong> ถ้ายังไม่เคยเปิดโปรแกรม จากนั้นไปที่ <strong>Cable</strong> หรือ <strong>Panel</strong> ตามงานที่ทำ และดู <strong>Database Editor</strong> เมื่อของมาตรฐานไม่พอ ต้องสร้าง Symbol/Component/Model เอง</p>
-            </section>
-            <footer id="footer">
-                <p class="copyright">Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม</p>
-            </footer>
-        </div>
-    </div>
-</div>
+            </section>'''
 
-<script src="assets/main.js"></script>
-</body>
-</html>
+gs.write("index.html", gs.page_html(TITLE, BODY, None, None, EXTRA_SIDEBAR))

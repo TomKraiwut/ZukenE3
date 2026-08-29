@@ -5,23 +5,24 @@
 ## โครงสร้างเว็บ
 
 - [index.html](index.html) — หน้าแรก
-- [schematic.html](schematic.html) — Schematics: หน้ารวมลิงก์ไปยัง 10 บท (worksheet-01.html–worksheet-10.html)
-  - [worksheet-01.html](worksheet-01.html) — Project & UI Setup
-  - [worksheet-02.html](worksheet-02.html) — Placing & Editing Devices
-  - [worksheet-03.html](worksheet-03.html) — Connecting & Online Checks
-  - [worksheet-04.html](worksheet-04.html) — Fields & Levels
-  - [worksheet-05.html](worksheet-05.html) — Signals & Signal Tree
-  - [worksheet-06.html](worksheet-06.html) — Global Search & Replace
-  - [worksheet-07.html](worksheet-07.html) — Terminals & Terminal Plan
-  - [worksheet-08.html](worksheet-08.html) — Subcircuits
-  - [worksheet-09.html](worksheet-09.html) — Database Editor (DBE): สร้าง Symbol/Component
-  - [worksheet-10.html](worksheet-10.html) — Database Sync & Reporting
-- [cable.html](cable.html) — Cable: Mating Connector, Dynamic Cable, Block Function, คำนวณ Bundle
-- [panel.html](panel.html) — Panel: Mounting Rail, Cable Duct, Terminal Strip, Autoconnect, 3D Panel
-- [database-editor.html](database-editor.html) — Database Editor: สร้าง Symbol/Component/Model เอง, COM API
+- [schematic/](schematic/) — Schematics: [index.html](schematic/index.html) หน้ารวมลิงก์ไปยัง 10 บท ([01.html](schematic/01.html)–[10.html](schematic/10.html))
+  - 01.html — Project & UI Setup
+  - 02.html — Placing & Editing Devices
+  - 03.html — Connecting & Online Checks
+  - 04.html — Fields & Levels
+  - 05.html — Signals & Signal Tree
+  - 06.html — Global Search & Replace
+  - 07.html — Terminals & Terminal Plan
+  - 08.html — Subcircuits
+  - 09.html — Database Editor (DBE): สร้าง Symbol/Component
+  - 10.html — Database Sync & Reporting
+- [cable/index.html](cable/index.html) — Cable: Mating Connector, Dynamic Cable, Block Function, คำนวณ Bundle
+- [panel/index.html](panel/index.html) — Panel: Mounting Rail, Cable Duct, Terminal Strip, Autoconnect, 3D Panel
+- [database-editor/index.html](database-editor/index.html) — Database Editor: สร้าง Symbol/Component/Model เอง, COM API
 - [assets/style.css](assets/style.css) — สไตล์ชีตกลางของทุกหน้า (Editorial-inspired layout: sidebar nav + banner hero)
 - [assets/main.js](assets/main.js) — toggle เมนูมือถือและ submenu accordion ของ Schematics
 - [examples/](examples/) — ไฟล์ตัวอย่าง `.e3s` (เพิ่มเองได้ — ตัวอย่างฝึกทำอยู่ในแต่ละหน้าบท/โมดูล)
+- [tools/](tools/) — สคริปต์ Python ที่ generate ไฟล์ `.html` ทั้งหมดข้างต้น (ดู "แก้ไข/เพิ่มเนื้อหา" ด้านล่าง)
 
 เนื้อหาในเว็บนี้อ้างอิงจากคู่มือทางการ E3.series 2026 (E3.schematic, E3.cable, E3.panel, Database Editor, E3.Update)
 
@@ -41,4 +42,30 @@
 
 ## แก้ไข/เพิ่มเนื้อหา
 
-แก้ไฟล์ `.html` ที่เกี่ยวข้อง แล้ว commit + push ตามปกติ
+ไฟล์ `.html` ทุกไฟล์ **ถูก generate จากสคริปต์ Python ใน [tools/](tools/) — อย่าแก้ `.html` ตรงๆ**
+เพราะการรันสคริปต์ใหม่ภายหลังจะเขียนทับ แก้ที่ต้นทางแล้วรันสคริปต์ใหม่แทน:
+
+- แก้เนื้อหาบทเรียน Schematics (`schematic/01.html`–`10.html`) → แก้ที่ `tools/gen_chapters.py`
+- แก้เนื้อหาหน้า Schematics hub / Cable / Panel / Database Editor → แก้ที่ `tools/gen_pages.py`
+- แก้เนื้อหาหน้าแรก → แก้ที่ `tools/gen_index.py`
+- แก้เมนู/โครงสร้างส่วน (เพิ่มบท, เพิ่ม section ใหม่ทั้งหมด) → แก้ `SECTIONS`/`SECTION_ORDER` ใน `tools/gen_site.py`
+- แก้ดีไซน์ร่วม (สี, ฟอนต์, layout) → แก้ `assets/style.css` โดยตรง (ไฟล์นี้ไม่ถูก generate)
+
+รันสคริปต์ใหม่ทุกครั้งตามลำดับนี้ (import กันเป็นทอด ๆ):
+
+```bash
+cd tools
+python gen_site.py
+python gen_chapters.py
+python gen_pages.py
+python gen_index.py
+```
+
+**เพิ่มบทใหม่ในโมดูลที่มีอยู่แล้ว** (เช่น Schematics บทที่ 11): เพิ่มชื่อบทใน `SECTIONS["schematic"]["chapters"]`
+ใน `gen_site.py`, เพิ่มเนื้อหา `BODY[11]`/`TITLE[11]` ใน `gen_chapters.py`, แล้วรันสคริปต์ใหม่ทั้งหมด — เมนู/ปุ่มก่อนหน้า-ถัดไป
+จะอัปเดตให้เองไม่ต้องแก้ทีละไฟล์
+
+**เพิ่ม section ใหม่ทั้งหมด** (เช่นโมดูลใหม่ของ E3.series): เพิ่ม entry ใหม่ใน `SECTIONS`/`SECTION_ORDER` ใน `gen_site.py`
+(ตั้ง `"chapters": []` ถ้าเป็นหน้าเดียวไม่มีบทย่อย) แล้วเพิ่มเนื้อหาใน `gen_pages.py` และเพิ่มการ์ดในหน้าแรกที่ `gen_index.py`
+
+แล้ว commit + push ตามปกติ
