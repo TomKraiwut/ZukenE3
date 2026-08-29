@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ใบงานที่ 7: Terminals &amp; Terminal Plan - Zuken E3.series Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            </header>
+
+    <h1>ใบงานที่ 7: การเขียนบล็อกขั้วต่อสายไฟและการคำนวณผังออนไลน์ (Terminals &amp; Terminal Plan)</h1>
+    <p class="lead">จาก Terminal Strip บนชีท สู่ตารางขั้วต่อที่คำนวณปลายทางในตู้/นอกตู้ให้อัตโนมัติ</p>
+
+    <div class="objectives">
+        <p>วัตถุประสงค์การเรียนรู้</p>
+        <ol>
+            <li>เพื่อกำหนด สร้าง และจัดสรรขั้วต่อสายไฟ (Terminal Block) ควบคุมความปลอดภัยของระบบจัดเรียงพินและการต่อสายเคเบิลสะพานไฟ (Jumper)</li>
+            <li>เพื่อสร้างแผ่นงานแผนผังตารางขั้วสายไฟออนไลน์ (Online Terminal Plan) ที่จะคำนวณเป้าหมายปลายทางการต่อเชื่อมทั้งภายใน (Internal Target) และภายนอก (External Target) ตู้โดยอัตโนมัติ</li>
+            <li>เพื่อใช้งานคำสั่งสะพานเชื่อมขั้วไฟแบบกราฟิกและตรรกะจัมเปอร์ (Jumper Symbols / Jumper for Terminal) และสร้างรายงานออกมาบนเทอร์มินอลแพลนจริง</li>
+        </ol>
+    </div>
+
+    <h2>1. Terminal Block: ขั้วต่อและความปลอดภัยของการจัดเรียงพิน</h2>
+    <p>
+        ทบทวนจากใบงานที่ 1: <strong>Terminal</strong> เป็น Component ชนิดพิเศษ วางจาก Database Window ครั้งแรกจะสร้าง Device
+        ชนิด <strong>Terminal Strip</strong> ให้อัตโนมัติ วาง Terminal ชนิดเดียวกันซ้ำจะเข้า Strip เดิม ส่วนชนิดต่างกันจะแยก
+        Strip ใหม่ให้เอง ระบบตรวจจำนวนสายที่เข้าขั้วและ Cross-Section ให้ตลอดเวลาตามที่เรียนในใบงานที่ 3 (Online Checks)
+    </p>
+    <p>
+        <strong>Jumper</strong> คือสายสะพานไฟเชื่อมระหว่างขั้วต่อสองขั้วขึ้นไปในสตริปเดียวกัน ใช้เมื่อต้องกระจายไฟเส้นเดียวไปหลายขั้ว
+        (เช่น กระจายไฟบวกไปหลายวงจรจากขั้วต้นทางเดียว) — นิยาม Jumper ได้สองแบบ: <em>วาดเส้นเชื่อมต่อกราฟิก</em> ระหว่างขั้วในสตริป
+        เดียวกันโดยตรง หรือกำหนดผ่าน <em>Attribute "Jumper for Terminal"</em> บนพิน โดยไม่ต้องวาดเส้นกราฟิกเลย
+    </p>
+
+    <h2>2. Online Terminal Plan: อีกมุมมองหนึ่งของ Schematic</h2>
+    <p>
+        Terminal Plan ไม่ใช่เอกสารแยกต่างหาก แต่เป็น "อีกมุมมอง" ของวงจรเดียวกัน — แก้ที่ Terminal Plan จะอัปเดตกลับไปที่
+        Schematic ทันที และกลับกัน สร้างได้ครั้งเดียวจากเมนูหลัก, Toolbar Placement หรือคลิกขวาที่ Terminal Strip ใน Device Tree
+    </p>
+    <ol class="steps">
+        <li>เลือกชื่อ Sheet, Sheet Format และ Table Symbol ที่จะใช้แสดงผล</li>
+        <li>เลือก Sorting Criteria: เรียงตามลำดับใน Device Tree (None), ตามหมายเลขขั้ว (Pin Name), ตามการจัดกลุ่ม Jumper/Cable (Cable or Jumper), ตามพิกัดการวางจริงบนแบบ (Placement) หรือกำหนดลำดับเองด้วยไฟล์ Sort (<code>*.def</code>)</li>
+        <li>ตั้งค่า Internal/External Definition — กำหนดว่า Device ปลายทางจะนับเป็น "Internal" (ในตู้เดียวกับ Terminal Strip) หรือ "External" (นอกตู้) โดยเทียบจาก Assignment เท่านั้น, Location เท่านั้น หรือทั้งคู่ต้องตรงกัน</li>
+        <li>สั่ง Generate — Internal/External Target ทุกช่องคำนวณให้อัตโนมัติจากผังจริง ไม่ต้องกรอกมือ</li>
+    </ol>
+    <p>
+        ตัวเลือกจัดรูปแบบที่ใช้บ่อย ได้แก่ <strong>Autocompress</strong> (ย่อจำนวนแถวให้กระชับที่สุด), <strong>Combine same pin
+        names</strong> (รวมทุกเส้นที่ต่อขั้วชื่อเดียวกันไว้แถวเดียว) และ <strong>Only user-defined signals</strong> (ซ่อนสัญญาณ
+        System-Generated ที่ขึ้นต้นด้วย <code>#</code> ไม่ให้รกตาราง)
+    </p>
+
+    <div class="note">
+        <strong>ข้อควรรู้:</strong> ถ้า Model ของ Terminal ถูกวางลงบน Panel Sheet แล้ว (เรียนต่อในหน้า Panel) จะ "ย้ายแถว"
+        โดยตรงในหน้า Terminal Plan หรือ Device Tree ไม่ได้อีก — ต้องย้ายตำแหน่ง Model บน Panel เท่านั้น แล้วลำดับใน
+        Terminal Plan/Device Tree จะตามไปเอง
+    </div>
+
+    <h2>3. Jumper และรายงานเทอร์มินอลแพลน</h2>
+    <p>ระบบตีความ Jumper ในผังได้หลายแบบ เลือกตั้งค่าตามลักษณะงานจริง:</p>
+    <table>
+        <tr><th>โหมด</th><th>พฤติกรรม</th></tr>
+        <tr><td>Jumpers by Connections</td><td>ขั้วที่มีเส้นเชื่อมต่อถึงกันจริงในผัง จะแสดงเป็น Jumper อัตโนมัติ</td></tr>
+        <tr><td>In Line</td><td>รวมทุกพินที่เชื่อมกันแบบกราฟิก (รวมถึงพินสมมูลข้ามกัน) เป็นแถวเดียว มองเป็นบล็อก Jumper รวด</td></tr>
+        <tr><td>Jumpers by Attributes</td><td>กำหนด Jumper ผ่าน Attribute "Jumper for Terminal" บนตัวนำ โดยไม่ต้องมีเส้นกราฟิก</td></tr>
+        <tr><td>No Jumpers</td><td>ปิดการแสดงผล Jumper ทั้งหมดในแพลนนี้</td></tr>
+    </table>
+    <p>
+        แก้ไขค่าตรงๆ ในตาราง Terminal Plan ได้เลย เช่น หมายเลขขั้ว สัญญาณ หรือชื่อ Device ปลายทาง ผ่านเมนู Properties —
+        ค่าจะอัปเดตกลับไปที่ Schematic ทันที ทำให้ Terminal Plan ใช้เป็นทั้งเครื่องมือแก้ไขและรายงานสำหรับส่งช่างเดินสายจริงได้ในตัว
+        (ต่อยอดการส่งออกเป็น PDF/Excel ในใบงานที่ 10)
+    </p>
+
+    <h2>ตัวอย่างฝึกทำ</h2>
+    <p><strong>โจทย์:</strong> สร้าง Terminal Strip 6 ขั้วจาก Schematic ต่อ Jumper แบบ Jumpers by Connections เชื่อม 3 ขั้วแรกเข้าด้วยกัน แล้ว Generate Terminal Plan โดยตั้ง Sorting Criteria เป็น Pin Name และเปิด Autocompress</p>
+    <p><strong>คำถามฝึกคิด:</strong> ทำไม Internal/External Target ในตาราง Terminal Plan ถึงคำนวณจาก Assignment/Location แทนที่จะให้ผู้ใช้พิมพ์ระบุเองตรงๆ?</p>
+    <div class="tip"><strong>เฉลย:</strong> เพราะ Assignment/Location ของทุก Device ถูกกำหนดไว้แล้วตั้งแต่ขั้นตอนวางวงจร (ใบงานที่ 1 และ 4) การให้ระบบคำนวณ Internal/External จากค่านี้โดยตรงทำให้ตาราง Terminal Plan อัปเดตอัตโนมัติทุกครั้งที่แก้ผัง ไม่มีความเสี่ยงที่ตัวเลขในรายงานจะไม่ตรงกับแบบจริง ต่างจากการพิมพ์มือที่ต้องมาคอยแก้ตามทุกครั้งที่ผังเปลี่ยน</div>
+
+    <div class="page-nav">
+        <a href="worksheet-06.html">← ก่อนหน้า: ใบงานที่ 6</a>
+        <a href="worksheet-08.html">ถัดไป: ใบงานที่ 8 →</a>
+    </div>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>เมนู</h2></header>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li class="has-children expanded">
+                        <a href="schematic.html">Schematics</a>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <ul class="submenu">
+                            <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
+                            <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
+                            <li><a href="worksheet-03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
+                            <li><a href="worksheet-04.html">4. Fields &amp; Levels</a></li>
+                            <li><a href="worksheet-05.html">5. Signals &amp; Signal Tree</a></li>
+                            <li><a href="worksheet-06.html">6. Search &amp; Replace</a></li>
+                            <li class="active"><a href="worksheet-07.html">7. Terminals &amp; Terminal Plan</a></li>
+                            <li><a href="worksheet-08.html">8. Subcircuits</a></li>
+                            <li><a href="worksheet-09.html">9. DBE: สร้าง Symbol</a></li>
+                            <li><a href="worksheet-10.html">10. Sync &amp; Report</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="cable.html">Cable</a></li>
+                    <li><a href="panel.html">Panel</a></li>
+                    <li><a href="database-editor.html">Database Editor</a></li>
+                </ul>
+            </nav>
+            <footer id="footer">
+                <p class="copyright">Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

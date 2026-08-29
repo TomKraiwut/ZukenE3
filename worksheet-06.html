@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ใบงานที่ 6: Global Search &amp; Replace - Zuken E3.series Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            </header>
+
+    <h1>ใบงานที่ 6: การปรับปรุงแอตทริบิวต์ในวงกว้างอย่างรวดเร็ว (Global Search &amp; Replace)</h1>
+    <p class="lead">แก้ข้อความหรือแอตทริบิวต์ทีละร้อยจุดในคลิกเดียว ด้วยฟีเจอร์ Search and Replace ที่เพิ่มเข้ามาใน E3.series 2026</p>
+
+    <div class="objectives">
+        <p>วัตถุประสงค์การเรียนรู้</p>
+        <ol>
+            <li>เพื่อใช้งานกล่องสืบค้นขั้นสูง ค้นหาข้อความเสรีหรือ Attributes ของอุปกรณ์ข้ามแผ่นงานได้อย่างถูกต้องและปลอดภัย</li>
+            <li>เพื่อเรียกใช้งานคำสั่ง Search &amp; Replace (คีย์ลัด <code>Ctrl+H</code>) เพื่อปรับปรุง เปลี่ยนแปลง หรือล้างข้อมูลแอตทริบิวต์ของอุปกรณ์พร้อมกันทั้งโครงการ (Replace All) ในขั้นตอนเดียว</li>
+            <li>เพื่อใช้ประโยชน์จากฟังก์ชันประสานคำค้นหา ที่ทำให้การระบุแอตทริบิวต์ของประเภท Component สามารถสืบค้นไปยังอุปกรณ์หรือตัว Device จริงที่ใช้ในแบบได้ทันที</li>
+        </ol>
+    </div>
+
+    <h2>1. ค้นหาข้อความและ Attribute ข้ามแผ่นงาน</h2>
+    <p>
+        ค้นหาแบบพื้นฐานยังคงใช้ <code>F3</code> ได้เหมือนเดิม (ค้นข้อความ/ค่า Attribute ในโปรเจกต์) แต่ตั้งแต่ E3.series 2026
+        ผลการค้นหานี้ <strong>แก้ไขต่อได้ทันที</strong> ด้วยคำสั่งใหม่ Search and Replace โดยไม่ต้องไล่เปิดทีละ Object เอง
+    </p>
+    <div class="note">
+        <strong>ข้อควรรู้ก่อนค้นหา:</strong> ระบบจะไม่แสดงบาง Text/Attribute ที่ไม่ปลอดภัยต่อการแก้ไขแบบอัตโนมัติ:
+        Text ประเภทระบบ (System text types) และ Text ที่ผูกกับ Attribute จะไม่ปรากฏในรายการค้นหา ส่วน Attribute
+        จะแสดงเฉพาะประเภท <code>String</code> ที่เจ้าของสามารถเปลี่ยนค่าได้เท่านั้น — Attribute ของระบบ หรือที่แก้ได้เฉพาะผ่าน
+        Script จะถูกกันออกไปโดยอัตโนมัติ
+    </div>
+
+    <h2>2. Search and Replace (Ctrl+H) — แก้ทั้งโปรเจกต์ในขั้นตอนเดียว</h2>
+    <p>เรียกใช้ได้จากเมนู Edit, Toolbar "Display" หรือคีย์ลัด <code>Ctrl+H</code> โดยตรง</p>
+    <ol class="steps">
+        <li>เลือกก่อนว่าจะค้นหา <strong>Text</strong> หรือ <strong>Attribute</strong></li>
+        <li>เลือก Type(s) ที่ต้องการ: ทั้งหมด (<code>&lt;All&gt;</code>), บางประเภท หรือประเภทเดียว</li>
+        <li>กรอกคำค้นหาใน <strong>Find what</strong> — เลือกจากรายการที่ระบบเสนอให้ (ไม่รองรับ Wildcard)</li>
+        <li>กรอกค่าที่ต้องการแทนที่ใน <strong>Replace with</strong></li>
+        <li>ตรวจสีในหน้าต่าง Output: ค่าสีน้ำเงินคือแก้ได้จริง ค่าสีดำคือแก้ไม่ได้ (ล็อกอยู่หรือเป็นชนิด Object ที่ระบบห้ามแก้)</li>
+        <li>สั่ง Replace All เมื่อมั่นใจแล้วว่าผลลัพธ์ตรงตามต้องการ</li>
+    </ol>
+
+    <div class="note">
+        <strong>ข้อควรระวัง:</strong> Object บางชนิดถูกล็อกไว้ไม่ให้ Replace ได้แม้จะเจอในผลค้นหา ได้แก่ Component/Component
+        Pin, Cable, Symbol/Symbol Pin, Wire, Slot, Contour, Functional Unit/Port, State และ Bundle — เห็นในผลค้นหาได้
+        แต่แก้ไม่ได้ผ่านคำสั่งนี้ ต้องไปแก้ที่ Database Editor โดยตรง (ใบงานที่ 9)
+    </div>
+
+    <h2>3. ค้นหา Attribute ของ Component แล้วเจอ Device จริงในแบบทันที</h2>
+    <p>
+        ตั้งแต่ 2026 การค้นหา Attribute ที่มีเจ้าของเป็น <strong>Component, Cable Type หรือ Model</strong> จะดึงผลลัพธ์ครอบคลุมไปถึง
+        <strong>Device</strong> ทุกตัวที่มี Attribute นั้นด้วย ไม่ใช่แค่ Component ต้นแบบในฐานข้อมูล — มีประโยชน์มากเวลาจะเช็คว่า
+        ค่า Attribute ของ Device ตัวใดตัวหนึ่งในแบบถูกแก้ให้ต่างจากค่ามาตรฐานของ Component หรือไม่
+    </p>
+
+    <div class="tip">
+        <strong>Tip:</strong> ใช้ฟีเจอร์นี้ตรวจ QA ก่อนปิดงาน — ค้นหา Attribute เช่น "Manufacturer" ของ Component ต้นแบบ
+        แล้วดูว่ามี Device ตัวไหนในแบบที่ค่าเพี้ยนไปจากมาตรฐานบ้าง โดยไม่ต้องไล่เปิดทีละตัว
+    </div>
+
+    <h2>ตัวอย่างฝึกทำ</h2>
+    <p><strong>โจทย์:</strong> ค้นหา Attribute ชื่อ "Manufacturer" แบบ <code>&lt;All&gt;</code> Type ในโปรเจกต์ตัวอย่าง แล้วลอง Replace ค่าที่ผิดให้ถูกต้องทั้งหมดในคำสั่งเดียว</p>
+    <p><strong>คำถามฝึกคิด:</strong> ทำไม Search and Replace ถึงไม่รองรับ Wildcard (เช่น <code>*</code> หรือ <code>?</code>) ทั้งที่โปรแกรมค้นหาทั่วไปมักมีให้ใช้?</p>
+    <div class="tip"><strong>เฉลย:</strong> เพราะคำสั่งนี้ทำ Replace All ทั่วทั้งโปรเจกต์ในขั้นตอนเดียว ถ้าใช้ Wildcard ผิดพลาดอาจกวาดแก้ Text/Attribute ที่ไม่ได้ตั้งใจจำนวนมากพร้อมกัน โดยไม่มีขั้นตอนยืนยันทีละรายการ — การบังคับให้เลือกคำค้นหาที่ตรงเป๊ะจากรายการที่ระบบเสนอ ช่วยลดความเสี่ยงที่จะ Replace ผิดเป้าไปทั้งโปรเจกต์</div>
+
+    <div class="page-nav">
+        <a href="worksheet-05.html">← ก่อนหน้า: ใบงานที่ 5</a>
+        <a href="worksheet-07.html">ถัดไป: ใบงานที่ 7 →</a>
+    </div>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>เมนู</h2></header>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li class="has-children expanded">
+                        <a href="schematic.html">Schematics</a>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <ul class="submenu">
+                            <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
+                            <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
+                            <li><a href="worksheet-03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
+                            <li><a href="worksheet-04.html">4. Fields &amp; Levels</a></li>
+                            <li><a href="worksheet-05.html">5. Signals &amp; Signal Tree</a></li>
+                            <li class="active"><a href="worksheet-06.html">6. Search &amp; Replace</a></li>
+                            <li><a href="worksheet-07.html">7. Terminals &amp; Terminal Plan</a></li>
+                            <li><a href="worksheet-08.html">8. Subcircuits</a></li>
+                            <li><a href="worksheet-09.html">9. DBE: สร้าง Symbol</a></li>
+                            <li><a href="worksheet-10.html">10. Sync &amp; Report</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="cable.html">Cable</a></li>
+                    <li><a href="panel.html">Panel</a></li>
+                    <li><a href="database-editor.html">Database Editor</a></li>
+                </ul>
+            </nav>
+            <footer id="footer">
+                <p class="copyright">Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

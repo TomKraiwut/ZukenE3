@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ใบงานที่ 8: Subcircuits - Zuken E3.series Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            </header>
+
+    <h1>ใบงานที่ 8: การจัดการวงจรย่อยและโมดูลโครงสร้างใช้ซ้ำ (Subcircuits)</h1>
+    <p class="lead">แปลงวงจรที่ใช้บ่อยให้กลายเป็นโมดูลสำเร็จรูป วางซ้ำได้ในขั้นตอนเดียวทุกโปรเจกต์</p>
+
+    <div class="objectives">
+        <p>วัตถุประสงค์การเรียนรู้</p>
+        <ol>
+            <li>เพื่อกำหนดพิกัดจุดกำเนิดพิกัดต้นฉบับ (Origin for subcircuit) ให้กับแผงวงจรส่วนที่ใช้งานบ่อย เพื่อจัดเตรียมโครงสร้างให้ระบบนำกลับมาผลิตซ้ำได้</li>
+            <li>เพื่อทำการส่งออกแผงวงจรชุดดังกล่าว ออกไปเป็นไฟล์ภายนอกรูปแบบไฟล์ <code>.e3p</code> (Subcircuit File)</li>
+            <li>เพื่อบันทึกและนำเข้าโครงสร้างวงจรย่อย <code>.e3p</code> กลับเข้ามาจัดเก็บไว้ในฐานข้อมูล Component Database เพื่อให้วิศวกรสามารถเลือกวางวงจรสมบูรณ์ได้แบบขั้นตอนเดียว (Place Database Subcircuit)</li>
+        </ol>
+    </div>
+
+    <p>
+        <strong>Subcircuit</strong> คือส่วนหนึ่งของแบบ (ครอบคลุมได้ตั้งแต่พื้นที่ที่เลือกไว้ ไปจนถึงทั้งชีท) ที่นำไปใช้ซ้ำได้สองทาง:
+        ส่งออก/นำเข้าเป็นไฟล์ภายนอกนามสกุล <code>.e3p</code> หรือบันทึกลงฐานข้อมูลกลางเป็น Component ชนิด "Subcircuit" ถาวร
+    </p>
+
+    <h2>1. กำหนด Origin ก่อนแปลงเป็นวงจรใช้ซ้ำ</h2>
+    <p>
+        ก่อน Export ทุกครั้ง ควรกำหนด <strong>Origin</strong> (จุดอ้างอิงของ Subcircuit) ไว้ก่อน — จุดนี้คือตำแหน่งที่ Subcircuit
+        จะ "เกาะติดเคอร์เซอร์" เวลานำกลับมา Import ใหม่ในโปรเจกต์อื่น ถ้าไม่กำหนด ระบบจะใช้ค่าเริ่มต้นซึ่งอาจไม่ตรงกับจุดที่วิศวกร
+        ต้องการอ้างอิงเวลาวางจริง
+    </p>
+    <ul>
+        <li><strong>Place origin for subcircuit</strong> — เลือกตำแหน่งจุดอ้างอิงบนพื้นที่ที่จะ Export</li>
+        <li><strong>Display origin for subcircuit</strong> — แสดงจุดอ้างอิงปัจจุบันเพื่อตรวจสอบก่อน Export จริง</li>
+    </ul>
+
+    <div class="tip">
+        <strong>Tip:</strong> เลือก Origin ไว้ที่มุมซ้ายบนของวงจร หรือจุดที่วิศวกรมักคลิกวางก่อนเสมอ (เช่น จุดจ่ายไฟเข้า) จะทำให้
+        คนอื่นในทีมนำ Subcircuit นี้ไปวางต่อได้เข้าใจง่ายและตรงตำแหน่งโดยไม่ต้องขยับแก้ทีหลัง
+    </div>
+
+    <h2>2. Export วงจรออกเป็นไฟล์ .e3p</h2>
+    <ol class="steps">
+        <li>เลือกพื้นที่/ชีทที่จะแปลงเป็น Subcircuit บน Project Window หรือเลือกวัตถุบนชีทโดยตรง</li>
+        <li>Main Menu → File → Export → Drawing</li>
+        <li>เลือก <strong>Include sheet border</strong> ถ้าต้องการเก็บกรอบชีทและ Sheet Text ไปด้วย หรือปิดไว้ถ้าต้องการแค่พื้นที่ที่เลือก</li>
+        <li>เลือก <strong>Devices only</strong> หรือรวม <strong>Cables/Wires</strong> ไปด้วย ตามที่ต้องการให้ Subcircuit สมบูรณ์แค่ไหน</li>
+        <li>เปิด <strong>Group objects</strong> ถ้าต้องการให้วัตถุทั้งหมดยังคงถูกจัดกลุ่มไว้ด้วยกันตอน Import กลับ</li>
+        <li>บันทึกเป็นไฟล์ <code>.e3p</code></li>
+    </ol>
+
+    <h2>3. นำเข้า .e3p และบันทึกเป็น Component ชนิด Subcircuit</h2>
+    <p>
+        Import ไฟล์กลับได้จาก Main Menu → File → Import → Drawing — จุดเด่นของการใช้ <strong>Paste Extended</strong>
+        คือ Subcircuit ที่ Import เข้ามาจะแวะพักที่ Clipboard ก่อน ให้แก้ไข/ปรับแต่งได้ก่อนค่อยรวมเข้าโปรเจกต์จริง
+        ถ้าต้องการวางที่พิกัดเดิมเป๊ะเหมือนตอน Export ใช้คำสั่ง <strong>Place at original position</strong>
+        (<code>Shift+O</code>)
+    </p>
+    <p>
+        แต่ถ้าต้องการให้ทีมทั้งหมดเรียกใช้ Subcircuit นี้ได้ทุกโปรเจกต์โดยไม่ต้องแจกไฟล์ <code>.e3p</code> เอง ให้บันทึกมันเป็น
+        <strong>Component ชนิด "Subcircuit"</strong> ในฐานข้อมูลกลางแทน (ทำผ่าน Database Editor — ใบงานที่ 9) จากนั้นวิศวกรคนอื่น
+        เพียงค้นหาใน Database Window แล้วลากวางจาก Database Window ได้เลย ระบบจะวาง "วงจรทั้งชุด" ให้ครบในขั้นตอนเดียว
+        (Placing Database Subcircuit) เหมือนวางอุปกรณ์ชิ้นเดียวปกติ และยังแก้ไขต่อได้หลังวางถ้าจำเป็น
+    </p>
+
+    <div class="note">
+        <strong>เปรียบเทียบสองวิธี:</strong> ไฟล์ <code>.e3p</code> เหมาะกับการแชร์ครั้งคราวหรือส่งให้ทีมนอกโปรเจกต์
+        ส่วน Database Subcircuit เหมาะกับวงจรมาตรฐานที่ทีมใช้ซ้ำบ่อยและอยากให้ทุกคนดึงจากแหล่งเดียวกันเสมอ (ตรงหลักการ
+        Shared Database เดียวกับที่เรียนเรื่อง Component ในใบงานที่ 9)
+    </div>
+
+    <h2>ตัวอย่างฝึกทำ</h2>
+    <p><strong>โจทย์:</strong> เลือกวงจรควบคุมมอเตอร์มาตรฐาน 1 ชุดที่เคยวาดไว้ กำหนด Origin ที่จุดจ่ายไฟเข้า แล้ว Export เป็น <code>.e3p</code> จากนั้นเปิดโปรเจกต์ใหม่และ Import กลับด้วย Place at original position</p>
+    <p><strong>คำถามฝึกคิด:</strong> ทำไมการ Import ผ่าน Paste Extended (แวะที่ Clipboard ก่อน) ถึงปลอดภัยกว่าการวางลงชีทตรงๆ ทันที?</p>
+    <div class="tip"><strong>เฉลย:</strong> เพราะ Clipboard เป็นพื้นที่ชั่วคราวที่ยังไม่ผูกกับโปรเจกต์จริง วิศวกรตรวจสอบและแก้ไข Subcircuit ได้ก่อน เช่น เปลี่ยน Item Designation ให้ไม่ชนกับของเดิมในโปรเจกต์ปลายทาง ก่อนค่อยกดรวมเข้าแบบจริง ต่างจากการวางตรงๆ ที่ถ้าพบว่า Item Designation ชนกันจะต้องมาแก้ไขหลังวางไปแล้ว ซึ่งเสี่ยงต่อการตกหล่นบาง Device</div>
+
+    <div class="page-nav">
+        <a href="worksheet-07.html">← ก่อนหน้า: ใบงานที่ 7</a>
+        <a href="worksheet-09.html">ถัดไป: ใบงานที่ 9 →</a>
+    </div>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>เมนู</h2></header>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li class="has-children expanded">
+                        <a href="schematic.html">Schematics</a>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <ul class="submenu">
+                            <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
+                            <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
+                            <li><a href="worksheet-03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
+                            <li><a href="worksheet-04.html">4. Fields &amp; Levels</a></li>
+                            <li><a href="worksheet-05.html">5. Signals &amp; Signal Tree</a></li>
+                            <li><a href="worksheet-06.html">6. Search &amp; Replace</a></li>
+                            <li><a href="worksheet-07.html">7. Terminals &amp; Terminal Plan</a></li>
+                            <li class="active"><a href="worksheet-08.html">8. Subcircuits</a></li>
+                            <li><a href="worksheet-09.html">9. DBE: สร้าง Symbol</a></li>
+                            <li><a href="worksheet-10.html">10. Sync &amp; Report</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="cable.html">Cable</a></li>
+                    <li><a href="panel.html">Panel</a></li>
+                    <li><a href="database-editor.html">Database Editor</a></li>
+                </ul>
+            </nav>
+            <footer id="footer">
+                <p class="copyright">Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

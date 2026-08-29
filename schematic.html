@@ -4,137 +4,145 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Schematics - Zuken E3.series Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="site-header">
-    <div class="header-inner">
-        <a href="index.html" class="brand">⚡ Zuken E3.series Tutorial <span class="badge">TH</span></a>
-        <nav class="main-nav">
-            <a href="index.html">หน้าแรก</a>
-            <a href="schematic.html" class="active">Schematics</a>
-            <a href="cable.html">Cable</a>
-            <a href="panel.html">Panel</a>
-            <a href="database-editor.html">Database Editor</a>
-        </nav>
-    </div>
-</header>
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            </header>
 
-<main>
     <h1>Schematics: ออกแบบวงจรไฟฟ้าด้วย E3.schematic</h1>
-    <p class="lead">พื้นฐานที่ต้องรู้ก่อนสร้างวงจรไฟฟ้าแรกของคุณ</p>
-
-    <h2>1. หน้าตาโปรแกรม (User Interface)</h2>
-    <p>เมื่อเปิดโปรแกรมและสร้างโปรเจกต์ใหม่ จะเจอหน้าต่างหลักๆ ตามคู่มือ E3.schematic ดังนี้</p>
-    <table>
-        <tr><th>ส่วนประกอบ</th><th>หน้าที่</th></tr>
-        <tr><td>Project Window</td><td>โครงสร้างโปรเจกต์แบบ Tree แสดงชีท (Sheet), Device, Cable, Connector ทั้งหมด — ใช้ Jump to ไปยัง Object ที่ต้องการได้</td></tr>
-        <tr><td>Database Window</td><td>คลัง Symbol/Component ในฐานข้อมูล ค้นหาและลากมาวางบนชีทได้โดยตรง</td></tr>
-        <tr><td>Graphical Editor (Sheet)</td><td>พื้นที่วาดวงจร วาง Symbol และลาก Connection เชื่อมกันที่นี่</td></tr>
-        <tr><td>Preview Window / 3D Preview Window</td><td>แสดงตัวอย่างกราฟิกของ Symbol/Component ก่อนวาง รวมถึงมุมมอง 3D ของอุปกรณ์</td></tr>
-        <tr><td>Properties Window</td><td>แก้ไขคุณสมบัติของ Symbol/Device ที่เลือกอยู่ เช่น Attribute, Item Designation</td></tr>
-        <tr><td>Output Window / Status Bar</td><td>แสดงข้อความแจ้งเตือนและผลของคำสั่งตรวจสอบ (เช่น Check Design)</td></tr>
-    </table>
-
-    <h2>2. Symbol, Component และ Device ต่างกันอย่างไร</h2>
-    <p>
-        E3.series เป็นระบบ Object-Oriented ที่ Symbol และ Component ทุกตัวเก็บอยู่ในฐานข้อมูลกลาง
-        เมื่อ "วาง" (Place) ลงในโปรเจกต์ ระบบจะสร้างสำเนาเป็น <strong>Device</strong> แยกจากฐานข้อมูล
-        ทำให้โปรเจกต์เป็นอิสระจากฐานข้อมูลต้นทาง (แก้ Device ในโปรเจกต์ไม่กระทบฐานข้อมูล) — ถ้าต้องการสร้าง Symbol/Component
-        เองดูวิธีทำได้ที่หน้า <a href="database-editor.html">Database Editor</a>
+    <p class="lead">
+        10 ใบงานเรียงลำดับตามกระบวนการทำงานจริงของวิศวกรออกแบบ (Real-world Engineering Workflow) — เริ่มจากพื้นฐานการสืบค้น/วางอุปกรณ์
+        ไปจนถึงการสร้างชิ้นส่วนคลังเองและส่งออกรายงานผลิตจริง
     </p>
-    <table>
-        <tr><th>Object</th><th>ความหมาย</th></tr>
-        <tr><td><strong>Symbol</strong></td><td>รูปกราฟิกแทนฟังก์ชันทางไฟฟ้า/นิวเมติก/ไฮดรอลิก ประกอบด้วย Graphic, Pin, Text Placeholder และ Attribute</td></tr>
-        <tr><td><strong>Component</strong></td><td>อุปกรณ์จริงที่นิยามไว้ในฐานข้อมูล อาจประกอบด้วย Symbol หนึ่งตัวหรือหลายตัว (เช่น รีเลย์ = ขดลวด + หน้าสัมผัสหลายชุด)</td></tr>
-        <tr><td><strong>Device</strong></td><td>Component ที่ถูกวางลงในโปรเจกต์แล้ว และได้รับ Item Designation เฉพาะตัว</td></tr>
-    </table>
 
-    <p>Device ทุกตัวจะได้ <strong>Item Designation</strong> ตามมาตรฐาน IEC 81346 / DIN 40719 ประกอบด้วย 4 ส่วน:</p>
-    <table>
-        <tr><th>สัญลักษณ์นำหน้า</th><th>ความหมาย</th></tr>
-        <tr><td><code>=</code></td><td>Higher Level Assignment (HLA) — กลุ่ม/ระบบย่อยที่อุปกรณ์สังกัด</td></tr>
-        <tr><td><code>+</code></td><td>Location — ตำแหน่งติดตั้งจริง เช่น ตู้คอนโทรลไหน</td></tr>
-        <tr><td><code>-</code></td><td>Device Designation — หมายเลขอุปกรณ์ (ส่วนที่ใช้บ่อยที่สุด ถ้าใช้ตัวนี้ตัวเดียวสามารถละเครื่องหมาย <code>-</code> ได้)</td></tr>
-        <tr><td><code>:</code></td><td>Pin Name — ชื่อขา/สายที่ต่อกับ Device นั้น</td></tr>
-    </table>
-    <p>ลำดับเต็มคือ <code>=HLA +Location -Device:Pin</code> เช่น <code>=K1+PANEL1-Q3:14</code> — ถ้าไม่กำหนด HLA/Location ให้กับ Sheet และ Device จะรับค่ามาจาก Sheet Header โดยอัตโนมัติ</p>
+    <div class="features">
+        <article>
+            <div class="icon">🧭</div>
+            <div class="content">
+                <h3>ใบงานที่ 1–3: พื้นฐาน</h3>
+                <p>รู้จักหน้าต่างโปรแกรม จัดการโปรเจกต์ วางอุปกรณ์ และเชื่อมวงจรพร้อม Online Checks</p>
+            </div>
+        </article>
+        <article>
+            <div class="icon">🧱</div>
+            <div class="content">
+                <h3>ใบงานที่ 4–8: ระดับกลาง</h3>
+                <p>Fields/Levels, Signal Tree, Search &amp; Replace, Terminal Plan และ Subcircuit สำหรับวงจรใช้ซ้ำ</p>
+            </div>
+        </article>
+        <article>
+            <div class="icon">🛠️</div>
+            <div class="content">
+                <h3>ใบงานที่ 9–10: ขั้นสูง</h3>
+                <p>สร้าง Symbol/Component เองใน Database Editor แล้วปิดท้ายด้วยการ Sync และผลิตรายงาน</p>
+            </div>
+        </article>
+    </div>
 
-    <h2>3. สร้างวงจรแรก: สวิตช์ควบคุมหลอดไฟ</h2>
-    <p>ทำตามขั้นตอนนี้เพื่อสร้างวงจรง่ายๆ <code>แหล่งจ่ายไฟ → สวิตช์ → หลอดไฟ</code></p>
-    <ol class="steps">
-        <li>สร้างโปรเจกต์ใหม่ แล้ว Insert Sheet เลือก Sheet Format ที่ต้องการ (เช่น A3 Landscape)</li>
-        <li>เปิด <strong>Database Window</strong> ค้นหาและลาก Symbol แหล่งจ่ายไฟ, สวิตช์, และหลอดไฟ มาวางบนชีท (Placing from the Database)</li>
-        <li>กด <code>C</code> เพื่อใช้คำสั่ง Insert Connection แล้วคลิกขา (Pin) ของแต่ละ Symbol เรียงต่อกันเป็นวงจร — ถ้าเลือกหลายขาพร้อมกันด้วยกรอบสี่เหลี่ยม ระบบจะ Auto Route ให้อัตโนมัติ</li>
-        <li>ดับเบิลคลิกแต่ละ Symbol เพื่อเปิด Properties Window แล้วตรวจสอบ Component Tab ว่าผูก Part จริงจากฐานข้อมูลไว้ครบ</li>
-        <li>ตั้ง Item Designation ให้แต่ละ Device (HLA/Location/Device Designation) ให้สอดคล้องกับตำแหน่งติดตั้งจริง</li>
-        <li>รันคำสั่ง <strong>Check Design</strong> เพื่อตรวจสอบความถูกต้องของวงจรก่อนออกแบบจริง</li>
-    </ol>
+    <h2>ใบงานทั้งหมด</h2>
+    <div class="card-grid">
+        <a href="worksheet-01.html" class="card">
+            <div class="icon">1️⃣</div>
+            <h3>Project &amp; UI Setup</h3>
+            <p>Project/Database/Preview Window, สร้าง-เปิด-บันทึกโปรเจกต์, Zoom/Panning, แทรกชีทแรก</p>
+        </a>
+        <a href="worksheet-02.html" class="card">
+            <div class="icon">2️⃣</div>
+            <h3>Placing &amp; Editing Devices</h3>
+            <p>ค้นหา/ลากวางจากฐานข้อมูล, Place Objects One-by-One ด้วย <code>N</code>, แก้ Device Properties</p>
+        </a>
+        <a href="worksheet-03.html" class="card">
+            <div class="icon">3️⃣</div>
+            <h3>Connecting &amp; Online Checks</h3>
+            <p>Connect/Autoconnect, ตรวจตรรกะและ Cross-Section แบบเรียลไทม์, Unconnect vs Delete</p>
+        </a>
+        <a href="worksheet-04.html" class="card">
+            <div class="icon">4️⃣</div>
+            <h3>Fields &amp; Levels</h3>
+            <p>Field สืบทอด HLA/Location อัตโนมัติ, จัดชั้นแสดงผล 256 Level, Read-Only Level</p>
+        </a>
+        <a href="worksheet-05.html" class="card">
+            <div class="icon">5️⃣</div>
+            <h3>Signals &amp; Signal Tree</h3>
+            <p>System-Generated vs User-Defined Signal, Signal Tree, Signal Cross-Reference ข้ามชีท</p>
+        </a>
+        <a href="worksheet-06.html" class="card">
+            <div class="icon">6️⃣</div>
+            <h3>Global Search &amp; Replace</h3>
+            <p>ค้นหา Text/Attribute ปลอดภัย, Search and Replace (<code>Ctrl+H</code>), ค้นหา Component เจอ Device จริง</p>
+        </a>
+        <a href="worksheet-07.html" class="card">
+            <div class="icon">7️⃣</div>
+            <h3>Terminals &amp; Terminal Plan</h3>
+            <p>Terminal Block และ Jumper, Online Terminal Plan คำนวณ Internal/External Target อัตโนมัติ</p>
+        </a>
+        <a href="worksheet-08.html" class="card">
+            <div class="icon">8️⃣</div>
+            <h3>Subcircuits</h3>
+            <p>กำหนด Origin, Export/Import <code>.e3p</code>, บันทึกเป็น Database Subcircuit วางได้ในขั้นตอนเดียว</p>
+        </a>
+        <a href="worksheet-09.html" class="card">
+            <div class="icon">9️⃣</div>
+            <h3>DBE: สร้าง Symbol</h3>
+            <p>เข้าโหมด Database Editor, Symbol Checklist, Component Wizard, Master/Slave Checklist</p>
+        </a>
+        <a href="worksheet-10.html" class="card">
+            <div class="icon">🔟</div>
+            <h3>Database Sync &amp; Reporting</h3>
+            <p>Update all Components/Symbols in project, STEP Import แยกโพรเซส, Report Generator</p>
+        </a>
+    </div>
 
     <div class="tip">
-        <strong>Tip:</strong> ถ้า Symbol ไม่มี Part ผูกไว้ รายงาน BOM/Wire List จะไม่สมบูรณ์ — ควรผูก Component ให้ครบทุก Symbol
-        ตั้งแต่ขั้นตอนออกแบบ ไม่ใช่ค่อยมาเติมทีหลัง
+        <strong>Tip:</strong> ทำใบงานเรียงตามลำดับ 1 → 10 จะได้ประสบการณ์ใกล้เคียงกับการทำงานจริงที่สุด แต่ถ้าต้องการทบทวนเฉพาะเรื่อง
+        คลิกเข้าใบงานที่สนใจจากเมนูด้านขวาได้โดยตรงเช่นกัน
     </div>
 
-    <h2>4. Terminals และการเชื่อมต่อที่ใช้บ่อย</h2>
-    <p>
-        <strong>Terminal</strong> เป็น Component ชนิดพิเศษ เมื่อวางจาก Database Window ระบบจะสร้าง Device ชนิด
-        Terminal Strip ให้อัตโนมัติ — ถ้าวาง Terminal ชนิดเดียวกันซ้ำหลายตัวจะถูกจัดเข้า Terminal Strip เดียวกัน
-        แต่ถ้าวาง Terminal ต่างชนิดกัน ระบบจะแยกสร้าง Strip ใหม่ให้แต่ละชนิดโดยอัตโนมัติ ระบบยังตรวจจำนวนสายที่เข้าขั้ว
-        และ Cross-Section ให้ด้วย ถ้าเกินที่กำหนดจะแจ้งเตือนที่ Status Bar (Terminal Strip เดียวกันนี้ยังใช้จัดวางจริงต่อได้ในหน้า
-        <a href="panel.html">Panel</a>)
-    </p>
-    <table>
-        <tr><th>คีย์ลัด</th><th>คำสั่ง</th></tr>
-        <tr><td><code>C</code></td><td>Insert Connection (ลากเส้นเชื่อมต่อทีละเส้น กด Space หรือคลิกซ้ายเพื่อหักมุม)</td></tr>
-        <tr><td><code>Alt+C</code></td><td>Insert Busbar Connection</td></tr>
-        <tr><td><code>B</code></td><td>Insert Curve Connection</td></tr>
-        <tr><td>Shift + ลาก</td><td>สร้างเส้นเชื่อมต่อแนวทแยง (Diagonal Connection)</td></tr>
-        <tr><td>คลุมด้วยกรอบสี่เหลี่ยม</td><td>Connect Multiple Connections Automatically (เชื่อมหลายขาพร้อมกันตามแนวนอน/ตั้ง)</td></tr>
-    </table>
-
-    <h2>5. ดูผลลัพธ์เบื้องต้น</h2>
-    <p>หลังวาดวงจรเสร็จ ตรวจสอบผลได้จาก:</p>
-    <ul>
-        <li><strong>BOM (Bill of Materials)</strong> — รายการชิ้นส่วนทั้งหมดพร้อมจำนวนและ Part Number</li>
-        <li><strong>Wire List</strong> — รายการสายไฟทั้งหมดพร้อมจุดต้นทาง-ปลายทาง</li>
-        <li><strong>Cross-Reference Report</strong> — ตำแหน่งอ้างอิงของ Symbol ที่ปรากฏซ้ำในหลายชีท</li>
-    </ul>
-
-    <div class="note">
-        <strong>ข้อควรระวัง:</strong> ต้องรัน <strong>Check Design</strong> (การตรวจสอบความสมบูรณ์ของวงจร) ทุกครั้งก่อน Generate
-        รายงานหรือส่งออกไฟล์ ไม่งั้นอาจได้ BOM/Harness ที่ไม่ตรงกับวงจรจริง
+        </div>
     </div>
 
-    <h2>6. ตัวอย่างฝึกทำ</h2>
-
-    <h3>ตัวอย่างที่ 1: วงจรสวิตช์-หลอดไฟอย่างง่าย</h3>
-    <p><strong>โครงสร้าง:</strong> <code>Power Supply → Switch → Lamp → Ground</code></p>
-    <ul>
-        <li>Symbol: 4 ตัว (Power Supply, Switch, Lamp, Ground)</li>
-        <li>Wire: 3 เส้นเชื่อมต่อเรียงตามลำดับ</li>
-    </ul>
-    <p><strong>คำถามฝึกคิด:</strong> วาดวงจรเสร็จแล้ว รัน Check Design ผ่านหมด แต่ BOM ที่ Generate ออกมาไม่มีราคาหรือผู้ผลิตของ Switch ปรากฏ เกิดจากอะไร?</p>
-    <div class="tip"><strong>เฉลย:</strong> Check Design ตรวจแค่ความถูกต้องทางไฟฟ้าของการเชื่อมต่อ ไม่ได้ตรวจว่าผูก Part ครบหรือไม่ — ต้องเปิด Symbol ของ Switch แล้วเลือก Part จาก Component Database ให้ครบก่อน BOM ถึงจะมีข้อมูลผู้ผลิตครบ</div>
-
-    <h3>ตัวอย่างที่ 2: Connector หลายขาเชื่อมหลายชีท</h3>
-    <p><strong>โครงสร้าง:</strong> <code>Connector (8-pin) เชื่อมสัญญาณจากชีท 1 ไปยังชีท 2-3</code></p>
-    <p>ใช้ Cross-Reference ติดตามว่าสัญญาณแต่ละขาของ Connector ไปโผล่ที่ชีทไหนบ้าง</p>
-    <p><strong>คำถามฝึกคิด:</strong> ทำไมโปรเจกต์ที่มีหลายชีทถึงต้องพึ่ง Cross-Reference แทนการไล่ดู Wire ทีละเส้นด้วยตา?</p>
-    <div class="tip"><strong>เฉลย:</strong> เมื่อ Connector ตัวเดียวกันปรากฏในหลายชีท (เช่น ขาแต่ละขาต่อไปยังวงจรคนละส่วน) การไล่ตาจะพลาดง่ายและช้ามาก Cross-Reference จะอัปเดตอัตโนมัติทุกครั้งที่แก้วงจร ทำให้มั่นใจได้ว่าเอกสารตรงกับแบบจริงเสมอ</div>
-
-    <p class="note">
-        <strong>ไฟล์ตัวอย่างจริง:</strong> วางไฟล์โปรเจกต์ <code>.e3s</code> ของคุณไว้ในโฟลเดอร์ <code>examples/</code> ของ repo นี้ได้
-    </p>
-
-    <div class="page-nav">
-        <span></span>
-        <a href="cable.html">ถัดไป: Cable →</a>
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>เมนู</h2></header>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li class="has-children expanded active">
+                        <a href="schematic.html">Schematics</a>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <ul class="submenu">
+                            <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
+                            <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
+                            <li><a href="worksheet-03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
+                            <li><a href="worksheet-04.html">4. Fields &amp; Levels</a></li>
+                            <li><a href="worksheet-05.html">5. Signals &amp; Signal Tree</a></li>
+                            <li><a href="worksheet-06.html">6. Search &amp; Replace</a></li>
+                            <li><a href="worksheet-07.html">7. Terminals &amp; Terminal Plan</a></li>
+                            <li><a href="worksheet-08.html">8. Subcircuits</a></li>
+                            <li><a href="worksheet-09.html">9. DBE: สร้าง Symbol</a></li>
+                            <li><a href="worksheet-10.html">10. Sync &amp; Report</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="cable.html">Cable</a></li>
+                    <li><a href="panel.html">Panel</a></li>
+                    <li><a href="database-editor.html">Database Editor</a></li>
+                </ul>
+            </nav>
+            <footer id="footer">
+                <p class="copyright">Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม</p>
+            </footer>
+        </div>
     </div>
-</main>
+</div>
 
-<footer class="site-footer">
-    Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม
-</footer>
+<script src="assets/main.js"></script>
 </body>
 </html>

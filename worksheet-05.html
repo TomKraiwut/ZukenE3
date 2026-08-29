@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ใบงานที่ 5: Signals &amp; Signal Tree - Zuken E3.series Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            </header>
+
+    <h1>ใบงานที่ 5: การจัดการตรรกะสัญญาณและการสืบค้นทางวิศวกรรม (Signals &amp; Signal Tree)</h1>
+    <p class="lead">ตามรอยสัญญาณไฟฟ้าข้ามหลายสิบชีทได้โดยไม่หลุดจุดไหน ด้วย Signal Tree และ Signal Cross-Reference</p>
+
+    <div class="objectives">
+        <p>วัตถุประสงค์การเรียนรู้</p>
+        <ol>
+            <li>เพื่อวิเคราะห์ความแตกต่างและการเดินทางสืบทอดตรรกะสัญญาณระหว่างสัญญาณที่ระบบตั้งให้อัตโนมัติ (System-Generated Signals เช่น <code>#1022</code>) กับสัญญาณที่วิศวกรกำหนดเอง (User-Defined Signals)</li>
+            <li>เพื่อใช้งานแผนผังโครงสร้างสัญญาณ (Signal Tree) ในการสืบค้น ไฮไลต์ระบุเส้นทาง และติดตามตรรกะสัญญาณไฟฟ้าทั้งหมดในแผ่นงานโปรเจกต์</li>
+            <li>เพื่อเชื่อมโยงและนำทางสัญญาณข้ามหน้าแบบวงจร (Signal Cross-Reference / Sheet References) ผ่านกล่องข้อความอ้างอิงและตารางปลายทางแบบออนไลน์</li>
+        </ol>
+    </div>
+
+    <h2>1. System-Generated vs. User-Defined Signals</h2>
+    <p>
+        ทุก Connection ที่สร้างขึ้นจะได้สัญญาณติดมาด้วยเสมอ ถ้าไม่มีใครตั้งชื่อ ระบบจะสร้าง <strong>System-Generated Signal</strong>
+        ให้อัตโนมัติ (รูปแบบ <code>#1022</code>) — ถ้า Connection นั้นไปแตะพินที่มีสัญญาณอยู่แล้ว สัญญาณเดิมจะถูกส่งต่อมาให้
+        แต่ถ้าพินยังว่าง สัญญาณจะถูกดึงมาจาก Connection แทน
+    </p>
+    <p>
+        <strong>User-Defined Signal</strong> คือชื่อที่วิศวกรตั้งเอง เปลี่ยนชื่อได้ตลอดเวลา และมีสิทธิ์เหนือกว่า
+        System-Generated เสมอเมื่อมาเจอกัน (ตามที่เรียนในใบงานที่ 3) — ตั้งชื่อได้ 3 จุด: Connection Properties,
+        Symbol Properties หรือ Device Properties
+    </p>
+
+    <h2>2. Signal Tree: มองเห็นสัญญาณทั้งโปรเจกต์ในที่เดียว</h2>
+    <p>
+        Signal Tree คือ Tree View พิเศษที่รวมสัญญาณทั้งหมดของโปรเจกต์ไว้ที่เดียว แบ่งเป็นสัญญาณที่กำหนดล่วงหน้า
+        (Predefined — โหลดจากไฟล์ XML ด้วยคำสั่ง "Load signal structure") และสัญญาณที่เกิดขึ้นจริงระหว่างออกแบบ
+    </p>
+    <table>
+        <tr><th>ฟังก์ชัน</th><th>ใช้ทำอะไร</th></tr>
+        <tr><td>Highlight / Highlight Conductor Logic Lines</td><td>ไฮไลต์ทุก Object ที่ใช้สัญญาณนี้ในโปรเจกต์ ผลลัพธ์ยังโผล่ใน Results Window ให้ดับเบิลคลิกกระโดดไปดูได้</td></tr>
+        <tr><td>Place / Assign signal to selection</td><td>ลาก Signal จาก Tree ไปกำหนดให้ Object ที่เลือกไว้บนชีทได้โดยตรง (Drag &amp; Drop)</td></tr>
+        <tr><td>Signal Format</td><td>ตั้งรูปแบบชื่อสัญญาณอัตโนมัติจาก Placeholder เช่น <code>&lt;.Sheet&gt;</code> (ชื่อชีท) หรือ <code>&lt;.GRID&gt;</code> (พิกัดกริดบนชีท)</td></tr>
+        <tr><td>Signal Properties</td><td>เปลี่ยนชื่อสัญญาณหรือกำหนด Attribute เพิ่มเติม เช่น Connection Class Panel</td></tr>
+    </table>
+    <p>ยกเลิกการไฮไลต์ทั้งหมดได้เร็วๆ ด้วย <code>Shift+F6</code></p>
+
+    <h2>3. Signal Cross-Reference: อ้างอิงสัญญาณข้ามชีท</h2>
+    <p>
+        เมื่อวงจรกระจายอยู่หลายสิบชีท ใช้สัญลักษณ์ Cross-Reference (แท็บ Misc ใน Database Window) เพื่อบอกว่าสัญญาณเส้นนี้
+        "ไปโผล่ต่อที่ชีทไหน" — Symbol ต้นทาง (Source) กับปลายทาง (Destination) ต้องเป็นชนิดเดียวกันเสมอ มี 4 รูปแบบ:
+    </p>
+    <table>
+        <tr><th>ชนิด</th><th>พฤติกรรม</th></tr>
+        <tr><td>Point to Point (manual)</td><td>1 Source ต่อ 1 Destination กำหนดคู่กันเองผ่านเมนู "Sheet Reference..." (<code>Shift+R</code>)</td></tr>
+        <tr><td>Star (manual)</td><td>1 Source อ้างถึงได้หลาย Destination กำหนดคู่กันเองผ่าน Sheet References เช่นกัน</td></tr>
+        <tr><td>Auto Point to Point</td><td>ระบบจับคู่ Source-Destination อัตโนมัติทันทีที่สัญญาณชื่อเดียวกันปรากฏบนชีทลูกในโครงสร้างโปรเจกต์ — ใช้เมื่อสัญญาณวนเป็นลูป และสัญญาณออกจากชีทได้แค่ครั้งเดียว</td></tr>
+        <tr><td>Auto Star</td><td>เหมือน Auto Point to Point แต่ 1 Source อ้างได้หลาย Destination พร้อมกัน</td></tr>
+    </table>
+
+    <div class="tip">
+        <strong>Tip:</strong> เลือกแบบ Auto เมื่อโครงสร้างโปรเจกต์เป็นลำดับชั้นชัดเจน (Sheet ลูก-แม่) เพื่อลดงานจับคู่มือ
+        ส่วนแบบ Manual (Point-to-Point/Star) เหมาะกับกรณีที่ต้องกำหนดปลายทางเองเพราะไม่ตรงตามลำดับชั้นปกติของโปรเจกต์
+    </div>
+
+    <h2>ตัวอย่างฝึกทำ</h2>
+    <p><strong>โจทย์:</strong> สร้างสัญญาณ User-Defined ชื่อ <code>K1_COIL</code> บนชีท 1 แล้วต่อสัญญาณเดียวกันไปโผล่ที่ชีท 2 ด้วย Cross-Reference แบบ Auto Point to Point จากนั้นใช้ Signal Tree ค้นหาชื่อสัญญาณนี้และกด Highlight ดูผล</p>
+    <p><strong>คำถามฝึกคิด:</strong> ทำไมโปรเจกต์ที่มีหลายชีทถึงควรใช้ Signal Cross-Reference แทนการไล่ดู Wire ทีละเส้นด้วยตา?</p>
+    <div class="tip"><strong>เฉลย:</strong> เมื่อสัญญาณเดียวกันปรากฏในหลายชีท การไล่ตาดูทีละเส้นจะพลาดง่ายและช้ามากเมื่อโปรเจกต์ใหญ่ขึ้น Cross-Reference จะอัปเดตอัตโนมัติทุกครั้งที่แก้วงจร ทำให้มั่นใจได้ว่าเอกสารตรงกับแบบจริงเสมอ ไม่ต้องพึ่งความจำของผู้ออกแบบ</div>
+
+    <div class="page-nav">
+        <a href="worksheet-04.html">← ก่อนหน้า: ใบงานที่ 4</a>
+        <a href="worksheet-06.html">ถัดไป: ใบงานที่ 6 →</a>
+    </div>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>เมนู</h2></header>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li class="has-children expanded">
+                        <a href="schematic.html">Schematics</a>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <ul class="submenu">
+                            <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
+                            <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
+                            <li><a href="worksheet-03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
+                            <li><a href="worksheet-04.html">4. Fields &amp; Levels</a></li>
+                            <li class="active"><a href="worksheet-05.html">5. Signals &amp; Signal Tree</a></li>
+                            <li><a href="worksheet-06.html">6. Search &amp; Replace</a></li>
+                            <li><a href="worksheet-07.html">7. Terminals &amp; Terminal Plan</a></li>
+                            <li><a href="worksheet-08.html">8. Subcircuits</a></li>
+                            <li><a href="worksheet-09.html">9. DBE: สร้าง Symbol</a></li>
+                            <li><a href="worksheet-10.html">10. Sync &amp; Report</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="cable.html">Cable</a></li>
+                    <li><a href="panel.html">Panel</a></li>
+                    <li><a href="database-editor.html">Database Editor</a></li>
+                </ul>
+            </nav>
+            <footer id="footer">
+                <p class="copyright">Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

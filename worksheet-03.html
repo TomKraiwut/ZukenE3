@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ใบงานที่ 3: Connecting &amp; Online Checks - Zuken E3.series Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            </header>
+
+    <h1>ใบงานที่ 3: การเชื่อมโยงวงจรไฟฟ้าและระบบควบคุมออนไลน์ (Connecting &amp; Online Checks)</h1>
+    <p class="lead">ต่อวงจรให้เร็วด้วย Autoconnect และปล่อยให้ระบบช่วยจับข้อผิดพลาดให้แบบเรียลไทม์</p>
+
+    <div class="objectives">
+        <p>วัตถุประสงค์การเรียนรู้</p>
+        <ol>
+            <li>เพื่อสร้างเส้นเชื่อมโยงทางไฟฟ้า (Connect) ระหว่างพินอุปกรณ์ และใช้งานชุดเครื่องมือ Autoconnect ที่ช่วยร่นระยะการทำงานในแนวดิ่งและแนวราบ</li>
+            <li>เพื่อประยุกต์ใช้ระบบตรวจสอบตรรกะแบบออนไลน์ (Online Checks) ในการป้องกันความผิดพลาดทางวิศวกรรมและการขัดกันของการกำหนดขนาดหน้าตัดสายไฟระหว่างทำงานจริง</li>
+            <li>เพื่อทำการตัดแต่งและปลดการเชื่อมต่อ (Unconnect) สัญญาณไฟออกจากพิน โดยเลือกได้ว่าจะให้ตรรกะสัญญาณยังคงค้างอยู่ที่พิน หรือสั่งลบสัญญาณไปพร้อมกับการตัดสาย</li>
+        </ol>
+    </div>
+
+    <h2>1. เชื่อมต่อพินด้วย Connect และ Autoconnect</h2>
+    <table>
+        <tr><th>คีย์ลัด/คำสั่ง</th><th>ใช้ทำอะไร</th></tr>
+        <tr><td><code>C</code> — Insert Connection</td><td>ลากเส้นเชื่อมต่อทีละเส้นด้วยมือ กด Space หรือคลิกซ้ายเพื่อหักมุม</td></tr>
+        <tr><td><code>Alt+C</code> — Insert Busbar Connection</td><td>เชื่อมต่อแบบ Busbar สำหรับจุดที่มีสายเข้าหลายเส้นรวมกัน</td></tr>
+        <tr><td><code>B</code> — Insert Curve Connection</td><td>เส้นเชื่อมต่อแบบโค้ง</td></tr>
+        <tr><td>Autoconnect Vertical / Horizontal</td><td>คลุมพินที่ต้องการด้วยกรอบสี่เหลี่ยม ระบบจะเชื่อมพินที่สอดคล้องกันในแนวตั้งหรือแนวนอนให้อัตโนมัติ ตามทิศทางการเชื่อมต่อ (Connection Direction) ของแต่ละพิน</td></tr>
+        <tr><td>Multi-Connection</td><td>เชื่อมหลายเส้นพร้อมกันโดยเปลี่ยนทิศทางกลางทางได้ — เลือกเฉพาะพินฝั่งเริ่มต้นด้วยกรอบสี่เหลี่ยมก่อน</td></tr>
+    </table>
+
+    <div class="tip">
+        <strong>Tip:</strong> ก่อนใช้ Autoconnect ให้เลือกเฉพาะพินที่ต้องการด้วยกรอบสี่เหลี่ยมให้แม่นยำ เพราะระบบจะพยายามเชื่อม
+        "ทุกพินที่สอดคล้องกัน" ภายในกรอบนั้น ถ้าคลุมกว้างเกินไปอาจได้เส้นเชื่อมที่ไม่ตั้งใจปนมาด้วย
+    </div>
+
+    <h2>2. Online Checks: ตรวจตรรกะและขนาดหน้าตัดสายแบบเรียลไทม์</h2>
+    <p>ระบบตรวจสอบสองเรื่องหลักทันทีที่คุณลงมือเชื่อมต่อ ไม่ต้องรอสั่ง Check Design:</p>
+    <ul>
+        <li>
+            <strong>ตรรกะสัญญาณ (Signal Logic)</strong> — สัญญาณที่ระบบตั้งอัตโนมัติ (System-Generated เช่น <code>#1022</code>)
+            จะถูกแทนที่ด้วยสัญญาณที่ผู้ใช้ตั้งเอง (User-Defined) เสมอเมื่อมาเจอกัน แต่ถ้าสัญญาณที่ผู้ใช้ตั้งเอง <em>สองชื่อ</em>
+            มาชนกันบนเส้นเดียว ระบบจะปฏิเสธไม่ให้สร้าง Connection พร้อมแจ้งเตือนที่ Status Bar ทันที
+        </li>
+        <li>
+            <strong>ขนาดหน้าตัดสาย (Cross-Section)</strong> — ทุกครั้งที่วางสาย/ตัวนำ ระบบตรวจ 3 อย่างพร้อมกัน: จำนวนสายสูงสุดที่พินรับได้,
+            ขนาดหน้าตัดต้องอยู่ในช่วงที่กำหนดของ Model พินนั้น, และผลรวมสูงสุดที่อนุญาต — ถ้าเกินเงื่อนไขจะมีข้อความ Error ทันที
+            (เงื่อนไขนี้ต้องมี Model ของอุปกรณ์ที่ระบุค่า Min/Max Cross-Section ไว้ก่อน)
+        </li>
+    </ul>
+
+    <div class="note">
+        <strong>ข้อควรรู้:</strong> Online Checks ช่วยจับข้อผิดพลาดตอนออกแบบ แต่ไม่ได้แทนที่คำสั่ง <strong>Check Design</strong>
+        ทั้งหมด — Check Design ยังจำเป็นก่อนส่งออกรายงาน เพราะครอบคลุมการตรวจทั้งโปรเจกต์ ไม่ใช่แค่จุดที่กำลังแก้อยู่
+    </div>
+
+    <h2>3. Unconnect vs. Delete: ปลดสายโดยเก็บหรือลบสัญญาณ</h2>
+    <p>การเอาเส้นเชื่อมต่อออกทำได้สองแบบ ให้ผลต่างกัน:</p>
+    <table>
+        <tr><th>คำสั่ง</th><th>ผลลัพธ์</th></tr>
+        <tr><td><strong>Delete</strong> (<code>DEL</code>)</td><td>ลบเส้นเชื่อมต่อพร้อมสัญญาณทิ้งทั้งหมด รวมถึงที่พินทั้งสองฝั่งด้วย</td></tr>
+        <tr><td><strong>Unconnect</strong></td><td>ลบเฉพาะเส้นกราฟิก แต่สัญญาณยังคงค้างอยู่ที่พินเดิม (เห็นเป็นเส้นประถ้าเปิดปุ่ม Signal Logic Lines) — เลือกได้อีกว่าจะให้ลบนิยามสัญญาณที่พินไปด้วยหรือไม่</td></tr>
+    </table>
+    <p>
+        เลือก Unconnect เมื่อจะย้ายจุดเชื่อมต่อไปที่อื่นแต่ยังอยากให้ระบบจำสัญญาณเดิมไว้ (ลดโอกาสตั้งชื่อสัญญาณผิดซ้ำ)
+        ส่วน Delete เหมาะเมื่อต้องการล้างทั้งเส้นและสัญญาณทิ้งจริงๆ เช่น ยกเลิกวงจรส่วนนั้นทั้งหมด
+    </p>
+
+    <h2>ตัวอย่างฝึกทำ</h2>
+    <p><strong>โจทย์:</strong> วาง Symbol 4 ตัวเรียงแถวตรงกัน แล้วลองใช้ Autoconnect Horizontal คลุมทั้งแถวในครั้งเดียว เทียบเวลากับการลาก Insert Connection ทีละเส้นด้วยมือ</p>
+    <p><strong>คำถามฝึกคิด:</strong> ทำไมระบบถึงปฏิเสธการเชื่อมต่อเมื่อสัญญาณ User-Defined สองชื่อมาชนกัน แต่กลับยอมให้ System-Generated ชนกับ User-Defined ได้โดยไม่มีปัญหา?</p>
+    <div class="tip"><strong>เฉลย:</strong> System-Generated Signal (เช่น <code>#1022</code>) เป็นเพียงชื่อชั่วคราวที่ระบบตั้งให้เมื่อยังไม่มีใครกำหนด จึงถูกแทนที่ได้เสมอโดยไม่เสียข้อมูลที่มีความหมาย แต่ User-Defined Signal สองชื่อถือเป็นเจตนาของผู้ออกแบบทั้งคู่ ระบบจึงไม่กล้าตัดสินใจแทนว่าจะใช้ชื่อไหน เพราะอาจทำให้วงจรสองส่วนที่ควรแยกกันถูกรวมสัญญาณผิดโดยไม่ตั้งใจ</div>
+
+    <div class="page-nav">
+        <a href="worksheet-02.html">← ก่อนหน้า: ใบงานที่ 2</a>
+        <a href="worksheet-04.html">ถัดไป: ใบงานที่ 4 →</a>
+    </div>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>เมนู</h2></header>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li class="has-children expanded">
+                        <a href="schematic.html">Schematics</a>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <ul class="submenu">
+                            <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
+                            <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
+                            <li class="active"><a href="worksheet-03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
+                            <li><a href="worksheet-04.html">4. Fields &amp; Levels</a></li>
+                            <li><a href="worksheet-05.html">5. Signals &amp; Signal Tree</a></li>
+                            <li><a href="worksheet-06.html">6. Search &amp; Replace</a></li>
+                            <li><a href="worksheet-07.html">7. Terminals &amp; Terminal Plan</a></li>
+                            <li><a href="worksheet-08.html">8. Subcircuits</a></li>
+                            <li><a href="worksheet-09.html">9. DBE: สร้าง Symbol</a></li>
+                            <li><a href="worksheet-10.html">10. Sync &amp; Report</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="cable.html">Cable</a></li>
+                    <li><a href="panel.html">Panel</a></li>
+                    <li><a href="database-editor.html">Database Editor</a></li>
+                </ul>
+            </nav>
+            <footer id="footer">
+                <p class="copyright">Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

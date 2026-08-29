@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ใบงานที่ 4: Fields &amp; Levels - Zuken E3.series Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            </header>
+
+    <h1>ใบงานที่ 4: การจัดสรรเขตข้อมูลแผงวงจร (Fields) และควบคุมการแสดงผลด้วยเลเยอร์ (Levels)</h1>
+    <p class="lead">จัดระเบียบชีทที่มีอุปกรณ์จำนวนมากด้วย Field สำหรับกลุ่ม HLA/Location และ Level สำหรับคุมการแสดงผล</p>
+
+    <div class="objectives">
+        <p>วัตถุประสงค์การเรียนรู้</p>
+        <ol>
+            <li>เพื่อสร้างพื้นที่เขตข้อมูล (Field) บนหน้าแบบ เพื่อบังคับให้อุปกรณ์ที่วางอยู่ภายในเขตนี้ได้รับการสืบทอดรหัสกลุ่ม Higher-Level Assignment (HLA) และ Location จากแผ่นงานหรือเขต Field โดยอัตโนมัติ</li>
+            <li>เพื่อแยกประเภทและจัดลำดับชั้นเอกสารระบบวงจร กราฟิก และข้อความประกอบแบบ ลงบนระบบชั้นเลเยอร์ (Levels) ต่างๆ ได้สูงสุด 256 ระดับ</li>
+            <li>เพื่อตั้งค่าจำกัดการเข้าถึงแผ่นงานแบบอ่านอย่างเดียว (Read-Only Level) ให้กับข้อมูลรูปทรงกราฟิกเสรีและข้อความประกอบ เพื่อป้องกันพนักงานร่วมงานทำการแก้ไขข้อมูลโดยไม่ได้ตั้งใจ</li>
+        </ol>
+    </div>
+
+    <h2>1. Field: เขตที่สืบทอด HLA/Location อัตโนมัติ</h2>
+    <p>
+        <strong>Field</strong> คือพื้นที่บนชีทที่ใช้รวม Device ที่มี HLA และ/หรือ Location เดียวกันเข้าไว้ในกรอบเดียวกัน
+        เพื่อให้ผังวงจรอ่านง่ายขึ้นเวลามีหลายระบบย่อยอยู่บนชีทเดียว สร้างได้จาก <strong>Insert → Field</strong>
+        และใช้กฎการวาง (Settings → Placement → Rules) ชุดเดียวกับที่ใช้กับ Sheet
+    </p>
+    <p>
+        Device ใดก็ตามที่วางลงในเขต Field จะรับค่า HLA/Location ของ Field นั้นไปอัตโนมัติ เหมือนที่ Device รับค่าจาก
+        Sheet Header ตามที่เรียนในใบงานที่ 1 — ต่างกันตรงที่ Field ใช้แบ่งเขตย่อยๆ <em>ภายใน</em> ชีทเดียวกันได้
+        โดยไม่ต้องแยกไปคนละชีท
+    </p>
+
+    <div class="tip">
+        <strong>Tip:</strong> ใช้ Field เมื่อชีทเดียวมีหลายระบบย่อยปนกัน (เช่น วงจรควบคุมมอเตอร์ 2 ตัวบนชีทเดียว) แทนที่จะแยกชีท
+        เพิ่มโดยไม่จำเป็น — ลด HLA/Location ผิดพลาดจากการตั้งมือทีละ Device
+    </div>
+
+    <h2>2. Levels: จัดชั้นการแสดงผลได้สูงสุด 256 ระดับ</h2>
+    <p>
+        Object ทุกชนิดบนชีท (เส้นเชื่อมต่อ กราฟิก ข้อความ) วางอยู่บน Level ใดระดับหนึ่งเสมอ — เรียก Level Manager ด้วยคีย์ลัด
+        <code>L</code> เพื่อสลับเปิด/ปิดการแสดงผลของแต่ละระดับ มีประโยชน์มากเวลาต้องพิมพ์เอกสารหลายภาษา หรือทำ Export
+        ที่ต้องซ่อนบาง Layer ออกไป
+    </p>
+    <table>
+        <tr><th>ประเภท Object</th><th>ตัวอย่างที่อยู่บน Level</th></tr>
+        <tr><td>Symbol เต็มรูป</td><td>กราฟิก + ข้อความของ Symbol ทั้งชุด</td></tr>
+        <tr><td>กราฟิกล้วน</td><td>ส่วนกราฟิกหรือบางส่วนของ Symbol</td></tr>
+        <tr><td>Text Placeholder ของ Symbol</td><td>ช่องข้อความที่ผูกกับ Symbol</td></tr>
+        <tr><td>Free Graphic / Free Text</td><td>รูปวาดหรือข้อความอิสระที่ไม่ผูกกับ Symbol</td></tr>
+        <tr><td>เส้นเชื่อมต่อ</td><td>เส้น Connection กราฟิก (ไม่รวม Cable/Wire เดี่ยว)</td></tr>
+    </table>
+    <p>
+        ปุ่มลัดในหน้าต่าง Level Manager ช่วยสลับมุมมองได้เร็ว: "Display all levels" / "Display only used levels" และบันทึก/โหลด
+        ชุดค่า Level เป็นไฟล์ <code>*.vis</code> ได้ — ตั้งค่าแยกกันได้สำหรับ Print, Print Preview, PDF-Export และ WebView-Export
+        (.svg) โดยค่าที่ตั้งจะใช้เฉพาะตอน Export นั้นๆ แล้วกลับไปใช้ค่า Level เดิมของโปรเจกต์ต่อ
+    </p>
+
+    <h2>3. Read-Only Level: ล็อกกราฟิกเสรีไม่ให้แก้โดยไม่ตั้งใจ</h2>
+    <p>
+        Level หมายเลข <strong>253</strong> ถูกจองไว้เป็น "Read-only Level" โดยเฉพาะ — Free Graphic หรือ Free Text ใดที่ย้ายไปอยู่บน
+        Level นี้จะไม่สามารถถูกเลือกหรือแก้ไขได้อีก จนกว่าจะปิดโหมดนี้
+    </p>
+    <ol class="steps">
+        <li>ย้าย Object ที่ต้องการล็อกไปยัง Level 253</li>
+        <li>เปิด Tools → Settings → Graphic</li>
+        <li>เปิดใช้งานตัวเลือก <strong>"Use read-only level"</strong> (มีปุ่มลัดให้เปิด/ปิดเร็วในหน้าเดียวกัน)</li>
+    </ol>
+
+    <div class="note">
+        <strong>ข้อควรระวัง:</strong> Read-Only Level ป้องกันการแก้ "โดยไม่ตั้งใจ" เท่านั้น ไม่ใช่ระบบ Permission จริงจัง —
+        ผู้ใช้ที่รู้วิธีปิด Settings ยังแก้ไขได้อยู่ เหมาะกับกันความผิดพลาดในทีมเดียวกัน ไม่ใช่ควบคุมสิทธิ์ข้ามทีม
+    </div>
+
+    <h2>ตัวอย่างฝึกทำ</h2>
+    <p><strong>โจทย์:</strong> สร้าง Field บนชีทเดิม 1 กรอบ ตั้ง HLA ให้ต่างจาก Sheet Header แล้ววาง Device 2 ตัวลงในกรอบนั้น ตรวจสอบว่า Item Designation ของทั้งสองตัวสืบทอดค่าจาก Field ไม่ใช่จาก Sheet</p>
+    <p><strong>คำถามฝึกคิด:</strong> ทำไมข้อความหมายเหตุ (Free Text) บนกรอบชื่อเรื่อง (Title Block) ของทุกชีทถึงมักถูกใส่ไว้บน Read-Only Level เสมอ?</p>
+    <div class="tip"><strong>เฉลย:</strong> ข้อมูลใน Title Block เช่น ชื่อบริษัท เลขแบบ มาตรฐานที่ใช้ ต้องเหมือนกันทุกชีทในโปรเจกต์ ถ้าใครบังเอิญคลิกโดนแล้วขยับหรือแก้ข้อความผิด จะทำให้เอกสารทั้งชุดดูไม่เป็นมาตรฐานเดียวกัน การล็อกไว้ที่ Level 253 ป้องกันอุบัติเหตุแบบนี้โดยที่ยังเปิดดูข้อมูลได้ตามปกติ</div>
+
+    <div class="page-nav">
+        <a href="worksheet-03.html">← ก่อนหน้า: ใบงานที่ 3</a>
+        <a href="worksheet-05.html">ถัดไป: ใบงานที่ 5 →</a>
+    </div>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>เมนู</h2></header>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li class="has-children expanded">
+                        <a href="schematic.html">Schematics</a>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <ul class="submenu">
+                            <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
+                            <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
+                            <li><a href="worksheet-03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
+                            <li class="active"><a href="worksheet-04.html">4. Fields &amp; Levels</a></li>
+                            <li><a href="worksheet-05.html">5. Signals &amp; Signal Tree</a></li>
+                            <li><a href="worksheet-06.html">6. Search &amp; Replace</a></li>
+                            <li><a href="worksheet-07.html">7. Terminals &amp; Terminal Plan</a></li>
+                            <li><a href="worksheet-08.html">8. Subcircuits</a></li>
+                            <li><a href="worksheet-09.html">9. DBE: สร้าง Symbol</a></li>
+                            <li><a href="worksheet-10.html">10. Sync &amp; Report</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="cable.html">Cable</a></li>
+                    <li><a href="panel.html">Panel</a></li>
+                    <li><a href="database-editor.html">Database Editor</a></li>
+                </ul>
+            </nav>
+            <footer id="footer">
+                <p class="copyright">Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

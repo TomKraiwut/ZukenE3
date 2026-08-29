@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ใบงานที่ 2: Placing &amp; Editing Devices - Zuken E3.series Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            </header>
+
+    <h1>ใบงานที่ 2: การวางอุปกรณ์และการแก้ไขคุณสมบัติแผงผัง (Placing &amp; Editing Devices)</h1>
+    <p class="lead">จากฐานข้อมูลสู่ชีทจริง — ค้นหา วาง และปรับแต่งคุณสมบัติของ Device แต่ละตัวให้ตรงกับแบบ</p>
+
+    <div class="objectives">
+        <p>วัตถุประสงค์การเรียนรู้</p>
+        <ol>
+            <li>เพื่อค้นหาและลากวางอุปกรณ์ (Drag &amp; Drop) จากฐานข้อมูลส่วนกลางหรือจากตารางข้อมูลอุปกรณ์ (Component Table) ลงสู่แผ่นงานได้อย่างแม่นยำ</li>
+            <li>เพื่อจัดวางสัญลักษณ์พินอุปกรณ์ทีละชิ้น (Place Objects One-by-One) และสามารถข้ามไปติดตั้งสัญลักษณ์ตัวถัดไปในอุปกรณ์ชุดเดียวกันได้ทันทีด้วยคีย์ลัด <code>N</code></li>
+            <li>เพื่อแก้ไขและอัปเดตค่าคุณสมบัติอุปกรณ์ (Device Properties) เช่น การระบุรหัสประจำตัวอุปกรณ์ (Device Designation) และข้อมูลแอตทริบิวต์อื่นๆ ในระบบแบบ Object-Oriented</li>
+        </ol>
+    </div>
+
+    <h2>1. ค้นหาและวางอุปกรณ์จากฐานข้อมูล</h2>
+    <p>มีสองแหล่งหลักที่ดึง Symbol/Component มาวางบนชีทได้:</p>
+    <table>
+        <tr><th>แหล่ง</th><th>เหมาะกับ</th></tr>
+        <tr><td><strong>Database Window</strong></td><td>ค้นหาด้วยเงื่อนไข (Search Criteria ต่อแท็บ Component/Symbol/Misc) แล้วลาก Drag &amp; Drop ลงชีทโดยตรง เหมาะเมื่อยังไม่รู้ว่าจะใช้ตัวไหนแน่ชัด</td></tr>
+        <tr><td><strong>Component Table</strong></td><td>ตารางแสดง Component ที่ถูกใช้ในโปรเจกต์อยู่แล้ว วางซ้ำจากตารางนี้ได้เร็วกว่าค้นหาใหม่ทุกครั้ง เหมาะเมื่อต้องวาง Part เดิมซ้ำหลายจุด</td></tr>
+    </table>
+    <p>ถ้าต้องใช้ Component เดียวกันหลายตัวในคราวเดียว ใช้คำสั่ง <strong>Load Multiple Copies of Same Component</strong> แทนการลากทีละตัว จะประหยัดเวลาได้มากเมื่อวางอุปกรณ์ประเภทเดียวกันจำนวนมาก เช่น Terminal หรือ Relay รุ่นเดียวกันหลายสิบตัว</p>
+
+    <h2>2. วางสัญลักษณ์ทีละชิ้นด้วย Place Objects One-by-One</h2>
+    <p>
+        อุปกรณ์บางชนิดประกอบด้วยหลาย Symbol ที่ต้องแยกไปวางคนละตำแหน่งบนชีท (เช่น รีเลย์ตัวเดียวที่มีทั้งขดลวดและหน้าสัมผัสหลายชุด)
+        คำสั่ง <strong>Place Objects One-by-One</strong> ให้วางสัญลักษณ์เหล่านี้ทีละตัวแยกกัน โดยระบบจดจำว่ายังเหลือ Symbol
+        ใดของอุปกรณ์ชุดเดียวกันที่ยังไม่ได้วาง
+    </p>
+    <ul>
+        <li>Status Bar จะแสดงชื่อ Symbol ตัวที่กำลังจะวางอยู่เสมอ</li>
+        <li>กดคีย์ลัด <code>N</code> เพื่อข้ามไปวาง Symbol ตัวถัดไปในอุปกรณ์ชุดเดียวกันได้ทันที โดยไม่ต้องเปิดคำสั่งใหม่</li>
+        <li>กด <code>Esc</code> เพื่อยกเลิกคำสั่งกลางคัน — Symbol ที่วางไปแล้วจะยังคงอยู่บนชีท ไม่ถูกย้อนกลับ</li>
+        <li>ใช้ไม่ได้กับ Cable Device และ Wire — ส่วน Connector Device จะถูกวางเป็นชุดสมบูรณ์ในโหมด E3.cable แต่แยกวางเป็นขาเดี่ยวๆ ได้ในโหมด E3.schematic</li>
+    </ul>
+
+    <div class="tip">
+        <strong>Tip:</strong> เวลาวางรีเลย์ที่มีหน้าสัมผัสหลายชุดกระจายอยู่คนละชีท ใช้ <code>N</code> ไล่วางทีละชุดจนครบ
+        แทนที่จะปิดคำสั่งแล้วเปิดใหม่ทุกครั้ง — เร็วกว่าและไม่พลาดหลุดขาไหนไป
+    </div>
+
+    <h2>3. แก้ไข Device Properties</h2>
+    <p>
+        เมื่อ Component ถูกวางลงชีทแล้วจะกลายเป็น <strong>Device</strong> — ดับเบิลคลิกเพื่อเปิด Properties Window ซึ่งแยกเป็นแท็บ:
+    </p>
+    <table>
+        <tr><th>แท็บ</th><th>ใช้แก้อะไร</th></tr>
+        <tr><td>Device Tab</td><td>Device Designation, Higher Level Assignment, Location — ค่าที่ประกอบเป็น Item Designation ของ Device นี้โดยเฉพาะ</td></tr>
+        <tr><td>Attributes</td><td>ค่าคุณสมบัติเสริมอื่นๆ ที่ผูกกับ Device ตัวนี้ เช่น หมายเหตุ หรือแอตทริบิวต์ที่กำหนดเองของทีม</td></tr>
+        <tr><td>Component Tab</td><td>ข้อมูลอ้างอิงจาก Component ต้นทางในฐานข้อมูล (Part Number, Manufacturer) — แก้ที่นี่คือแก้เฉพาะ Device ตัวนี้ ไม่กระทบ Component ต้นแบบในฐานข้อมูล</td></tr>
+    </table>
+    <p>
+        เพราะ E3.series เป็นระบบ Object-Oriented การแก้ Device Properties ในโปรเจกต์จึงเป็นการแก้ "สำเนา" เท่านั้น
+        Component ต้นแบบในฐานข้อมูลกลางจะไม่เปลี่ยนตาม เว้นแต่จะไปแก้ผ่าน Database Editor โดยตรง (ดูรายละเอียดในใบงานที่ 9)
+    </p>
+
+    <div class="note">
+        <strong>ข้อควรระวัง:</strong> อย่าใช้วิธีแก้ Device Designation ซ้ำกันโดยไม่ตั้งใจ — ถ้า Device สองตัวได้ Item Designation
+        ซ้ำกันในโปรเจกต์เดียว รายงาน BOM/Wire List จะสับสนว่าเป็นอุปกรณ์ตัวเดียวกัน ทั้งที่จริงเป็นคนละตัว
+    </div>
+
+    <h2>ตัวอย่างฝึกทำ</h2>
+    <p><strong>โจทย์:</strong> ค้นหารีเลย์ 1 ตัวที่มีขดลวด + หน้าสัมผัส 2 ชุดจาก Database Window วางขดลวดที่ชีทแรก แล้วใช้ <code>N</code> ข้ามไปวางหน้าสัมผัสทั้งสองชุดที่ชีทถัดไป จากนั้นตั้ง Device Designation ให้ทั้งสามส่วนตรงกัน</p>
+    <p><strong>คำถามฝึกคิด:</strong> ทำไม Component Table ถึงวางอุปกรณ์ซ้ำได้เร็วกว่า Database Window ทั้งที่ข้อมูลมาจากแหล่งเดียวกัน?</p>
+    <div class="tip"><strong>เฉลย:</strong> Component Table กรองมาเฉพาะ Component ที่ถูกดึงเข้าโปรเจกต์แล้ว ไม่ต้องเสียเวลาพิมพ์ค้นหาใน Database Window ใหม่ทุกครั้ง เหมาะเมื่อรู้แน่ชัดว่าจะใช้ Part เดิมซ้ำ ส่วน Database Window เหมาะกับตอนที่ยังไม่รู้ว่าจะใช้ตัวไหน หรือกำลังหา Part ที่ยังไม่เคยใช้ในโปรเจกต์นี้</div>
+
+    <div class="page-nav">
+        <a href="worksheet-01.html">← ก่อนหน้า: ใบงานที่ 1</a>
+        <a href="worksheet-03.html">ถัดไป: ใบงานที่ 3 →</a>
+    </div>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>เมนู</h2></header>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li class="has-children expanded">
+                        <a href="schematic.html">Schematics</a>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <ul class="submenu">
+                            <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
+                            <li class="active"><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
+                            <li><a href="worksheet-03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
+                            <li><a href="worksheet-04.html">4. Fields &amp; Levels</a></li>
+                            <li><a href="worksheet-05.html">5. Signals &amp; Signal Tree</a></li>
+                            <li><a href="worksheet-06.html">6. Search &amp; Replace</a></li>
+                            <li><a href="worksheet-07.html">7. Terminals &amp; Terminal Plan</a></li>
+                            <li><a href="worksheet-08.html">8. Subcircuits</a></li>
+                            <li><a href="worksheet-09.html">9. DBE: สร้าง Symbol</a></li>
+                            <li><a href="worksheet-10.html">10. Sync &amp; Report</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="cable.html">Cable</a></li>
+                    <li><a href="panel.html">Panel</a></li>
+                    <li><a href="database-editor.html">Database Editor</a></li>
+                </ul>
+            </nav>
+            <footer id="footer">
+                <p class="copyright">Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

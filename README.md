@@ -5,12 +5,23 @@
 ## โครงสร้างเว็บ
 
 - [index.html](index.html) — หน้าแรก
-- [schematic.html](schematic.html) — Schematics: UI, Symbol/Component/Device, Item Designation, ตัวอย่างวงจร
+- [schematic.html](schematic.html) — Schematics: หน้ารวมลิงก์ไปยัง 10 ใบงาน (worksheet-01.html–worksheet-10.html)
+  - [worksheet-01.html](worksheet-01.html) — Project & UI Setup
+  - [worksheet-02.html](worksheet-02.html) — Placing & Editing Devices
+  - [worksheet-03.html](worksheet-03.html) — Connecting & Online Checks
+  - [worksheet-04.html](worksheet-04.html) — Fields & Levels
+  - [worksheet-05.html](worksheet-05.html) — Signals & Signal Tree
+  - [worksheet-06.html](worksheet-06.html) — Global Search & Replace
+  - [worksheet-07.html](worksheet-07.html) — Terminals & Terminal Plan
+  - [worksheet-08.html](worksheet-08.html) — Subcircuits
+  - [worksheet-09.html](worksheet-09.html) — Database Editor (DBE): สร้าง Symbol/Component
+  - [worksheet-10.html](worksheet-10.html) — Database Sync & Reporting
 - [cable.html](cable.html) — Cable: Mating Connector, Dynamic Cable, Block Function, คำนวณ Bundle
 - [panel.html](panel.html) — Panel: Mounting Rail, Cable Duct, Terminal Strip, Autoconnect, 3D Panel
 - [database-editor.html](database-editor.html) — Database Editor: สร้าง Symbol/Component/Model เอง, COM API
-- [assets/style.css](assets/style.css) — สไตล์ชีตกลางของทุกหน้า
-- [examples/](examples/) — ไฟล์ตัวอย่าง `.e3s` (เพิ่มเองได้ — ตัวอย่างฝึกทำอยู่ในแต่ละหน้าโมดูล)
+- [assets/style.css](assets/style.css) — สไตล์ชีตกลางของทุกหน้า (Editorial-inspired layout: sidebar nav + banner hero)
+- [assets/main.js](assets/main.js) — toggle เมนูมือถือและ submenu accordion ของ Schematics
+- [examples/](examples/) — ไฟล์ตัวอย่าง `.e3s` (เพิ่มเองได้ — ตัวอย่างฝึกทำอยู่ในแต่ละหน้าใบงาน/โมดูล)
 
 เนื้อหาในเว็บนี้อ้างอิงจากคู่มือทางการ E3.series 2026 (E3.schematic, E3.cable, E3.panel, Database Editor, E3.Update)
 

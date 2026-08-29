@@ -4,81 +4,123 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zuken E3.series Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="site-header">
-    <div class="header-inner">
-        <a href="index.html" class="brand">⚡ Zuken E3.series Tutorial <span class="badge">TH</span></a>
-        <nav class="main-nav">
-            <a href="index.html" class="active">หน้าแรก</a>
-            <a href="schematic.html">Schematics</a>
-            <a href="cable.html">Cable</a>
-            <a href="panel.html">Panel</a>
-            <a href="database-editor.html">Database Editor</a>
-        </nav>
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            </header>
+
+            <section id="banner">
+                <h1>เรียนรู้ Zuken E3.series</h1>
+                <p class="tagline">เว็บไซต์สอนการใช้งานโปรแกรมออกแบบวงจรไฟฟ้าและระบบสายไฟ (Electrical Schematic &amp; Wiring Harness Design) ตั้งแต่พื้นฐานจนถึงขั้นสูง</p>
+                <p>E3.series เป็นซอฟต์แวร์ของ Zuken สำหรับออกแบบระบบไฟฟ้า (E3.schematic), ระบบสายไฟ/สายเคเบิล (E3.cable) และแผงควบคุม (E3.panel) — ใช้กันแพร่หลายในอุตสาหกรรมยานยนต์ เครื่องจักรอุตสาหกรรม และระบบราง</p>
+            </section>
+
+            <section>
+                <header class="major"><h2>เลือกโมดูลที่จะเรียน</h2></header>
+                <div class="card-grid">
+                    <a href="schematic.html" class="card">
+                        <div class="icon">🧩</div>
+                        <h3>Schematics</h3>
+                        <p>รู้จักหน้าตาโปรแกรม, Symbol/Component/Device, Item Designation ตามมาตรฐาน IEC 81346, การสร้างวงจรแรกและตรวจสอบความถูกต้อง</p>
+                    </a>
+                    <a href="cable.html" class="card">
+                        <div class="icon">🔌</div>
+                        <h3>Cable</h3>
+                        <p>ออกแบบ Wiring &amp; Cable Harness: Mating Connector อัตโนมัติ, Dynamic Cable, Block Function และคำนวณ Bundle</p>
+                    </a>
+                    <a href="panel.html" class="card">
+                        <div class="icon">🗄️</div>
+                        <h3>Panel</h3>
+                        <p>ออกแบบตู้คอนโทรล (Panel Layout): Mounting Rail, Cable Duct, Terminal Strip, Autoconnect และ 3D Panel</p>
+                    </a>
+                    <a href="database-editor.html" class="card">
+                        <div class="icon">⚙️</div>
+                        <h3>Database Editor</h3>
+                        <p>สร้าง Symbol, Component และ Model เองเมื่อของมาตรฐานไม่พอ พร้อมตรวจสอบฐานข้อมูลด้วย COM API</p>
+                    </a>
+                </div>
+            </section>
+
+            <section>
+                <header class="major"><h2>ระบบเดียว ข้อมูลชุดเดียว</h2></header>
+                <div class="features">
+                    <article>
+                        <div class="icon">🧠</div>
+                        <div class="content">
+                            <h3>Object-Oriented</h3>
+                            <p>Symbol/Component ในฐานข้อมูลกลายเป็น Device เมื่อวางในโปรเจกต์ ทุกโมดูลอ้างอิงข้อมูลชุดเดียวกัน</p>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="icon">📋</div>
+                        <div class="content">
+                            <h3>BOM ตรงแบบเสมอ</h3>
+                            <p>ไม่ต้องส่งข้อมูลข้ามโมดูลเอง BOM, Wire List และรายงานต่างๆ อัปเดตตามแบบจริงอัตโนมัติ</p>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="icon">🆕</div>
+                        <div class="content">
+                            <h3>อัพเดท 2026</h3>
+                            <p>Search &amp; Replace สำหรับ Texts/Attributes, Update All Models in Project, ปรับปรุง Database Editor และ STEP Import</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <p class="note">
+                <strong>ไฟล์ตัวอย่างจริง:</strong> วางไฟล์โปรเจกต์ <code>.e3s</code> ของคุณไว้ในโฟลเดอร์
+                <a href="https://github.com/TomKraiwut/ZukenE3/tree/main/examples">examples/</a> ของ repo นี้ได้ แล้วใส่ลิงก์ดาวน์โหลดในหน้าโมดูลที่เกี่ยวข้อง
+            </p>
+        </div>
     </div>
-</header>
 
-<main>
-    <section class="hero">
-        <h1>เรียนรู้ Zuken E3.series</h1>
-        <p>เว็บไซต์สอนการใช้งานโปรแกรมออกแบบวงจรไฟฟ้าและระบบสายไฟ (Electrical Schematic & Wiring Harness Design) ตั้งแต่พื้นฐานจนถึงขั้นสูง พร้อมตัวอย่างไฟล์ให้ลองทำตาม</p>
-    </section>
-
-    <div class="card-grid">
-        <a href="schematic.html" class="card">
-            <div class="icon">🧩</div>
-            <h3>Schematics</h3>
-            <p>รู้จักหน้าตาโปรแกรม, Symbol/Component/Device, Item Designation ตามมาตรฐาน IEC 81346, การสร้างวงจรแรกและตรวจสอบความถูกต้อง</p>
-        </a>
-        <a href="cable.html" class="card">
-            <div class="icon">🔌</div>
-            <h3>Cable</h3>
-            <p>ออกแบบ Wiring & Cable Harness: Mating Connector อัตโนมัติ, Dynamic Cable, Block Function และคำนวณ Bundle</p>
-        </a>
-        <a href="panel.html" class="card">
-            <div class="icon">🗄️</div>
-            <h3>Panel</h3>
-            <p>ออกแบบตู้คอนโทรล (Panel Layout): Mounting Rail, Cable Duct, Terminal Strip, Autoconnect และ 3D Panel</p>
-        </a>
-        <a href="database-editor.html" class="card">
-            <div class="icon">⚙️</div>
-            <h3>Database Editor</h3>
-            <p>สร้าง Symbol, Component และ Model เองเมื่อของมาตรฐานไม่พอ พร้อมตรวจสอบฐานข้อมูลด้วย COM API</p>
-        </a>
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>เมนู</h2></header>
+                <ul>
+                    <li class="active"><a href="index.html">หน้าแรก</a></li>
+                    <li class="has-children">
+                        <a href="schematic.html">Schematics</a>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <ul class="submenu">
+                            <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
+                            <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>
+                            <li><a href="worksheet-03.html">3. เชื่อมวงจร &amp; Online Checks</a></li>
+                            <li><a href="worksheet-04.html">4. Fields &amp; Levels</a></li>
+                            <li><a href="worksheet-05.html">5. Signals &amp; Signal Tree</a></li>
+                            <li><a href="worksheet-06.html">6. Search &amp; Replace</a></li>
+                            <li><a href="worksheet-07.html">7. Terminals &amp; Terminal Plan</a></li>
+                            <li><a href="worksheet-08.html">8. Subcircuits</a></li>
+                            <li><a href="worksheet-09.html">9. DBE: สร้าง Symbol</a></li>
+                            <li><a href="worksheet-10.html">10. Sync &amp; Report</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="cable.html">Cable</a></li>
+                    <li><a href="panel.html">Panel</a></li>
+                    <li><a href="database-editor.html">Database Editor</a></li>
+                </ul>
+            </nav>
+            <section class="about">
+                <header class="major"><h2>วิธีใช้เว็บนี้</h2></header>
+                <p>เริ่มที่ <strong>Schematics</strong> ถ้ายังไม่เคยเปิดโปรแกรม จากนั้นไปที่ <strong>Cable</strong> หรือ <strong>Panel</strong> ตามงานที่ทำ และดู <strong>Database Editor</strong> เมื่อของมาตรฐานไม่พอ ต้องสร้าง Symbol/Component/Model เอง</p>
+            </section>
+            <footer id="footer">
+                <p class="copyright">Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม</p>
+            </footer>
+        </div>
     </div>
+</div>
 
-    <h2>Zuken E3.series คืออะไร?</h2>
-    <p class="lead">
-        E3.series เป็นซอฟต์แวร์ของ Zuken สำหรับออกแบบระบบไฟฟ้า (E3.schematic), ระบบสายไฟ/สายเคเบิล
-        (E3.cable — Wiring & Cable Harness), และแผงควบคุม (E3.panel — Panel Layout) ใช้กันแพร่หลายในอุตสาหกรรมยานยนต์
-        เครื่องจักรอุตสาหกรรม และระบบราง ทุกโมดูลอ้างอิงข้อมูลชุดเดียวกันแบบ Object-Oriented (Symbol/Component ในฐานข้อมูล
-        กลายเป็น Device เมื่อวางในโปรเจกต์) ทำให้ BOM, Wire List และรายงานต่างๆ ตรงกับแบบจริงเสมอ โดยไม่ต้องส่งข้อมูลข้ามโมดูลเอง
-    </p>
-
-    <div class="note">
-        <strong>อัพเดทที่น่าสนใจใน E3.series 2026:</strong> Search and Replace สำหรับ Texts/Attributes, คำสั่ง Update All Models
-        in Project, ปรับปรุง Database Editor (ลบ Contour และบันทึกออบเจกต์ผ่าน Tree View ได้โดยตรง) และปรับปรุงการ Import STEP
-        ไฟล์ในฝั่ง Panel Database — อ้างอิงจากคู่มือ <em>E3.Update 2026</em>
-    </div>
-
-    <h2>ใช้เว็บนี้ยังไง</h2>
-    <ol>
-        <li>เริ่มที่เมนู <strong>Schematics</strong> ถ้ายังไม่เคยเปิดโปรแกรมมาก่อน — มีทั้งพื้นฐานและตัวอย่างฝึกทำในหน้าเดียว</li>
-        <li>ไปที่ <strong>Cable</strong> เมื่อจะออกแบบ Wiring/Cable Harness ที่ต้องผลิตจริง</li>
-        <li>ดู <strong>Panel</strong> เมื่อจะออกแบบเลย์เอาต์ตู้คอนโทรล (Mounting Rail/Cable Duct/Terminal)</li>
-        <li>ดู <strong>Database Editor</strong> เมื่อของมาตรฐานในฐานข้อมูลไม่พอ ต้องสร้าง Symbol/Component/Model เอง</li>
-    </ol>
-
-    <p class="note">
-        <strong>ไฟล์ตัวอย่างจริง:</strong> วางไฟล์โปรเจกต์ <code>.e3s</code> ของคุณไว้ในโฟลเดอร์
-        <a href="https://github.com/TomKraiwut/ZukenE3/tree/main/examples">examples/</a> ของ repo นี้ได้ แล้วใส่ลิงก์ดาวน์โหลดในหน้าโมดูลที่เกี่ยวข้อง
-    </p>
-</main>
-
-<footer class="site-footer">
-    Zuken E3.series Tutorial — เอกสารประกอบการเรียนรู้ภายในทีม
-</footer>
+<script src="assets/main.js"></script>
 </body>
 </html>
