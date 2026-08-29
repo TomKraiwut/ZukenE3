@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ใบงานที่ 10: Database Sync &amp; Reporting - Zuken E3.series Tutorial</title>
+<title>บทที่ 10: Database Sync &amp; Reporting - Zuken E3.series Tutorial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -13,11 +13,11 @@
     <div id="main">
         <div class="inner">
             <header id="header">
-                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <a href="index.html" class="logo"><span>Zuken E3.series Tutorial</span></a>
                 <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
             </header>
 
-    <h1>ใบงานที่ 10: การอัปเดตระบบและการส่งออกรายงานขั้นอุตสาหกรรม (Database Sync &amp; Reporting)</h1>
+    <h1>บทที่ 10: การอัปเดตระบบและการส่งออกรายงานขั้นอุตสาหกรรม (Database Sync &amp; Reporting)</h1>
     <p class="lead">ปิดงานด้วยการซิงค์ฐานข้อมูลเข้าโปรเจกต์ และผลิตเอกสาร BOM/รายงานพร้อมส่งฝ่ายผลิต</p>
 
     <div class="objectives">
@@ -31,7 +31,7 @@
 
     <h2>1. Update all Components and Symbols in Project</h2>
     <p>
-        เมื่อแก้ไข Symbol/Component ต้นแบบใน Database Editor (ใบงานที่ 9) — เช่น แก้ตำแหน่งหน้าสัมผัสของรีเลย์ — Device ที่วางไว้
+        เมื่อแก้ไข Symbol/Component ต้นแบบใน Database Editor (บทที่ 9) — เช่น แก้ตำแหน่งหน้าสัมผัสของรีเลย์ — Device ที่วางไว้
         แล้วในโปรเจกต์เดิม<em>จะไม่เปลี่ยนตามทันที</em> เพราะเป็นระบบ Object-Oriented ที่แยกสำเนาโปรเจกต์ออกจากฐานข้อมูล
         ต้องสั่ง <strong>Update all Components and all Symbols in project</strong> เพื่อดึงการเปลี่ยนแปลงเข้ามาสู่งานที่ทำค้างไว้
     </p>
@@ -81,7 +81,7 @@
         <tr><td>Content list</td><td>สารบัญเอกสารทั้งโปรเจกต์</td></tr>
     </table>
     <p>
-        ส่งออกได้หลายรูปแบบ รวมถึง PDF ที่เชื่อมโยง Cross-Reference (จากใบงานที่ 5) ให้คลิกกระโดดข้ามหน้าได้จริงในไฟล์ PDF
+        ส่งออกได้หลายรูปแบบ รวมถึง PDF ที่เชื่อมโยง Cross-Reference (จากบทที่ 5) ให้คลิกกระโดดข้ามหน้าได้จริงในไฟล์ PDF
         และยังเลือก Export กลับเป็น <strong>E3 Sheet</strong> เพื่อเขียนผลสรุปกลับลงบนแบบวงจรได้โดยตรงด้วย
     </p>
 
@@ -91,12 +91,12 @@
     </div>
 
     <h2>ตัวอย่างฝึกทำ</h2>
-    <p><strong>โจทย์:</strong> แก้ตำแหน่งหน้าสัมผัสของรีเลย์ที่สร้างไว้ในใบงานที่ 9 ผ่าน Database Editor แล้วกลับมาที่โปรเจกต์เดิม สั่ง Update all Components and all Symbols in project และสังเกตว่า Device บนชีทเปลี่ยนตามหรือไม่ จากนั้นสร้างรายงาน Bill of Material ด้วย E3 ReportGenerator Creator</p>
+    <p><strong>โจทย์:</strong> แก้ตำแหน่งหน้าสัมผัสของรีเลย์ที่สร้างไว้ในบทที่ 9 ผ่าน Database Editor แล้วกลับมาที่โปรเจกต์เดิม สั่ง Update all Components and all Symbols in project และสังเกตว่า Device บนชีทเปลี่ยนตามหรือไม่ จากนั้นสร้างรายงาน Bill of Material ด้วย E3 ReportGenerator Creator</p>
     <p><strong>คำถามฝึกคิด:</strong> ทำไมการแยก STEP Import ให้รันเป็นคนละโพรเซสถึงช่วยแก้ปัญหาไฟล์ STEP ขนาดใหญ่ค้างได้ดีกว่าการปรับปรุงแค่ความเร็วของอัลกอริทึมนำเข้าไฟล์?</p>
     <div class="tip"><strong>เฉลย:</strong> เพราะเวลาโปรแกรมหลักกับตัวนำเข้าไฟล์อยู่คนละโพรเซสกัน ถ้าการ Import ค้างหรือใช้เวลานาน ผู้ใช้ยังกดปุ่ม Cancel หรือ Skip ได้ทันทีโดยที่โปรแกรมหลัก (E3.series) ไม่ค้างตามไปด้วย ต่างจากการรันในโพรเซสเดียวกันที่ถ้าไฟล์มีปัญหา อาจทำให้ทั้งโปรแกรมค้างจนต้องปิดโปรแกรมทิ้งทั้งโปรเจกต์ที่ยังไม่ได้บันทึก</div>
 
     <div class="page-nav">
-        <a href="worksheet-09.html">← ก่อนหน้า: ใบงานที่ 9</a>
+        <a href="worksheet-09.html">← ก่อนหน้า: บทที่ 9</a>
         <a href="cable.html">ถัดไป: Cable →</a>
     </div>
         </div>
@@ -110,7 +110,7 @@
                     <li><a href="index.html">หน้าแรก</a></li>
                     <li class="has-children expanded">
                         <a href="schematic.html">Schematics</a>
-                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู Schematics">▾</button>
                         <ul class="submenu">
                             <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
                             <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>

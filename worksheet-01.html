@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ใบงานที่ 1: Project &amp; UI Setup - Zuken E3.series Tutorial</title>
+<title>บทที่ 1: Project &amp; UI Setup - Zuken E3.series Tutorial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -13,11 +13,11 @@
     <div id="main">
         <div class="inner">
             <header id="header">
-                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <a href="index.html" class="logo"><span>Zuken E3.series Tutorial</span></a>
                 <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
             </header>
 
-    <h1>ใบงานที่ 1: การใช้งานส่วนติดต่อผู้ใช้และการจัดการโครงการ (Project &amp; UI Setup)</h1>
+    <h1>บทที่ 1: การใช้งานส่วนติดต่อผู้ใช้และการจัดการโครงการ (Project &amp; UI Setup)</h1>
     <p class="lead">จุดเริ่มต้นของทุกงานออกแบบ — รู้จักหน้าต่างหลัก จัดการโปรเจกต์อย่างปลอดภัย และเตรียมชีทแรกให้พร้อมวาดวงจร</p>
 
     <div class="objectives">
@@ -76,10 +76,10 @@
         <tr><th>สัญลักษณ์นำหน้า</th><th>ความหมาย</th></tr>
         <tr><td><code>=</code></td><td>Higher Level Assignment (HLA) — กลุ่ม/ระบบย่อยที่อุปกรณ์สังกัด</td></tr>
         <tr><td><code>+</code></td><td>Location — ตำแหน่งติดตั้งจริง เช่น ตู้คอนโทรลไหน (ตั้งที่ Sheet Header ในขั้นตอนนี้)</td></tr>
-        <tr><td><code>-</code></td><td>Device Designation — หมายเลขอุปกรณ์ (ส่วนที่ใช้บ่อยที่สุด ถ้าใช้ตัวนี้ตัวเดียวสามารถละเครื่องหมาย <code>-</code> ได้ — แก้ไขในใบงานที่ 2)</td></tr>
+        <tr><td><code>-</code></td><td>Device Designation — หมายเลขอุปกรณ์ (ส่วนที่ใช้บ่อยที่สุด ถ้าใช้ตัวนี้ตัวเดียวสามารถละเครื่องหมาย <code>-</code> ได้ — แก้ไขในบทที่ 2)</td></tr>
         <tr><td><code>:</code></td><td>Pin Name — ชื่อขา/สายที่ต่อกับ Device นั้น</td></tr>
     </table>
-    <p>ลำดับเต็มคือ <code>=HLA +Location -Device:Pin</code> เช่น <code>=K1+PANEL1-Q3:14</code> — ส่วน Field ที่ใช้แบ่งเขต HLA/Location ย่อยภายในชีทเดียว เรียนต่อในใบงานที่ 4</p>
+    <p>ลำดับเต็มคือ <code>=HLA +Location -Device:Pin</code> เช่น <code>=K1+PANEL1-Q3:14</code> — ส่วน Field ที่ใช้แบ่งเขต HLA/Location ย่อยภายในชีทเดียว เรียนต่อในบทที่ 4</p>
 
     <div class="note">
         <strong>ข้อควรระวังด้านความปลอดภัยข้อมูล:</strong> ทำงานบนฐานข้อมูลกลาง (Shared Database) ผ่านการเชื่อมต่อที่ทีมกำหนดไว้เท่านั้น
@@ -94,7 +94,7 @@
 
     <div class="page-nav">
         <a href="schematic.html">← กลับหน้ารวม Schematics</a>
-        <a href="worksheet-02.html">ถัดไป: ใบงานที่ 2 →</a>
+        <a href="worksheet-02.html">ถัดไป: บทที่ 2 →</a>
     </div>
         </div>
     </div>
@@ -107,7 +107,7 @@
                     <li><a href="index.html">หน้าแรก</a></li>
                     <li class="has-children expanded">
                         <a href="schematic.html">Schematics</a>
-                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู Schematics">▾</button>
                         <ul class="submenu">
                             <li class="active"><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
                             <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>

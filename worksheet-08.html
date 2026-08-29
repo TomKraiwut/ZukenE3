@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ใบงานที่ 8: Subcircuits - Zuken E3.series Tutorial</title>
+<title>บทที่ 8: Subcircuits - Zuken E3.series Tutorial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -13,11 +13,11 @@
     <div id="main">
         <div class="inner">
             <header id="header">
-                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <a href="index.html" class="logo"><span>Zuken E3.series Tutorial</span></a>
                 <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
             </header>
 
-    <h1>ใบงานที่ 8: การจัดการวงจรย่อยและโมดูลโครงสร้างใช้ซ้ำ (Subcircuits)</h1>
+    <h1>บทที่ 8: การจัดการวงจรย่อยและโมดูลโครงสร้างใช้ซ้ำ (Subcircuits)</h1>
     <p class="lead">แปลงวงจรที่ใช้บ่อยให้กลายเป็นโมดูลสำเร็จรูป วางซ้ำได้ในขั้นตอนเดียวทุกโปรเจกต์</p>
 
     <div class="objectives">
@@ -69,7 +69,7 @@
     </p>
     <p>
         แต่ถ้าต้องการให้ทีมทั้งหมดเรียกใช้ Subcircuit นี้ได้ทุกโปรเจกต์โดยไม่ต้องแจกไฟล์ <code>.e3p</code> เอง ให้บันทึกมันเป็น
-        <strong>Component ชนิด "Subcircuit"</strong> ในฐานข้อมูลกลางแทน (ทำผ่าน Database Editor — ใบงานที่ 9) จากนั้นวิศวกรคนอื่น
+        <strong>Component ชนิด "Subcircuit"</strong> ในฐานข้อมูลกลางแทน (ทำผ่าน Database Editor — บทที่ 9) จากนั้นวิศวกรคนอื่น
         เพียงค้นหาใน Database Window แล้วลากวางจาก Database Window ได้เลย ระบบจะวาง "วงจรทั้งชุด" ให้ครบในขั้นตอนเดียว
         (Placing Database Subcircuit) เหมือนวางอุปกรณ์ชิ้นเดียวปกติ และยังแก้ไขต่อได้หลังวางถ้าจำเป็น
     </p>
@@ -77,7 +77,7 @@
     <div class="note">
         <strong>เปรียบเทียบสองวิธี:</strong> ไฟล์ <code>.e3p</code> เหมาะกับการแชร์ครั้งคราวหรือส่งให้ทีมนอกโปรเจกต์
         ส่วน Database Subcircuit เหมาะกับวงจรมาตรฐานที่ทีมใช้ซ้ำบ่อยและอยากให้ทุกคนดึงจากแหล่งเดียวกันเสมอ (ตรงหลักการ
-        Shared Database เดียวกับที่เรียนเรื่อง Component ในใบงานที่ 9)
+        Shared Database เดียวกับที่เรียนเรื่อง Component ในบทที่ 9)
     </div>
 
     <h2>ตัวอย่างฝึกทำ</h2>
@@ -86,8 +86,8 @@
     <div class="tip"><strong>เฉลย:</strong> เพราะ Clipboard เป็นพื้นที่ชั่วคราวที่ยังไม่ผูกกับโปรเจกต์จริง วิศวกรตรวจสอบและแก้ไข Subcircuit ได้ก่อน เช่น เปลี่ยน Item Designation ให้ไม่ชนกับของเดิมในโปรเจกต์ปลายทาง ก่อนค่อยกดรวมเข้าแบบจริง ต่างจากการวางตรงๆ ที่ถ้าพบว่า Item Designation ชนกันจะต้องมาแก้ไขหลังวางไปแล้ว ซึ่งเสี่ยงต่อการตกหล่นบาง Device</div>
 
     <div class="page-nav">
-        <a href="worksheet-07.html">← ก่อนหน้า: ใบงานที่ 7</a>
-        <a href="worksheet-09.html">ถัดไป: ใบงานที่ 9 →</a>
+        <a href="worksheet-07.html">← ก่อนหน้า: บทที่ 7</a>
+        <a href="worksheet-09.html">ถัดไป: บทที่ 9 →</a>
     </div>
         </div>
     </div>
@@ -100,7 +100,7 @@
                     <li><a href="index.html">หน้าแรก</a></li>
                     <li class="has-children expanded">
                         <a href="schematic.html">Schematics</a>
-                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู Schematics">▾</button>
                         <ul class="submenu">
                             <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
                             <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>

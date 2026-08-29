@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ใบงานที่ 9: DBE - สร้าง Symbol และ Component ใหม่ - Zuken E3.series Tutorial</title>
+<title>บทที่ 9: DBE - สร้าง Symbol และ Component ใหม่ - Zuken E3.series Tutorial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -13,11 +13,11 @@
     <div id="main">
         <div class="inner">
             <header id="header">
-                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <a href="index.html" class="logo"><span>Zuken E3.series Tutorial</span></a>
                 <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
             </header>
 
-    <h1>ใบงานที่ 9: การพัฒนาชิ้นส่วนคลังและโมเดลอุปกรณ์ใหม่ใน DBE (Database Editor)</h1>
+    <h1>บทที่ 9: การพัฒนาชิ้นส่วนคลังและโมเดลอุปกรณ์ใหม่ใน DBE (Database Editor)</h1>
     <p class="lead">เมื่อของมาตรฐานไม่พอ ลงมือสร้าง Symbol และ Component เองใน Database Editor อย่างเป็นระบบ</p>
 
     <div class="objectives">
@@ -37,7 +37,7 @@
     </p>
     <div class="note">
         <strong>ข้อควรรู้:</strong> โหมด DBE กับโหมด Project แยกสีหน้าต่างให้ต่างกันชัดเจน และเปิดพร้อมกันได้ — แก้ไขใน DBE
-        จะไม่กระทบ Device ที่วางไปแล้วในโปรเจกต์ที่เปิดคู่ขนานอยู่ จนกว่าจะสั่ง Update (ดูใบงานที่ 10) ก่อนสร้างใหม่ทุกครั้ง
+        จะไม่กระทบ Device ที่วางไปแล้วในโปรเจกต์ที่เปิดคู่ขนานอยู่ จนกว่าจะสั่ง Update (ดูบทที่ 10) ก่อนสร้างใหม่ทุกครั้ง
         ค้นหาในฐานข้อมูลก่อนเสมอ อย่าสร้าง Symbol/Component ซ้ำกับที่มีอยู่แล้ว
     </div>
 
@@ -52,7 +52,7 @@
 
     <div class="tip">
         <strong>Tip:</strong> Nodes คือจุดที่กำหนดว่า Connection "เข้าได้จากทิศไหนบ้าง" — วาง Node ผิดทิศทางเป็นสาเหตุอันดับต้นๆ
-        ที่ทำให้ Autoconnect (ใบงานที่ 3) หาทางเชื่อมต่อ Symbol ตัวนี้ไม่เจอ ตรวจทิศทาง Node ให้ตรงกับหน้าสัมผัสจริงของอุปกรณ์เสมอ
+        ที่ทำให้ Autoconnect (บทที่ 3) หาทางเชื่อมต่อ Symbol ตัวนี้ไม่เจอ ตรวจทิศทาง Node ให้ตรงกับหน้าสัมผัสจริงของอุปกรณ์เสมอ
     </div>
 
     <h2>3. Component Wizard และ Master/Slave Checklist (กรณีรีเลย์)</h2>
@@ -71,7 +71,7 @@
 
     <p>
         รีเลย์เป็นตัวอย่างคลาสสิกของ Component ที่ต้อง <strong>Master/Slave</strong> — เพราะขดลวด (Coil) กับหน้าสัมผัส
-        (Contacts) เป็น Symbol คนละตัวที่ต้องแยกไปวางกันคนละจุดบนชีท (ตามที่ฝึกด้วยคีย์ลัด <code>N</code> ในใบงานที่ 2)
+        (Contacts) เป็น Symbol คนละตัวที่ต้องแยกไปวางกันคนละจุดบนชีท (ตามที่ฝึกด้วยคีย์ลัด <code>N</code> ในบทที่ 2)
         แต่ทั้งหมดต้องอ้างอิงกลับไปเป็น "อุปกรณ์ตัวเดียวกัน" ในฐานข้อมูล:
     </p>
     <p><strong>Master/Slave Checklist:</strong></p>
@@ -93,11 +93,11 @@
     <h2>ตัวอย่างฝึกทำ</h2>
     <p><strong>โจทย์:</strong> สร้าง Symbol ขดลวดรีเลย์ 1 ตัว และ Symbol หน้าสัมผัส (Normally Open) อีก 1 ตัว จากนั้นใช้ Component Wizard แบบ Component without Template ผูกทั้งสอง Symbol เข้าเป็น Component เดียวกันด้วย Master/Slave Checklist กำหนด Device Letter Code เป็น K</p>
     <p><strong>คำถามฝึกคิด:</strong> ทำไม Component แบบ Master/Slave ถึงต้องกำหนด "ลำดับ Symbol" (Symbol Order) ให้ถูกต้อง ทั้งที่ Symbol แต่ละตัวจะถูกแยกไปวางคนละจุดบนชีทอยู่ดี?</p>
-    <div class="tip"><strong>เฉลย:</strong> ลำดับ Symbol กำหนดว่า Symbol ตัวไหนจะถูกใช้แสดงใน Preview Window เป็นตัวแทนอุปกรณ์ทั้งชุด และยังมีผลต่อลำดับที่ Place Objects One-by-One (ใบงานที่ 2) จะเสนอให้วางทีละตัวเมื่อกด <code>N</code> ไล่วางจนครบ ถ้าลำดับผิดอาจทำให้วิศวกรวางหน้าสัมผัสก่อนขดลวดโดยไม่รู้ตัว ซึ่งไม่ผิดทางไฟฟ้าแต่ทำให้ Workflow วางอุปกรณ์สับสน</div>
+    <div class="tip"><strong>เฉลย:</strong> ลำดับ Symbol กำหนดว่า Symbol ตัวไหนจะถูกใช้แสดงใน Preview Window เป็นตัวแทนอุปกรณ์ทั้งชุด และยังมีผลต่อลำดับที่ Place Objects One-by-One (บทที่ 2) จะเสนอให้วางทีละตัวเมื่อกด <code>N</code> ไล่วางจนครบ ถ้าลำดับผิดอาจทำให้วิศวกรวางหน้าสัมผัสก่อนขดลวดโดยไม่รู้ตัว ซึ่งไม่ผิดทางไฟฟ้าแต่ทำให้ Workflow วางอุปกรณ์สับสน</div>
 
     <div class="page-nav">
-        <a href="worksheet-08.html">← ก่อนหน้า: ใบงานที่ 8</a>
-        <a href="worksheet-10.html">ถัดไป: ใบงานที่ 10 →</a>
+        <a href="worksheet-08.html">← ก่อนหน้า: บทที่ 8</a>
+        <a href="worksheet-10.html">ถัดไป: บทที่ 10 →</a>
     </div>
         </div>
     </div>
@@ -110,7 +110,7 @@
                     <li><a href="index.html">หน้าแรก</a></li>
                     <li class="has-children expanded">
                         <a href="schematic.html">Schematics</a>
-                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู Schematics">▾</button>
                         <ul class="submenu">
                             <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
                             <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>

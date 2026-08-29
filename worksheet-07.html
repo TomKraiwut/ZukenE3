@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ใบงานที่ 7: Terminals &amp; Terminal Plan - Zuken E3.series Tutorial</title>
+<title>บทที่ 7: Terminals &amp; Terminal Plan - Zuken E3.series Tutorial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -13,11 +13,11 @@
     <div id="main">
         <div class="inner">
             <header id="header">
-                <a href="index.html" class="logo"><span>⚡ Zuken E3.series Tutorial</span> <span class="badge">TH</span></a>
+                <a href="index.html" class="logo"><span>Zuken E3.series Tutorial</span></a>
                 <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
             </header>
 
-    <h1>ใบงานที่ 7: การเขียนบล็อกขั้วต่อสายไฟและการคำนวณผังออนไลน์ (Terminals &amp; Terminal Plan)</h1>
+    <h1>บทที่ 7: การเขียนบล็อกขั้วต่อสายไฟและการคำนวณผังออนไลน์ (Terminals &amp; Terminal Plan)</h1>
     <p class="lead">จาก Terminal Strip บนชีท สู่ตารางขั้วต่อที่คำนวณปลายทางในตู้/นอกตู้ให้อัตโนมัติ</p>
 
     <div class="objectives">
@@ -31,9 +31,9 @@
 
     <h2>1. Terminal Block: ขั้วต่อและความปลอดภัยของการจัดเรียงพิน</h2>
     <p>
-        ทบทวนจากใบงานที่ 1: <strong>Terminal</strong> เป็น Component ชนิดพิเศษ วางจาก Database Window ครั้งแรกจะสร้าง Device
+        ทบทวนจากบทที่ 1: <strong>Terminal</strong> เป็น Component ชนิดพิเศษ วางจาก Database Window ครั้งแรกจะสร้าง Device
         ชนิด <strong>Terminal Strip</strong> ให้อัตโนมัติ วาง Terminal ชนิดเดียวกันซ้ำจะเข้า Strip เดิม ส่วนชนิดต่างกันจะแยก
-        Strip ใหม่ให้เอง ระบบตรวจจำนวนสายที่เข้าขั้วและ Cross-Section ให้ตลอดเวลาตามที่เรียนในใบงานที่ 3 (Online Checks)
+        Strip ใหม่ให้เอง ระบบตรวจจำนวนสายที่เข้าขั้วและ Cross-Section ให้ตลอดเวลาตามที่เรียนในบทที่ 3 (Online Checks)
     </p>
     <p>
         <strong>Jumper</strong> คือสายสะพานไฟเชื่อมระหว่างขั้วต่อสองขั้วขึ้นไปในสตริปเดียวกัน ใช้เมื่อต้องกระจายไฟเส้นเดียวไปหลายขั้ว
@@ -76,17 +76,17 @@
     <p>
         แก้ไขค่าตรงๆ ในตาราง Terminal Plan ได้เลย เช่น หมายเลขขั้ว สัญญาณ หรือชื่อ Device ปลายทาง ผ่านเมนู Properties —
         ค่าจะอัปเดตกลับไปที่ Schematic ทันที ทำให้ Terminal Plan ใช้เป็นทั้งเครื่องมือแก้ไขและรายงานสำหรับส่งช่างเดินสายจริงได้ในตัว
-        (ต่อยอดการส่งออกเป็น PDF/Excel ในใบงานที่ 10)
+        (ต่อยอดการส่งออกเป็น PDF/Excel ในบทที่ 10)
     </p>
 
     <h2>ตัวอย่างฝึกทำ</h2>
     <p><strong>โจทย์:</strong> สร้าง Terminal Strip 6 ขั้วจาก Schematic ต่อ Jumper แบบ Jumpers by Connections เชื่อม 3 ขั้วแรกเข้าด้วยกัน แล้ว Generate Terminal Plan โดยตั้ง Sorting Criteria เป็น Pin Name และเปิด Autocompress</p>
     <p><strong>คำถามฝึกคิด:</strong> ทำไม Internal/External Target ในตาราง Terminal Plan ถึงคำนวณจาก Assignment/Location แทนที่จะให้ผู้ใช้พิมพ์ระบุเองตรงๆ?</p>
-    <div class="tip"><strong>เฉลย:</strong> เพราะ Assignment/Location ของทุก Device ถูกกำหนดไว้แล้วตั้งแต่ขั้นตอนวางวงจร (ใบงานที่ 1 และ 4) การให้ระบบคำนวณ Internal/External จากค่านี้โดยตรงทำให้ตาราง Terminal Plan อัปเดตอัตโนมัติทุกครั้งที่แก้ผัง ไม่มีความเสี่ยงที่ตัวเลขในรายงานจะไม่ตรงกับแบบจริง ต่างจากการพิมพ์มือที่ต้องมาคอยแก้ตามทุกครั้งที่ผังเปลี่ยน</div>
+    <div class="tip"><strong>เฉลย:</strong> เพราะ Assignment/Location ของทุก Device ถูกกำหนดไว้แล้วตั้งแต่ขั้นตอนวางวงจร (บทที่ 1 และ 4) การให้ระบบคำนวณ Internal/External จากค่านี้โดยตรงทำให้ตาราง Terminal Plan อัปเดตอัตโนมัติทุกครั้งที่แก้ผัง ไม่มีความเสี่ยงที่ตัวเลขในรายงานจะไม่ตรงกับแบบจริง ต่างจากการพิมพ์มือที่ต้องมาคอยแก้ตามทุกครั้งที่ผังเปลี่ยน</div>
 
     <div class="page-nav">
-        <a href="worksheet-06.html">← ก่อนหน้า: ใบงานที่ 6</a>
-        <a href="worksheet-08.html">ถัดไป: ใบงานที่ 8 →</a>
+        <a href="worksheet-06.html">← ก่อนหน้า: บทที่ 6</a>
+        <a href="worksheet-08.html">ถัดไป: บทที่ 8 →</a>
     </div>
         </div>
     </div>
@@ -99,7 +99,7 @@
                     <li><a href="index.html">หน้าแรก</a></li>
                     <li class="has-children expanded">
                         <a href="schematic.html">Schematics</a>
-                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนใบงาน Schematics">▾</button>
+                        <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู Schematics">▾</button>
                         <ul class="submenu">
                             <li><a href="worksheet-01.html">1. UI และโปรเจกต์</a></li>
                             <li><a href="worksheet-02.html">2. วางอุปกรณ์ &amp; Properties</a></li>

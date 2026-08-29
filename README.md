@@ -5,7 +5,7 @@
 ## โครงสร้างเว็บ
 
 - [index.html](index.html) — หน้าแรก
-- [schematic.html](schematic.html) — Schematics: หน้ารวมลิงก์ไปยัง 10 ใบงาน (worksheet-01.html–worksheet-10.html)
+- [schematic.html](schematic.html) — Schematics: หน้ารวมลิงก์ไปยัง 10 บท (worksheet-01.html–worksheet-10.html)
   - [worksheet-01.html](worksheet-01.html) — Project & UI Setup
   - [worksheet-02.html](worksheet-02.html) — Placing & Editing Devices
   - [worksheet-03.html](worksheet-03.html) — Connecting & Online Checks
@@ -21,7 +21,7 @@
 - [database-editor.html](database-editor.html) — Database Editor: สร้าง Symbol/Component/Model เอง, COM API
 - [assets/style.css](assets/style.css) — สไตล์ชีตกลางของทุกหน้า (Editorial-inspired layout: sidebar nav + banner hero)
 - [assets/main.js](assets/main.js) — toggle เมนูมือถือและ submenu accordion ของ Schematics
-- [examples/](examples/) — ไฟล์ตัวอย่าง `.e3s` (เพิ่มเองได้ — ตัวอย่างฝึกทำอยู่ในแต่ละหน้าใบงาน/โมดูล)
+- [examples/](examples/) — ไฟล์ตัวอย่าง `.e3s` (เพิ่มเองได้ — ตัวอย่างฝึกทำอยู่ในแต่ละหน้าบท/โมดูล)
 
 เนื้อหาในเว็บนี้อ้างอิงจากคู่มือทางการ E3.series 2026 (E3.schematic, E3.cable, E3.panel, Database Editor, E3.Update)
 
