@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>00. หน้าจอและพื้นฐาน — Zuken E3 Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=72b73deb">
+</head>
+<body>
+<div id="wrapper">
+  <div id="main">
+    <div class="inner">
+      <header id="header">
+        <a href="../index.html" class="logo"><span>Zuken E3 Tutorial</span></a>
+        <button class="menu-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
+      </header>
+
+      <main>
+        <h1>00. หน้าจอและพื้นฐาน</h1>
+
+        <div class="objectives">
+          <p>วัตถุประสงค์การเรียนรู้</p>
+          <ol>
+          <li>เปิดโปรเจกต์ .e3s และบอกหน้าที่ของหน้าจอหลักทั้ง 5 ส่วนได้</li>
+          <li>อธิบายความต่างของ Component · Symbol · Device · Model และอ่านชื่ออุปกรณ์แบบ =A1 +S1.MP -Q4 ได้</li>
+          <li>ค้นหา Component ใน Database Window จัด Tree Structure และตั้งช่องค้นหาเอง</li>
+          <li>ตั้งค่า Settings / Grid ใช้ซูม เมาส์ และเมนูคลิกขวาได้คล่อง</li>
+          <li>วางอุปกรณ์ตัวแรกจาก Component แล้วบันทึก / คืนหน้าจอด้วย Workspace Configurations</li>
+          </ol>
+        </div>
+
+<p class="lead" style="max-width:46em;">รู้จักหน้าจอ <strong>E³.series</strong> ก่อนเริ่มเขียนแบบ — ทีละขั้น รวม 13 ขั้น บนโปรเจกต์ตัวอย่าง
+Cooling water pump ตั้งแต่เปิดไฟล์ ค้นหา Component ตั้งค่า Grid จนวางอุปกรณ์ตัวแรก ใช้เวลาประมาณ 1 ชั่วโมง</p>
+
+<h2>ภาพรวม: รู้จักหน้าจอ E³ ก่อนเริ่มเขียนแบบ</h2>
+<table>
+<tr><th>ลำดับ</th><th>หัวข้อ</th><th>ทำอะไร</th></tr>
+<tr><td>01</td><td>เปิดโปรเจกต์</td><td>File → Open ไฟล์ .e3s</td></tr>
+<tr><td>02</td><td>หน้าจอ 5 ส่วน</td><td>Project · Database · พื้นที่ทำงาน · Output · Preview</td></tr>
+<tr><td>03</td><td>Database</td><td>ค้นหา Component และดู Preview</td></tr>
+<tr><td>04</td><td>ตั้งค่าและ Grid</td><td>Tools → Settings</td></tr>
+<tr><td>05</td><td>เมาส์และเมนูคลิกขวา</td><td>เลือก ซูม Context menu</td></tr>
+<tr><td>06</td><td>วางอุปกรณ์ตัวแรก</td><td>Component → Device</td></tr>
+</table>
+<div class="tip"><strong>สิ่งที่ต้องมี:</strong> E³.series · โปรเจกต์ตัวอย่าง <code>Cooling water pump.e3s</code> · เมาส์ 3 ปุ่มมีลูกกลิ้ง</div>
+<div class="note"><strong>ไฟล์ฝึก:</strong> คัดลอก <code>Cooling water pump.e3s</code> จาก <code>C:\Users\Public\Documents\Zuken\E3.series_&lt;เวอร์ชัน&gt;\data\Pumpe</code> มาไว้ในโฟลเดอร์ของตัวเองก่อนเปิด (ตั้งชื่อเป็น <code>Cooling water pump_00.e3s</code>) จะได้ไม่แก้ไฟล์ตัวอย่างต้นฉบับ</div>
+
+<h2>E³.series คืออะไร: หลายโมดูล ใช้ข้อมูลชุดเดียวกัน</h2>
+<table>
+<tr><th>โมดูล</th><th>ใช้ทำอะไร</th></tr>
+<tr><td>E³.schematic</td><td>เขียนวงจรไฟฟ้า ไฮดรอลิก นิวแมติก (บทที่ 01)</td></tr>
+<tr><td>E³.panel</td><td>วางอุปกรณ์ในตู้ เดินสายในราง ดูตู้แบบ 3D (บทที่ 02)</td></tr>
+<tr><td>E³.cable</td><td>สายเคเบิล ขั้วต่อ (Connector) และการเดินสายระหว่างอุปกรณ์</td></tr>
+<tr><td>E³.formboard</td><td>แบบชุดสายไฟสเกล 1:1 สำหรับโต๊ะประกอบ harness</td></tr>
+<tr><td>E³.topology</td><td>กระจายอุปกรณ์ตามตำแหน่งจริง สร้าง harness อัตโนมัติ</td></tr>
+<tr><td>E³.view / viewplus</td><td>โปรแกรมเปิดดูแบบ ใช้ฟรี (viewplus สลับภาษา / Level ได้)</td></tr>
+<tr><td>E³.enterprise</td><td>หลายคนทำงานในโปรเจกต์เดียวกันพร้อมกัน (เก็บใน SQL Server / Oracle)</td></tr>
+</table>
+<p>ทุกโมดูลใช้ข้อมูลชุดเดียวกัน แก้ที่หนึ่ง ทุกมุมมองเปลี่ยนตามทันที</p>
+
+<h2>แนวคิดสำคัญ: Component · Symbol · Device · Model</h2>
+<table>
+<tr><th>คำ</th><th>คืออะไร</th><th>ตัวอย่าง</th></tr>
+<tr><td><strong>Component</strong></td><td>อุปกรณ์จริงที่เก็บใน Database มี Part number ผู้ผลิต และรายการ Symbol ของมัน</td><td>3RT10152AP02 (Contactor)</td></tr>
+<tr><td><strong>Symbol</strong></td><td>ภาพกราฟิกในวงจรของอุปกรณ์หรือบางส่วนของมัน เช่น คอยล์ หรือชุดหน้าสัมผัส</td><td>ZUK07-50-18, S00305</td></tr>
+<tr><td><strong>Device</strong></td><td>Component ที่ถูกนำมาใช้ในโปรเจกต์แล้ว ได้ชื่ออุปกรณ์ที่ไม่ซ้ำกัน</td><td>-Q4 =A1 +S1.MP</td></tr>
+<tr><td><strong>Model</strong></td><td>ภาพของอุปกรณ์บนแบบตู้ (E³.panel) ตามขนาดจริง</td><td>ใช้ในบทที่ 02 และสร้างเองในบทที่ 04</td></tr>
+</table>
+<h3>ชื่ออุปกรณ์ (Item designation ตาม IEC 81346)</h3>
+<table>
+<tr><th>ส่วน</th><th>ตัวอย่าง</th><th>ความหมาย</th></tr>
+<tr><td>=</td><td><strong>=A1</strong></td><td>Higher Level Assignment — ระบบ / หน้าที่</td></tr>
+<tr><td>+</td><td><strong>+S1.MP</strong></td><td>Location — ตำแหน่งติดตั้ง</td></tr>
+<tr><td>-</td><td><strong>-Q4</strong></td><td>Device designation — ชนิด + ลำดับ</td></tr>
+<tr><td>:</td><td><strong>:A1</strong></td><td>Pin — ชื่อขา</td></tr>
+</table>
+<div class="tip"><strong>ข้อมูลชุดเดียว หลายมุมมอง:</strong> อุปกรณ์ตัวเดียวกันอยู่ทั้งในวงจร Terminal Plan รายการ และแบบตู้ แก้ชื่อที่ใดก็เปลี่ยนทุกที่ทันที</div>
+
+<h2>ขั้นที่ 1: เปิดโปรเจกต์</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-01.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-01.jpg" alt="ขั้นที่ 1: เปิดโปรเจกต์" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">คลิกเมนู <strong>File</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>Open...</strong> (Ctrl+O)</span></li>
+    <li><span class="num">3</span><span class="text">เลือกไฟล์ <strong>Cooling water pump_00.e3s</strong></span></li>
+    <li><span class="num">4</span><span class="text">กด <strong>Open</strong></span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>หมายเหตุ:</strong> 1 โปรเจกต์ = 1 ไฟล์ .e3s เก็บทุก Sheet และเอกสารแนบไว้ในไฟล์เดียว · โปรเจกต์ใหม่ใช้ File → New (Ctrl+N)</div>
+
+<h2>ขั้นที่ 2: หน้าจอหลัก 5 ส่วน</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-02.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-02.jpg" alt="ขั้นที่ 2: หน้าจอหลัก 5 ส่วน" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Project Window</strong> Sheet และอุปกรณ์ทั้งหมดแบบ tree</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Database Window</strong> Component / Symbol จากฐานข้อมูล</span></li>
+    <li><span class="num">3</span><span class="text"><strong>พื้นที่ทำงาน</strong> แผ่นงาน (Sheet) ที่เปิดอยู่</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Output Window</strong> แท็บ Messages และ Results (ผลค้นหา)</span></li>
+    <li><span class="num">5</span><span class="text"><strong>Preview</strong> ภาพตัวอย่างของสิ่งที่เลือก</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ข้อควรจำ:</strong> ปิดหน้าต่างไปโดยไม่ตั้งใจ เปิดคืนได้ที่เมนู View</div>
+
+<h2>ขั้นที่ 3: Project Window — แท็บ Sheet และ Devices</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-03.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-03.jpg" alt="ขั้นที่ 3: Project Window — แท็บ Sheet และ Devices" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บด้านล่างสลับมุมมอง <strong>Sheet / Devices / Panel / Variants</strong></span></li>
+    <li><span class="num">2</span><span class="text">ติ๊กช่องหน้าชื่อ Sheet เพื่อ <strong>เปิด / ปิด</strong> แผ่น</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Devices</strong> อุปกรณ์ทั้งหมด จัดกลุ่มตามตัวอักษร -K, -M, -Q …</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Placement</strong> Sheet / ช่องที่วาง ไอคอนน้ำเงิน = วางแล้ว</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ข้อควรจำ:</strong> Page Up / Page Down = แผ่นถัดไป / ก่อนหน้า · Home / End = แผ่นแรก / สุดท้าย</div>
+
+<h2>ขั้นที่ 4: ค้นหา Component ใน Database และดู Preview</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-04.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-04.jpg" alt="ขั้นที่ 4: ค้นหา Component ใน Database และดู Preview" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">พิมพ์ในช่อง <strong>Component name</strong> แล้วกด Enter (ใช้ * แทนตัวอักษรใดก็ได้)</span></li>
+    <li><span class="num">2</span><span class="text">คลิก Component ที่พบใน tree</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Preview</strong> แสดง Symbol ของ Component</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Status bar</strong> แสดงคำอธิบายของ Component</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>หมายเหตุ:</strong> แท็บล่างของ Database Window: Component / Symbol / Misc · กด Reset search เพื่อล้างคำค้น</div>
+
+<h2>ขั้นที่ 5: จัดโครงสร้าง Database (Tree Structure)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-05.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-05.jpg" alt="ขั้นที่ 5: จัดโครงสร้าง Database (Tree Structure)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">คลิกขวาที่ <strong>ชื่อ Database</strong> (บรรทัดบนสุดของ tree)</span></li>
+    <li><span class="num">2</span><span class="text">เลือก <strong>Tree Structure</strong></span></li>
+    <li><span class="num">3</span><span class="text"><strong>Use Structure</strong> เลือก Class-main+Class english</span></li>
+    <li><span class="num">4</span><span class="text">ตาราง Order by แสดงระดับของ tree แล้วกด <strong>OK</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำซ้ำ:</strong> แท็บ Symbol ใช้วิธีเดียวกัน เลือกแบบ Schematictype+Class_english</div>
+
+<h2>ขั้นที่ 6: ตั้งช่องค้นหา (Component Search Configuration)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-06.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-06.jpg" alt="ขั้นที่ 6: ตั้งช่องค้นหา (Component Search Configuration)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ซ้าย: Attribute ทั้งหมดที่ใช้ค้นหาได้</span></li>
+    <li><span class="num">2</span><span class="text">เลือก Attribute แล้วกดลูกศร <strong>→</strong> ย้ายไปฝั่งขวา</span></li>
+    <li><span class="num">3</span><span class="text">ขวา: ช่องค้นหาที่จะแสดงบน Database Window</span></li>
+    <li><span class="num">4</span><span class="text">กด <strong>OK</strong></span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>หมายเหตุ:</strong> เปิดได้จากคลิกขวาที่ชื่อ Database → Component Search Configuration · ค่าเริ่มต้นมีช่อง Component name, Description, Supplier ให้แล้ว</div>
+
+<h2>ขั้นที่ 7: ตารางและหน้าต่าง Properties (เมนู View)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-07.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-07.jpg" alt="ขั้นที่ 7: ตารางและหน้าต่าง Properties (เมนู View)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>View → Properties</strong> เปิดหน้าต่าง Properties</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Device / Sheet / Pin / Connection / Cabling / Terminal Table</strong> ตารางรายการ</span></li>
+    <li><span class="num">3</span><span class="text">คลิกอุปกรณ์บนแผ่น ชื่อเต็มขึ้นด้านบน เช่น <strong>-M1 =A1 +Tank1</strong></span></li>
+    <li><span class="num">4</span><span class="text">แก้ค่าในช่องแล้วกด <strong>Apply</strong></span></li>
+  </ol></div>
+</div>
+
+<h2>ขั้นที่ 8: เมนู Settings และ Grid</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-08.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-08.jpg" alt="ขั้นที่ 8: เมนู Settings และ Grid" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Tools → Settings</strong> (คีย์ S) ใช้ได้เมื่อเปิดโปรเจกต์อยู่</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Categories</strong> เลือกหมวดด้านซ้าย</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Working Grid</strong> grid ที่ใช้วางจริง (4 mm)</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Alternative Grid</strong> ใช้เมื่อกด Ctrl ค้าง</span></li>
+    <li><span class="num">5</span><span class="text"><strong>Measurement Units</strong> Millimetres / Inches</span></li>
+  </ol></div>
+</div>
+
+<h2>ขั้นที่ 9: ซูม Grid ไม้บรรทัด และ Crosshairs</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-09.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-09.jpg" alt="ขั้นที่ 9: ซูม Grid ไม้บรรทัด และ Crosshairs" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>ซูม</strong> Z = ลากกรอบ · O = ทั้งแผ่น · Ctrl + ลูกกลิ้ง</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Grid</strong> แสดง / ซ่อนจุด grid</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Rulers</strong> ไม้บรรทัดขอบแผ่น (View → Rulers)</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Crosshairs</strong> เส้นเล็งตามเมาส์ (View → Crosshairs)</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ข้อควรจำ:</strong> ลูกกลิ้ง = เลื่อนขึ้นลง · Shift + ลูกกลิ้ง = เลื่อนซ้ายขวา · J = ซูมไปที่วัตถุที่เลือก</div>
+
+<h2>ขั้นที่ 10: เมาส์และเมนูคลิกขวา (Context menu)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-10.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-10.jpg" alt="ขั้นที่ 10: เมาส์และเมนูคลิกขวา (Context menu)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>ซ้าย</strong> คลิก = เลือก · ลากกรอบ = เลือกหลายชิ้น (Shift + คลิก เพิ่ม/ลด)</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Device Properties</strong> แก้ทั้งอุปกรณ์ (ทุก Symbol)</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Symbol Properties</strong> แก้เฉพาะ Symbol ที่เลือก</span></li>
+    <li><span class="num">4</span><span class="text"><strong>ระวัง</strong> ลากกรอบต้องเริ่มบนที่ว่าง ถ้าเริ่มบน Symbol จะเป็นการย้าย</span></li>
+  </ol></div>
+</div>
+
+<h2>ขั้นที่ 11: วางอุปกรณ์ตัวแรก (Component → Device)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-11.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-11.jpg" alt="ขั้นที่ 11: วางอุปกรณ์ตัวแรก (Component → Device)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ค้นหา 3RT10152AP02 แล้วคลิกขวาที่ Component</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Place</strong> (คีย์ D) แล้วคลิกบนแผ่นตรงที่ต้องการ</span></li>
+    <li><span class="num">3</span><span class="text">ได้ Symbol ตัวแรก ระบบตั้งชื่อ <strong>-Q1</strong> ให้เอง</span></li>
+    <li><span class="num">4</span><span class="text"><strong>น้ำเงิน</strong> วางแล้ว (/52.B4 = Sheet 52 ช่อง B4)</span></li>
+    <li><span class="num">5</span><span class="text"><strong>เหลือง</strong> คอยล์และหน้าสัมผัสที่ยังไม่วาง</span></li>
+  </ol></div>
+</div>
+
+<h2>ขั้นที่ 12: Toolbar และการปรับแต่ง (Tools → Customise)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-12.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-12.jpg" alt="ขั้นที่ 12: Toolbar และการปรับแต่ง (Tools → Customise)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Tools → Customise</strong> แท็บ Toolbars</span></li>
+    <li><span class="num">2</span><span class="text">ติ๊กเพื่อแสดง / ซ่อน Toolbar</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Reset / Reset All</strong> คืน Toolbar เป็นค่าเดิม</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Keyboard</strong> ตั้งคีย์ลัดเอง · Application Look = สีหน้าจอ</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ข้อควรจำ:</strong> คลิกขวาบนแถบ Toolbar ก็แสดง/ซ่อนได้ · ทุกคำสั่งบน Toolbar อยู่ในเมนูหลักด้วย</div>
+
+<h2>ขั้นที่ 13: บันทึก / คืนหน้าจอ (Workspace Configurations)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/00-13.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/00-13.jpg" alt="ขั้นที่ 13: บันทึก / คืนหน้าจอ (Workspace Configurations)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">รายการชุดหน้าจอที่บันทึกไว้</span></li>
+    <li><span class="num">2</span><span class="text">ติ๊ก = บันทึกหน้าจอเองทุกครั้งที่ปิดโปรแกรม</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Save</strong> บันทึกหน้าจอปัจจุบัน</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Restore</strong> คืนหน้าจอตามที่บันทึกไว้</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>หมายเหตุ:</strong> เปิดได้ที่ View → Workspace Configurations · เก็บเป็นไฟล์ XML ใน %USERPROFILE%\AppData\Roaming\Zuken\E3.series\&lt;Version&gt;</div>
+
+<h2>คีย์ลัดที่ใช้บ่อย</h2>
+<table>
+<tr><th>คีย์</th><th>คำสั่ง</th><th>คีย์</th><th>คำสั่ง</th></tr>
+<tr><td>Ctrl+N</td><td>โปรเจกต์ใหม่</td><td>S</td><td>Settings</td></tr>
+<tr><td>Ctrl+O</td><td>เปิดโปรเจกต์</td><td>L</td><td>Levels</td></tr>
+<tr><td>Ctrl+S</td><td>บันทึก</td><td>Z</td><td>ซูม (ลากกรอบ)</td></tr>
+<tr><td>F12</td><td>บันทึกเป็นชื่อใหม่</td><td>O</td><td>ดูทั้งแผ่น (Fit to Window)</td></tr>
+<tr><td>Ctrl+Z / Ctrl+Y</td><td>ย้อน / ทำซ้ำ</td><td>J</td><td>ซูมไปที่วัตถุที่เลือก</td></tr>
+<tr><td>Ctrl+D</td><td>Duplicate</td><td>F3 / Shift+F3</td><td>ค้นหา / ล้างไฮไลต์</td></tr>
+<tr><td>Del</td><td>ลบออกจากแผ่น</td><td>F2</td><td>เปลี่ยนชื่อ</td></tr>
+<tr><td>D</td><td>วาง Symbol ล่าสุดซ้ำ</td><td>Ctrl + คลิก</td><td>ไปที่ Device tree</td></tr>
+</table>
+<p>ดูและเปลี่ยนคีย์ลัดทั้งหมดได้ที่ Tools → Customise → Keyboard</p>
+
+<h2>ไฟล์ที่ใช้ในบทนี้</h2>
+<table>
+<tr><th>ไฟล์</th><th>มาจากไหน</th><th>ใช้ทำอะไร</th></tr>
+<tr><td><code>Cooling water pump.e3s</code></td><td>โปรเจกต์ตัวอย่างที่มากับโปรแกรม โฟลเดอร์ <code>data\Pumpe</code></td><td>ต้นฉบับ ไม่เปิดแก้</td></tr>
+<tr><td><code>Cooling water pump_00.e3s</code></td><td>สำเนาที่คัดลอกมาไว้ในโฟลเดอร์ของตัวเอง</td><td>เปิดฝึกทุกขั้นในบทนี้</td></tr>
+</table>
+
+<h2>Checklist ท้ายบท</h2>
+<table>
+<tr><th>ข้อ</th><th>สิ่งที่ต้องทำได้</th></tr>
+<tr><td>1</td><td>เปิดโปรเจกต์ .e3s และเปิด / ปิด Sheet ได้</td></tr>
+<tr><td>2</td><td>บอกชื่อหน้าต่างหลักทั้ง 5 ส่วนได้</td></tr>
+<tr><td>3</td><td>อธิบายความต่างของ Component / Symbol / Device ได้</td></tr>
+<tr><td>4</td><td>ค้นหา Component และดู Preview ได้</td></tr>
+<tr><td>5</td><td>เปิด Properties และตาราง Device Table ได้</td></tr>
+<tr><td>6</td><td>ซูม / เลื่อน / เปิด Grid และ Crosshairs ได้</td></tr>
+<tr><td>7</td><td>วางอุปกรณ์ และบอกได้ว่าสีเหลือง / น้ำเงินคืออะไร</td></tr>
+<tr><td>8</td><td>คืนหน้าจอเดิมด้วย Workspace Configurations ได้</td></tr>
+</table>
+<div class="tip"><strong>ครบทุกข้อ:</strong> ไปต่อบทที่ 01: เขียนวงจรด้วย E³.schematic (Sheet, Subcircuit, ลากสาย, Terminal Plan)</div>
+
+<h2>ปัญหาที่พบบ่อย และวิธีแก้</h2>
+<table>
+<tr><th>อาการ</th><th>วิธีแก้</th></tr>
+<tr><td>หน้าต่าง Project / Database / Messages หายไป</td><td>View → Project / Database / Output Windows หรือ Workspace Configurations → Restore</td></tr>
+<tr><td>Tools → Settings กดไม่ได้</td><td>ต้องเปิดโปรเจกต์ก่อน เมนู Settings ใช้ได้เมื่อมีโปรเจกต์เปิดอยู่</td></tr>
+<tr><td>ลากกรอบแล้ว Symbol ขยับ</td><td>เริ่มลากจากพื้นที่ว่างบนแผ่น · ย้ายผิดกด Ctrl+Z</td></tr>
+<tr><td>ค้นหา Component ไม่เจอ</td><td>ใช้ * แทนตัวอักษรใดก็ได้ เช่น 3RT1015* แล้วกด Enter · กด Reset search ล้างคำค้น</td></tr>
+<tr><td>ลบ Symbol แล้วอุปกรณ์ยังอยู่ใน Device tree (สีเหลือง)</td><td>ปกติ: Delete เอาออกจากแผ่นเท่านั้น ลบออกจากโปรเจกต์ใช้ Delete Forced ใน Device tree</td></tr>
+<tr><td>ซูมแล้วหาแผ่นไม่เจอ</td><td>กด O (Fit to Window) เพื่อดูทั้งแผ่น</td></tr>
+</table>
+
+        <div class="page-nav">
+          <a href="../pre-test.html">← ก่อนหน้า: แบบทดสอบก่อนเรียน</a>
+          <a href="01.html">ถัดไป: 01. วงจรไฟฟ้า E³.schematic →</a>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        Zuken E3 Tutorial
+      </footer>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="inner">
+      <nav id="menu">
+        <header class="major"><button class="sidebar-close" aria-label="ปิดเมนู">✕</button><h2>เมนู</h2></header>
+        <ul>
+          <li><a href="../index.html">หน้าแรก</a></li>
+          <li><a href="../pre-test.html">แบบทดสอบก่อนเรียน</a></li>
+          <li class="active"><a href="00.html">00. หน้าจอและพื้นฐาน</a></li>
+          <li><a href="01.html">01. วงจรไฟฟ้า E³.schematic</a></li>
+          <li><a href="02.html">02. ออกแบบตู้ E³.panel</a></li>
+          <li><a href="03.html">03. สร้าง Symbol และ Component</a></li>
+          <li><a href="04.html">04. สร้าง Model ของตู้</a></li>
+          <li><a href="../post-test.html">แบบทดสอบหลังเรียน และ Feedback</a></li>
+        </ul>
+      </nav>
+      <footer id="footer"><p class="copyright">Zuken E3 Tutorial</p></footer>
+    </div>
+  </div>
+  <div id="sidebar-overlay"></div>
+</div>
+<script src="../assets/main.js?v=30d529e9"></script>
+</body>
+</html>

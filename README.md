@@ -1,71 +1,51 @@
 # ZukenE3
 
-เว็บไซต์สอนการใช้งาน Zuken E3.series (ภาษาไทย) — เผยแพร่ผ่าน GitHub Pages
+เว็บไซต์สอนการใช้งาน Zuken E³.series แบบ Step by Step (ภาษาไทย) — เผยแพร่ผ่าน GitHub Pages
+เนื้อหามาจากชุด deck `02_Quicktour` (ไฟล์ `.pptx` ของแต่ละบท) โครงเว็บและ generator ใช้แบบเดียวกับ PlantSimulation / ProcessSimulate
 
 ## โครงสร้างเว็บ
 
-- [index.html](index.html) — หน้าแรก
-- [schematic/](schematic/) — Schematics: [index.html](schematic/index.html) หน้ารวมลิงก์ไปยัง 10 บท ([01.html](schematic/01.html)–[10.html](schematic/10.html))
-  - 01.html — Project & UI Setup
-  - 02.html — Placing & Editing Devices
-  - 03.html — Connecting & Online Checks
-  - 04.html — Fields & Levels
-  - 05.html — Signals & Signal Tree
-  - 06.html — Global Search & Replace
-  - 07.html — Terminals & Terminal Plan
-  - 08.html — Subcircuits
-  - 09.html — Database Editor (DBE): สร้าง Symbol/Component
-  - 10.html — Database Sync & Reporting
-- [cable/index.html](cable/index.html) — Cable: Mating Connector, Dynamic Cable, Block Function, คำนวณ Bundle
-- [panel/index.html](panel/index.html) — Panel: Mounting Rail, Cable Duct, Terminal Strip, Autoconnect, 3D Panel
-- [database-editor/index.html](database-editor/index.html) — Database Editor: สร้าง Symbol/Component/Model เอง, COM API
-- [assets/style.css](assets/style.css) — สไตล์ชีตกลางของทุกหน้า (Editorial-inspired layout: sidebar nav + banner hero)
-- [assets/main.js](assets/main.js) — toggle เมนูมือถือและ submenu accordion ของ Schematics
-- [examples/](examples/) — ไฟล์ตัวอย่าง `.e3s` (เพิ่มเองได้ — ตัวอย่างฝึกทำอยู่ในแต่ละหน้าบท/โมดูล)
-- [tools/](tools/) — สคริปต์ Python ที่ generate ไฟล์ `.html` ทั้งหมดข้างต้น (ดู "แก้ไข/เพิ่มเนื้อหา" ด้านล่าง)
+- [index.html](index.html) — หน้าแรก (แบบทดสอบก่อนเรียน → การ์ดของทุกบท → แบบทดสอบหลังเรียน)
+- **Step by Step 00–04** ([lessons/](lessons/index.html)) — แต่ละบทเป็นเมนูหลักของตัวเอง `lessons/00.html` .. `04.html`
+  - 00 หน้าจอและพื้นฐาน · 01 วงจรไฟฟ้า E³.schematic · 02 ออกแบบตู้ E³.panel · 03 สร้าง Symbol และ Component · 04 สร้าง Model ของตู้
+- [pre-test.html](pre-test.html) / [post-test.html](post-test.html) — ฝัง Google Forms (ลิงก์ตั้งใน `QUIZ_PAGES`)
+- [assets/style.css](assets/style.css) / [assets/main.js](assets/main.js) — สไตล์ (แดง / เทา / ขาว ตามสไลด์) และเมนู off-canvas
+- `assets/images/lessons/<NN>-<ขั้นที่>.jpg` — ภาพหน้าจอของขั้นที่ k ในบท NN
 
-เนื้อหาในเว็บนี้อ้างอิงจากคู่มือทางการ E3.series 2026 (E3.schematic, E3.cable, E3.panel, Database Editor, E3.Update)
+ทุกบทใช้สำเนาของโปรเจกต์ตัวอย่าง `Cooling water pump.e3s` ที่มากับโปรแกรม (`C:\Users\Public\Documents\Zuken\E3.series_<เวอร์ชัน>\data\Pumpe`)
 
-## วิธีเปิดใช้งานเป็นเว็บไซต์ (GitHub Pages)
+## สร้าง/แก้ไขหน้าเว็บด้วยสคริปต์ (ไม่แก้ไฟล์ .html ตรงๆ)
 
-1. ไปที่ repo บน GitHub → **Settings → Pages**
-2. หัวข้อ **Build and deployment** เลือก Source เป็น **Deploy from a branch**
-3. เลือก branch `main` และโฟลเดอร์ `/ (root)` แล้วกด **Save**
-4. รอสักครู่ เว็บจะออนไลน์ที่ `https://<username>.github.io/ZukenE3/`
-
-### ถ้าตั้งค่าแล้วแต่เว็บขึ้น 404
-
-ถ้าหน้า Settings บอกว่า "currently being built from the main branch" แต่เว็บจริงขึ้น
-"Site not found" ให้บังคับปลดล็อกปุ่ม Save: เปลี่ยน Branch เป็น **None** → Save → รอ 10
-วินาที → เปลี่ยนกลับเป็น **main** / **/(root)** → Save อีกครั้ง แล้วเช็คแท็บ **Actions**
-ว่ามี workflow "pages build and deployment" รันสำเร็จ
-
-## แก้ไข/เพิ่มเนื้อหา
-
-ไฟล์ `.html` ทุกไฟล์ **ถูก generate จากสคริปต์ Python ใน [tools/](tools/) — อย่าแก้ `.html` ตรงๆ**
-เพราะการรันสคริปต์ใหม่ภายหลังจะเขียนทับ แก้ที่ต้นทางแล้วรันสคริปต์ใหม่แทน:
-
-- แก้เนื้อหาบทเรียน Schematics (`schematic/01.html`–`10.html`) → แก้ที่ `tools/gen_chapters.py`
-- แก้เนื้อหาหน้า Schematics hub / Cable / Panel / Database Editor → แก้ที่ `tools/gen_pages.py`
-- แก้เนื้อหาหน้าแรก → แก้ที่ `tools/gen_index.py`
-- แก้เมนู/โครงสร้างส่วน (เพิ่มบท, เพิ่ม section ใหม่ทั้งหมด) → แก้ `SECTIONS`/`SECTION_ORDER` ใน `tools/gen_site.py`
-- แก้ดีไซน์ร่วม (สี, ฟอนต์, layout) → แก้ `assets/style.css` โดยตรง (ไฟล์นี้ไม่ถูก generate)
-
-รันสคริปต์ใหม่ทุกครั้งตามลำดับนี้ (import กันเป็นทอด ๆ):
+- [tools/gen_site.py](tools/gen_site.py) — โครงเมนู (`SECTIONS`), ลิงก์แบบทดสอบ (`QUIZ_PAGES`), คำอธิบายการ์ด (`HUB_INTRO`, `HUB_CARD_DESC`), เทมเพลต และ helper (`screenshot`, `step_list`, `side_by_side`)
+- [tools/chapters/](tools/chapters/) — เนื้อหาบทละไฟล์ `lessons_NN.py` มี `OBJECTIVES` และ `BODY` (f-string; ปีกกาจริงต้องเป็น `{{` `}}`, backslash ต้องเป็น `\\`)
+- [tools/gen_chapters.py](tools/gen_chapters.py), [tools/gen_index.py](tools/gen_index.py), [tools/gen_quiz.py](tools/gen_quiz.py) — หน้าบท / หน้าแรก / หน้าแบบทดสอบ
 
 ```bash
 cd tools
-python gen_site.py
-python gen_chapters.py
-python gen_pages.py
-python gen_index.py
+python -X utf8 gen_site.py
+python -X utf8 gen_chapters.py
+python -X utf8 gen_index.py
+python -X utf8 gen_quiz.py
 ```
 
-**เพิ่มบทใหม่ในโมดูลที่มีอยู่แล้ว** (เช่น Schematics บทที่ 11): เพิ่มชื่อบทใน `SECTIONS["schematic"]["chapters"]`
-ใน `gen_site.py`, เพิ่มเนื้อหา `BODY[11]`/`TITLE[11]` ใน `gen_chapters.py`, แล้วรันสคริปต์ใหม่ทั้งหมด — เมนู/ปุ่มก่อนหน้า-ถัดไป
-จะอัปเดตให้เองไม่ต้องแก้ทีละไฟล์
+ทดสอบก่อน push: `python -m http.server 8000` จากโฟลเดอร์นี้ แล้วเปิด `http://localhost:8000/`
 
-**เพิ่ม section ใหม่ทั้งหมด** (เช่นโมดูลใหม่ของ E3.series): เพิ่ม entry ใหม่ใน `SECTIONS`/`SECTION_ORDER` ใน `gen_site.py`
-(ตั้ง `"chapters": []` ถ้าเป็นหน้าเดียวไม่มีบทย่อย) แล้วเพิ่มเนื้อหาใน `gen_pages.py` และเพิ่มการ์ดในหน้าแรกที่ `gen_index.py`
+## ทำบทใหม่จาก deck
 
-แล้ว commit + push ตามปกติ
+1. Export `.pptx` เป็น PDF (PowerPoint → Save As → PDF)
+2. `python -X utf8 tools/pdf_to_chapter.py <deck.pdf> <NN>` — ตัดภาพหน้าจอ (พร้อมเลขวงกลมแดง) ไปที่ `assets/images/lessons/`
+   แล้วเปลี่ยนชื่อภาพให้ตรงเลขขั้น (`NN-01.jpg` = ขั้นที่ 1) ลบภาพของสไลด์ที่ไม่ใช่ขั้นตอน (ตาราง / Checklist)
+3. `python -X utf8 tools/pptx_to_chapter.py <deck.pptx> <NN>` — อ่านข้อความจาก `.pptx` โดยตรง (ช่องว่างภาษาไทยและลำดับเลขกำกับถูกต้องกว่า PDF):
+   สไลด์ภาพรวม → ตาราง + "สิ่งที่ต้องมี", สไลด์ "ขั้นที่ k / N" → ภาพ + `step_list()` + กล่องหมายเหตุ, สไลด์อื่น → ตาราง
+   (ถ้ามีไฟล์บทอยู่แล้วจะเขียนเป็น `lessons_NN_draft.py`)
+4. แก้ไฟล์บทด้วยมือ — `OBJECTIVES`, ย่อหน้านำ, ตาราง "ไฟล์ที่ใช้ในบทนี้", ตัดเลขเวอร์ชันโปรแกรมออก
+5. เพิ่มชื่อบทใน `SECTIONS["lessons"]["chapters"]` และ `"ids"`, เพิ่ม `HUB_CARD_DESC` แล้ว build
+
+## แบบทดสอบ
+
+คำถามและเฉลยอยู่ใน `_No_Upload/quiz/` (ไม่ขึ้น git) — `Code.gs` สร้าง Google Forms ก่อน/หลังเรียน วิธีใช้ดู `_No_Upload/quiz/README.md`
+ได้ลิงก์ `/viewform` แล้วใส่ใน `QUIZ_PAGES` ของ `gen_site.py` แล้วรัน `gen_quiz.py` ใหม่
+
+## วิธีเปิดใช้งานเป็นเว็บไซต์ (GitHub Pages)
+
+Settings → Pages → Source: **Deploy from a branch** → branch `main`, โฟลเดอร์ `/ (root)` → Save
