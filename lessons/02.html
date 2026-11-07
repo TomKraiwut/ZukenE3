@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02. ออกแบบตู้ E³.panel — Zuken E3 Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=72b73deb">
+</head>
+<body>
+<div id="wrapper">
+  <div id="main">
+    <div class="inner">
+      <header id="header">
+        <a href="../index.html" class="logo"><span>Zuken E3 Tutorial</span></a>
+        <button class="menu-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
+      </header>
+
+      <main>
+        <h1>02. ออกแบบตู้ E³.panel</h1>
+
+        <div class="objectives">
+          <p>วัตถุประสงค์การเรียนรู้</p>
+          <ol>
+          <li>เปิดแบบตู้ และบอกได้ว่า Mounting rail / Cable duct / พื้นที่สีแดงคืออะไร</li>
+          <li>หาอุปกรณ์ที่ยังไม่วางในแท็บ Panel - Not Placed แล้ววางลงรางที่ถูกต้อง</li>
+          <li>เพิ่ม Cable Duct และราง Mount (TS 35 mm) และอธิบายหน้าที่ของ Slot description</li>
+          <li>สั่ง Panel Autoconnect ให้เดินสายตามราง แล้วดูตู้แบบ 3D</li>
+          <li>ส่งออก Wiring list จากแบบตู้เป็น Excel</li>
+          </ol>
+        </div>
+
+<p class="lead" style="max-width:46em;">ตู้คืออีกมุมมองของวงจรเดียวกัน — ทีละขั้น รวม 10 ขั้น ใน <strong>E³.panel</strong>
+วางอุปกรณ์ -Q6 ที่ได้จากปั๊มตัวที่ 3 ในบทที่ 01 ลงราง เพิ่มราง เดินสายอัตโนมัติ ดูตู้ 3D และส่งออก Wiring list ใช้เวลาประมาณ 1 ชั่วโมง</p>
+
+<h2>ภาพรวม: ตู้คืออีกมุมมองของวงจรเดียวกัน</h2>
+<table>
+<tr><th>ลำดับ</th><th>หัวข้อ</th><th>ทำอะไร</th></tr>
+<tr><td>01</td><td>แบบตู้ 2D</td><td>Sheet 6 ในโฟลเดอร์ 02-Panel</td></tr>
+<tr><td>02</td><td>Placed / Not Placed</td><td>อุปกรณ์จากวงจรที่รอวาง</td></tr>
+<tr><td>03</td><td>วางลงราง</td><td>ระบบไฮไลต์รางที่ติดตั้งได้</td></tr>
+<tr><td>04</td><td>ราง Mount / Cable Duct</td><td>Slot TS 35 mm · ความจุราง</td></tr>
+<tr><td>05</td><td>Autoconnect</td><td>เดินสายตามรางอัตโนมัติ</td></tr>
+<tr><td>06</td><td>ตู้ 3D + Wiring list</td><td>Panel toolbar · Add-ons Excel</td></tr>
+</table>
+<div class="tip"><strong>สิ่งที่ต้องมี:</strong> ผ่านบทที่ 01 (มี -Q6 / -Q7 จากปั๊มตัวที่ 3) · license E³.panel · เมาส์ 3 ปุ่มสำหรับหมุนมุมมอง 3D</div>
+<div class="tip"><strong>ข้อมูลชุดเดียว:</strong> เปลี่ยนชื่ออุปกรณ์ในวงจร ชื่อในตู้เปลี่ยนตาม · อุปกรณ์ที่เพิ่มในวงจรจะรอใน Panel - Not Placed</div>
+
+<h2>ขั้นที่ 1: เปิดแบบตู้ Sheet 6</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/02-01.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/02-01.jpg" alt="ขั้นที่ 1: เปิดแบบตู้ Sheet 6" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>พื้นที่สีแดง</strong> = ความร้อนสูญเสีย (Level 200) ปิดได้ด้วยคีย์ L</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Mounting rail</strong> รางจับอุปกรณ์ (สีเหลือง)</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Cable duct</strong> รางเดินสาย สายในตู้เดินผ่านรางนี้</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>หมายเหตุ:</strong> เปิด Sheet 6 จากโฟลเดอร์ 02-Panel · ซูมด้วย Ctrl + ล้อเมาส์</div>
+
+<h2>ขั้นที่ 2: แท็บ Panel - Placed และ Not Placed</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/02-02.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/02-02.jpg" alt="ขั้นที่ 2: แท็บ Panel - Placed และ Not Placed" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ <strong>Panel - Placed</strong> (ไอคอนสีเขียว)</span></li>
+    <li><span class="num">2</span><span class="text">อุปกรณ์ที่อยู่ในตู้แล้ว</span></li>
+    <li><span class="num">3</span><span class="text">แท็บ <strong>Panel - Not Placed</strong> (สีเหลือง)</span></li>
+    <li><span class="num">4</span><span class="text"><strong>-Q6 / -Q7</strong> จากปั๊มตัวที่ 3 ในบทที่ 01 รอวาง</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ข้อควรจำ:</strong> อุปกรณ์ที่เพิ่มในวงจรจะไม่อยู่ในตู้เอง ต้องวางลงตู้จากแท็บ Not Placed</div>
+
+<h2>ขั้นที่ 3: วาง -Q6 ลงราง</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/02-03.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/02-03.jpg" alt="ขั้นที่ 3: วาง -Q6 ลงราง" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">คลิกขวาที่ <strong>-Q6</strong> (Preview แสดงรูปอุปกรณ์)</span></li>
+    <li><span class="num">2</span><span class="text">เลือก <strong>Place</strong></span></li>
+    <li><span class="num">3</span><span class="text">รางที่ติดตั้งได้เป็น<strong>สีชมพู</strong> คลิกวางบนราง</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ข้อควรจำ:</strong> อุปกรณ์ snap เข้าราง วางซ้อนกันหรือวางบน Cable duct ไม่ได้ · ตรวจจาก Slot Description ของราง</div>
+
+<h2>ขั้นที่ 4: ผลการวาง</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/02-04.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/02-04.jpg" alt="ขั้นที่ 4: ผลการวาง" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>-Q6</strong> อยู่บนรางแล้ว (3RT10251BB40)</span></li>
+    <li><span class="num">2</span><span class="text">Not Placed เหลือเฉพาะ <strong>-Q7</strong></span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>หมายเหตุ:</strong> Status bar ล่างจอแจ้ง Component และตำแหน่งที่วาง</div>
+
+<h2>ขั้นที่ 5: เพิ่ม Cable Duct</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/02-05.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/02-05.jpg" alt="ขั้นที่ 5: เพิ่ม Cable Duct" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Insert → Mount...</strong> (ราง)</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Insert → Cable Duct...</strong></span></li>
+    <li><span class="num">3</span><span class="text"><strong>Height</strong> ความสูงราง</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Width</strong> ความกว้างราง (Quicktour ใช้ 25 mm)</span></li>
+    <li><span class="num">5</span><span class="text"><strong>Fill limit</strong> ความจุสาย (ค่าจาก Settings 70%)</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>หมายเหตุ:</strong> ไม่ติ๊ก Length แล้วลากความยาวเอง · จุดวงกลมเล็กปรากฏเมื่อรางเชื่อมกัน</div>
+
+<h2>ขั้นที่ 6: เพิ่ม Mount (TS 35 mm)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/02-06.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/02-06.jpg" alt="ขั้นที่ 6: เพิ่ม Mount (TS 35 mm)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Slot description</strong> = TS 35 mm</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Height</strong> 7.5 mm</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Width</strong> 35 mm</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ข้อควรจำ:</strong> ระบบใช้ Slot description ตรวจว่าอุปกรณ์ตัวไหนติดตั้งบนรางนี้ได้ (Model ต้องมีค่าเดียวกัน บทที่ 04)</div>
+
+<h2>ขั้นที่ 7: Logic Lines และ Panel Autoconnect</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/02-07.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/02-07.jpg" alt="ขั้นที่ 7: Logic Lines และ Panel Autoconnect" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>View → Logic Lines</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>Cores On Panel</strong> แสดงเส้นประของสายที่ต้องเดิน</span></li>
+    <li><span class="num">3</span><span class="text">คลิกขวาที่อุปกรณ์ (หรือ Ctrl+A) → <strong>Panel Autoconnect</strong></span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>หมายเหตุ:</strong> ระบบหาเส้นทางสั้นที่สุดผ่าน Cable duct ตามความจุราง · สายที่เดินไม่ได้แจ้งใน Output Window → Results</div>
+
+<h2>ขั้นที่ 8: สลับเป็นมุมมอง 3D</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/02-08.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/02-08.jpg" alt="ขั้นที่ 8: สลับเป็นมุมมอง 3D" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">Panel toolbar → ปุ่ม <strong>3D</strong> (แสดง Sheet แบบ 3D)</span></li>
+    <li><span class="num">2</span><span class="text">3D View toolbar → <strong>Isometric</strong></span></li>
+    <li><span class="num">3</span><span class="text">ตู้ทั้งแผ่นแสดงแบบ 3D</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>เปิด toolbar:</strong> คลิกขวาบนแถบ toolbar แล้วติ๊ก Panel และ 3D View (ค่าเริ่มต้นปิดอยู่)</div>
+
+<h2>ขั้นที่ 9: ดูตู้ 3D</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/02-09.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/02-09.jpg" alt="ขั้นที่ 9: ดูตู้ 3D" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">อุปกรณ์อยู่บนแผ่นติดตั้งในตู้ตามตำแหน่งจริง</span></li>
+    <li><span class="num">2</span><span class="text"><strong>ลากปุ่มซ้าย</strong> หมุน · <strong>ลากปุ่มขวา</strong> เลื่อน · <strong>หมุนล้อ</strong> ซูม</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Shift + ลูกศร</strong> พับผนัง / ประตู (Pivot)</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>หมายเหตุ:</strong> คลิกขวาที่อุปกรณ์ → Transparency in 3D ทำให้มองทะลุได้</div>
+
+<h2>ขั้นที่ 10: Wiring List จากแบบตู้</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lessons/02-10.jpg" target="_blank" rel="noopener"><img src="../assets/images/lessons/02-10.jpg" alt="ขั้นที่ 10: Wiring List จากแบบตู้" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Add-ons</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>EXCEL Documents</strong></span></li>
+    <li><span class="num">3</span><span class="text"><strong>Wiring list from Panel</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ผลลัพธ์:</strong> Excel แสดง From / To เลขสาย ชนิด สี ขนาดหน้าตัด ความยาว และเส้นทางเดินสาย</div>
+
+<h2>ไฟล์ที่ใช้ในบทนี้</h2>
+<table>
+<tr><th>ไฟล์</th><th>มาจากไหน</th><th>ใช้ทำอะไร</th></tr>
+<tr><td><code>Cooling water pump_01.e3s</code></td><td>ไฟล์ที่ทำเสร็จจากบทที่ 01 (มี -Q6 / -Q7 ของปั๊มตัวที่ 3)</td><td>ฝึกขั้นที่ 1–10 บน Sheet 6 โฟลเดอร์ 02-Panel</td></tr>
+<tr><td>Wiring list (Excel)</td><td>ขั้นที่ 10 Add-ons → EXCEL Documents</td><td>รายการสาย From / To ความยาว และเส้นทาง</td></tr>
+</table>
+
+<h2>Checklist ท้ายบท</h2>
+<table>
+<tr><th>ข้อ</th><th>สิ่งที่ต้องทำได้</th></tr>
+<tr><td>1</td><td>เปิดแบบตู้และบอกได้ว่า Rail / Duct / พื้นที่สีแดงคืออะไร</td></tr>
+<tr><td>2</td><td>หาอุปกรณ์ที่ยังไม่วางในแท็บ Not Placed ได้</td></tr>
+<tr><td>3</td><td>วางอุปกรณ์ลงรางที่ถูกต้องได้</td></tr>
+<tr><td>4</td><td>อธิบาย Slot description (TS 35 mm) ได้</td></tr>
+<tr><td>5</td><td>สั่ง Panel Autoconnect ได้</td></tr>
+<tr><td>6</td><td>สลับ 2D / 3D และหมุนมุมมองได้</td></tr>
+<tr><td>7</td><td>ส่งออก Wiring list ได้</td></tr>
+</table>
+<div class="tip"><strong>ครบทุกข้อ:</strong> ไปต่อบทที่ 03: สร้าง Symbol และ Component เองใน Database Editor</div>
+
+<h2>ปัญหาที่พบบ่อย และวิธีแก้</h2>
+<table>
+<tr><th>อาการ</th><th>วิธีแก้</th></tr>
+<tr><td>ไม่เห็นปุ่ม 3D</td><td>คลิกขวาบนแถบ toolbar → ติ๊ก Panel และ 3D View</td></tr>
+<tr><td>วางอุปกรณ์แล้วไม่ติดราง</td><td>Slot description ของรางกับ Model ต้องตรงกัน (เช่น TS 35 mm)</td></tr>
+<tr><td>อุปกรณ์ใหม่ไม่อยู่ในตู้</td><td>ดูแท็บ Panel - Not Placed แล้วสั่ง Place</td></tr>
+<tr><td>พื้นที่สีแดงบังอุปกรณ์</td><td>กด L แล้วปิด Level 200</td></tr>
+<tr><td>Autoconnect เดินสายไม่ได้</td><td>ตรวจ Output Window → Results · รางเต็ม (Fill limit) หรือไม่มีรางเชื่อม</td></tr>
+<tr><td>toolbar ที่เปิดเพิ่มติดไปครั้งหน้า</td><td>View → Workspace Configurations → Restore หรือปิด toolbar เองก่อนออก</td></tr>
+</table>
+
+        <div class="page-nav">
+          <a href="01.html">← ก่อนหน้า: 01. วงจรไฟฟ้า E³.schematic</a>
+          <a href="03.html">ถัดไป: 03. สร้าง Symbol และ Component →</a>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        Zuken E3 Tutorial
+      </footer>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="inner">
+      <nav id="menu">
+        <header class="major"><button class="sidebar-close" aria-label="ปิดเมนู">✕</button><h2>เมนู</h2></header>
+        <ul>
+          <li><a href="../index.html">หน้าแรก</a></li>
+          <li><a href="../pre-test.html">แบบทดสอบก่อนเรียน</a></li>
+          <li><a href="00.html">00. หน้าจอและพื้นฐาน</a></li>
+          <li><a href="01.html">01. วงจรไฟฟ้า E³.schematic</a></li>
+          <li class="active"><a href="02.html">02. ออกแบบตู้ E³.panel</a></li>
+          <li><a href="03.html">03. สร้าง Symbol และ Component</a></li>
+          <li><a href="04.html">04. สร้าง Model ของตู้</a></li>
+          <li><a href="../post-test.html">แบบทดสอบหลังเรียน และ Feedback</a></li>
+        </ul>
+      </nav>
+      <footer id="footer"><p class="copyright">Zuken E3 Tutorial</p></footer>
+    </div>
+  </div>
+  <div id="sidebar-overlay"></div>
+</div>
+<script src="../assets/main.js?v=30d529e9"></script>
+</body>
+</html>

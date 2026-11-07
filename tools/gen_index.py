@@ -1,75 +1,53 @@
-"""Homepage (index.html). Ported verbatim from the original flat index.html."""
-import gen_site as gs
+# -*- coding: utf-8 -*-
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from gen_site import (SECTIONS, QUIZ_PAGES, page_html, write, chapter_filename, chapter_numbers,
+                      chapter_title, chapter_label, HUB_CARD_DESC)
 
-TITLE = "Zuken E3.series Tutorial"
 
-BODY = '''            <section id="banner">
-                <h1>เรียนรู้ Zuken E3.series</h1>
-                <p class="tagline">เว็บไซต์สอนการใช้งานโปรแกรมออกแบบวงจรไฟฟ้าและระบบสายไฟ (Electrical Schematic &amp; Wiring Harness Design) ตั้งแต่พื้นฐานจนถึงขั้นสูง</p>
-                <p>E3.series เป็นซอฟต์แวร์ของ Zuken สำหรับออกแบบระบบไฟฟ้า (E3.schematic), ระบบสายไฟ/สายเคเบิล (E3.cable) และแผงควบคุม (E3.panel) — ใช้กันแพร่หลายในอุตสาหกรรมยานยนต์ เครื่องจักรอุตสาหกรรม และระบบราง</p>
-            </section>
+def quiz_card(page, badge, desc):
+    return f'''        <div class="card-grid">
+          <a href="{page}" class="card">
+            <div class="icon number">{badge}</div>
+            <h3>{QUIZ_PAGES[page]["title"]}</h3>
+            <p>{desc}</p>
+          </a>
+        </div>'''
 
-            <section>
-                <header class="major"><h2>เลือกโมดูลที่จะเรียน</h2></header>
-                <div class="card-grid">
-                    <a href="schematic.html" class="card">
-                        <div class="icon">🧩</div>
-                        <h3>Schematics</h3>
-                        <p>รู้จักหน้าตาโปรแกรม, Symbol/Component/Device, Item Designation ตามมาตรฐาน IEC 81346, การสร้างวงจรแรกและตรวจสอบความถูกต้อง</p>
-                    </a>
-                    <a href="cable.html" class="card">
-                        <div class="icon">🔌</div>
-                        <h3>Cable</h3>
-                        <p>ออกแบบ Wiring &amp; Cable Harness: Mating Connector อัตโนมัติ, Dynamic Cable, Block Function และคำนวณ Bundle</p>
-                    </a>
-                    <a href="panel.html" class="card">
-                        <div class="icon">🗄️</div>
-                        <h3>Panel</h3>
-                        <p>ออกแบบตู้คอนโทรล (Panel Layout): Mounting Rail, Cable Duct, Terminal Strip, Autoconnect และ 3D Panel</p>
-                    </a>
-                    <a href="database-editor.html" class="card">
-                        <div class="icon">⚙️</div>
-                        <h3>Database Editor</h3>
-                        <p>สร้าง Symbol, Component และ Model เองเมื่อของมาตรฐานไม่พอ พร้อมตรวจสอบฐานข้อมูลด้วย COM API</p>
-                    </a>
-                </div>
-            </section>
 
-            <section>
-                <header class="major"><h2>ระบบเดียว ข้อมูลชุดเดียว</h2></header>
-                <div class="features">
-                    <article>
-                        <div class="icon">🧠</div>
-                        <div class="content">
-                            <h3>Object-Oriented</h3>
-                            <p>Symbol/Component ในฐานข้อมูลกลายเป็น Device เมื่อวางในโปรเจกต์ ทุกโมดูลอ้างอิงข้อมูลชุดเดียวกัน</p>
-                        </div>
-                    </article>
-                    <article>
-                        <div class="icon">📋</div>
-                        <div class="content">
-                            <h3>BOM ตรงแบบเสมอ</h3>
-                            <p>ไม่ต้องส่งข้อมูลข้ามโมดูลเอง BOM, Wire List และรายงานต่างๆ อัปเดตตามแบบจริงอัตโนมัติ</p>
-                        </div>
-                    </article>
-                    <article>
-                        <div class="icon">🆕</div>
-                        <div class="content">
-                            <h3>อัพเดท 2026</h3>
-                            <p>Search &amp; Replace สำหรับ Texts/Attributes, Update All Models in Project, ปรับปรุง Database Editor และ STEP Import</p>
-                        </div>
-                    </article>
-                </div>
-            </section>
+def cards(section):
+    out = []
+    for n, i in enumerate(chapter_numbers(section)):
+        out.append(f'''          <a href="{chapter_filename(section, i)}" class="card">
+            <div class="icon number">{chapter_label(section, i)}</div>
+            <h3>{chapter_title(section, i)}</h3>
+            <p>{HUB_CARD_DESC[section][n]}</p>
+          </a>''')
+    return "\n".join(out)
 
-            <p class="note">
-                <strong>ไฟล์ตัวอย่างจริง:</strong> วางไฟล์โปรเจกต์ <code>.e3s</code> ของคุณไว้ในโฟลเดอร์
-                <a href="https://github.com/TomKraiwut/ZukenE3/tree/main/examples">examples/</a> ของ repo นี้ได้ แล้วใส่ลิงก์ดาวน์โหลดในหน้าโมดูลที่เกี่ยวข้อง
-            </p>'''
 
-EXTRA_SIDEBAR = '''            <section class="about">
-                <header class="major"><h2>วิธีใช้เว็บนี้</h2></header>
-                <p>เริ่มที่ <strong>Schematics</strong> ถ้ายังไม่เคยเปิดโปรแกรม จากนั้นไปที่ <strong>Cable</strong> หรือ <strong>Panel</strong> ตามงานที่ทำ และดู <strong>Database Editor</strong> เมื่อของมาตรฐานไม่พอ ต้องสร้าง Symbol/Component/Model เอง</p>
-            </section>'''
+BODY = f"""        <section id="banner">
+          <h1>เรียนรู้ Zuken E³.series</h1>
+          <p class="tagline">ชุดสอน Step by Step บน E³.series ภาษาไทย</p>
+          <p class="intro">
+            ลงมือทำทีละบท ตั้งแต่รู้จักหน้าจอ, เขียนวงจรไฟฟ้าด้วย E³.schematic, วางอุปกรณ์ในตู้ด้วย E³.panel
+            ไปจนถึงสร้าง Symbol, Component และ Model เองใน Database Editor — ทุกบทมีภาพหน้าจอจริงพร้อมเลขกำกับ
+            บนโปรเจกต์ตัวอย่าง Cooling water pump ที่มากับโปรแกรม
+          </p>
+        </section>
 
-gs.write("index.html", gs.page_html(TITLE, BODY, None, None, EXTRA_SIDEBAR))
+        <h2>เริ่มที่นี่</h2>
+{quiz_card("pre-test.html", "ก่อน", "แบบทดสอบ 20 ข้อ และความคาดหวังต่อการเรียน ประมาณ 15 นาที — ใช้เทียบคะแนนกับหลังเรียน")}
+
+        <h2>{SECTIONS["lessons"]["label"]}</h2>
+        <p>ทุกบทใช้สำเนาของโปรเจกต์ตัวอย่าง <code>Cooling water pump.e3s</code> ที่มากับโปรแกรม
+        (คัดลอกมาไว้ในโฟลเดอร์ของตัวเองก่อนเปิด) — บท 02 ทำต่อจากผลของบท 01 ส่วนบท 03–04 ทำใน Database Editor บนสำเนาฐานข้อมูล</p>
+        <div class="card-grid">
+{cards("lessons")}
+        </div>
+
+        <h2>เรียนจบแล้ว</h2>
+{quiz_card("post-test.html", "หลัง", "แบบทดสอบ 20 ข้อชุดเดียวกับก่อนเรียน และประเมินการเรียน (Feedback) — ผลสอบส่งให้ทางอีเมล")}"""
+
+if __name__ == "__main__":
+    write("index.html", page_html("หน้าแรก", BODY, active_top="index"))
