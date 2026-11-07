@@ -49,8 +49,10 @@ SECTIONS = {
 # Pre-/post-test pages, written by gen_quiz.py. "form" is the Google Form link for learners (the .../viewform URL that
 # _No_Upload/quiz/Code.gs prints when you run createAll); empty = the page says the test is not open yet.
 QUIZ_PAGES = {
-    "pre-test.html": {"title": "แบบทดสอบก่อนเรียน", "form": ""},
-    "post-test.html": {"title": "แบบทดสอบหลังเรียน และ Feedback", "form": ""},
+    "pre-test.html": {"title": "แบบทดสอบก่อนเรียน",
+                      "form": "https://docs.google.com/forms/d/e/1FAIpQLScrGZLDr8sJUY-wl0E-5j_7xNrJu4OSsdzjr4i0ishTvanmwg/viewform"},
+    "post-test.html": {"title": "แบบทดสอบหลังเรียน และ Feedback",
+                       "form": "https://docs.google.com/forms/d/e/1FAIpQLSeSBWAHnCh9EhN5ORFOF5U-1_AJwdXYjzmiN1kAwX5vbUjS3Q/viewform"},
 }
 
 SECTION_ORDER = ["lessons"]
