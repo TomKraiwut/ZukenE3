@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motor Control Lab — Zuken E3 Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=72b73deb">
+</head>
+<body>
+<div id="wrapper">
+  <div id="main">
+    <div class="inner">
+      <header id="header">
+        <a href="../index.html" class="logo"><span>Zuken E3 Tutorial</span></a>
+        <button class="menu-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
+      </header>
+
+      <main>
+        <h1>Motor Control Lab</h1>
+        <p class="lead" style="max-width:46em;">ชุดฝึกวงจรควบคุมมอเตอร์บน E³.series 2027 (E³.schematic) — หนึ่ง Lab ต่อหนึ่งด่านของ <a href="../game.html">เกม Motor Control Lab</a>: ลองต่อวงจรในเกมให้ผ่านก่อน แล้วเขียนแบบวงจรเดียวกันใน E³ ทีละขั้น เริ่มจาก Lab 00 เตรียม Database ของตัวเอง แล้ว Lab 01 ไฟดวงแรก ไปจนถึง Lab 06 เดินหน้า-ถอยหลัง (Lab 03 ต่อจาก Lab 02 ส่วน Lab 04, 05, 06 แต่ละ Lab เริ่มจากไฟล์ Lab 03)</p>
+
+        <div class="card-grid">
+          <a href="00.html" class="card">
+            <div class="icon number">00</div>
+            <h3>เตรียม Database</h3>
+            <p>Copy Database ไปโฟลเดอร์ของตัวเอง, Configure Databases, เลือกใช้ แล้ว Backup / Compact and Repair — 6 ขั้น</p>
+          </a>
+          <a href="01.html" class="card">
+            <div class="icon number">01</div>
+            <h3>First Light ไฟดวงแรก</h3>
+            <p>ด่าน 1: สวิตช์กับหลอดไฟบน Sheet A4 — Component, Signal reference, Connection, สายและป้ายสาย — 13 ขั้น</p>
+          </a>
+          <a href="02.html" class="card">
+            <div class="icon number">02</div>
+            <h3>First Motor มอเตอร์ตัวแรก</h3>
+            <p>ด่าน 2: วงจรกำลัง 3 เฟส + วงจรควบคุมบน 2 Sheet, Autoconnect, Multi-Connection, View → Levels — 14 ขั้น</p>
+          </a>
+          <a href="03.html" class="card">
+            <div class="icon number">03</div>
+            <h3>Self-holding กดครั้งเดียวค้าง</h3>
+            <p>ด่าน 3: Terminal บนจุดต่อ bus, STOP + NO 13-14 จับค้าง, Angle connection, สาย BK / RD / BU — 14 ขั้น</p>
+          </a>
+          <a href="04.html" class="card">
+            <div class="icon number">04</div>
+            <h3>Overload + ไฟสถานะ</h3>
+            <p>ด่าน 4: Overload relay -F1, NC 95-96 / NO 97-98, ไฟ RUN / TRIP และเปลี่ยนเลขสาย — 11 ขั้น</p>
+          </a>
+          <a href="05.html" class="card">
+            <div class="icon number">05</div>
+            <h3>JOG เดินทีละนิด</h3>
+            <p>ด่าน 5: ปุ่ม JOG (Push Button NO NC) ต่อขนานกับวงจรจับค้าง, เลขสาย 2 หลัก — 11 ขั้น</p>
+          </a>
+          <a href="06.html" class="card">
+            <div class="icon number">06</div>
+            <h3>เดินหน้า-ถอยหลัง (Interlock)</h3>
+            <p>ด่าน 7: -K2 สลับเฟส, Interlock NC 21-22 ทั้งสองฝั่ง, Angle connection — 9 ขั้น</p>
+          </a>
+        </div>
+
+        <div class="page-nav">
+          <a href="../lessons/index.html">← ก่อนหน้า: Step by Step 00–04</a>
+          <a href="00.html">เริ่ม 00. เตรียม Database →</a>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        Zuken E3 Tutorial
+      </footer>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="inner">
+      <nav id="menu">
+        <header class="major"><button class="sidebar-close" aria-label="ปิดเมนู">✕</button><h2>เมนู</h2></header>
+        <ul>
+          <li><a href="../index.html">หน้าแรก</a></li>
+          <li><a href="../pre-test.html">แบบทดสอบก่อนเรียน</a></li>
+          <li><a href="../lessons/00.html">00. หน้าจอและพื้นฐาน</a></li>
+          <li><a href="../lessons/01.html">01. วงจรไฟฟ้า E³.schematic</a></li>
+          <li><a href="../lessons/02.html">02. ออกแบบตู้ E³.panel</a></li>
+          <li><a href="../lessons/03.html">03. สร้าง Symbol และ Component</a></li>
+          <li><a href="../lessons/04.html">04. สร้าง Model ของตู้</a></li>
+          <li class="has-children expanded active">
+            <a href="index.html">Motor Control Lab</a>
+            <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู lab">▾</button>
+            <ul class="submenu">
+              <li><a href="../game.html">เกม Motor Control Lab</a></li>
+              <li><a href="00.html">00. เตรียม Database</a></li>
+              <li><a href="01.html">01. First Light ไฟดวงแรก</a></li>
+              <li><a href="02.html">02. First Motor มอเตอร์ตัวแรก</a></li>
+              <li><a href="03.html">03. Self-holding กดครั้งเดียวค้าง</a></li>
+              <li><a href="04.html">04. Overload + ไฟสถานะ</a></li>
+              <li><a href="05.html">05. JOG เดินทีละนิด</a></li>
+              <li><a href="06.html">06. เดินหน้า-ถอยหลัง (Interlock)</a></li>
+            </ul>
+          </li>
+          <li><a href="../post-test.html">แบบทดสอบหลังเรียน และ Feedback</a></li>
+        </ul>
+      </nav>
+      <footer id="footer"><p class="copyright">Zuken E3 Tutorial</p></footer>
+    </div>
+  </div>
+  <div id="sidebar-overlay"></div>
+</div>
+<script src="../assets/main.js?v=30d529e9"></script>
+</body>
+</html>

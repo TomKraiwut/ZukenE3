@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05. JOG เดินทีละนิด — Zuken E3 Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=72b73deb">
+</head>
+<body>
+<div id="wrapper">
+  <div id="main">
+    <div class="inner">
+      <header id="header">
+        <a href="../index.html" class="logo"><span>Zuken E3 Tutorial</span></a>
+        <button class="menu-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
+      </header>
+
+      <main>
+        <h1>05. JOG เดินทีละนิด</h1>
+
+        <div class="objectives">
+          <p>วัตถุประสงค์การเรียนรู้</p>
+          <ol>
+          <li>วาง Push Button NO NC เป็นอุปกรณ์ตัวเดียว (-S3 JOG) แล้ววาง NC 3-4 จาก Device tree</li>
+          <li>ต่อ Connection และ Angle connection ของวงจร JOG</li>
+          <li>เปลี่ยนเลขสายเป็น 2 หลัก และซ่อนป้ายสายที่ซ้อนกัน</li>
+          </ol>
+        </div>
+
+<p class="lead" style="max-width:46em;">ต่อจาก Lab 03: เพิ่มปุ่ม JOG ให้มอเตอร์เดินทีละนิดเฉพาะตอนกดค้าง ขณะที่ START ยังเดินค้างได้ตามเดิม</p>
+<div class="note"><strong>ด่านในเกม:</strong> Lab นี้ตรงกับด่าน 5 ของเกม Motor Control Lab — ลองต่อวงจรในเกมก่อน แล้วค่อยเขียนแบบเดียวกันใน E³ <a href="../game.html">ไปหน้าเกม →</a></div>
+
+<!-- slide 2 -->
+<h2>ภาพรวม: เพิ่มปุ่ม JOG ให้วงจรจับค้าง</h2>
+<table>
+<tr><th>ลำดับ</th><th>หัวข้อ</th><th>ทำอะไร</th></tr>
+<tr><td>01</td><td><strong>Open Lab03</strong></td><td>Save As Lab05</td></tr>
+<tr><td>02</td><td><strong>ลบสาย 9 + กิ่ง K1:13</strong></td><td>เตรียมที่ให้หน้าสัมผัส NC ของ JOG</td></tr>
+<tr><td>03</td><td><strong>ย้ายอุปกรณ์</strong></td><td>Coil, -S1, NO 13-14 ของ -K1</td></tr>
+<tr><td>04</td><td><strong>วาง -S3 JOG</strong></td><td>Push Button NO NC: NO 1-2 จาก Component</td></tr>
+<tr><td>05</td><td><strong>NC 3-4</strong></td><td>จาก Device tree วางอนุกรม K1 13-14</td></tr>
+<tr><td>06</td><td><strong>Connection + Angle</strong></td><td>4 เส้น · มุมเอียง 3 จุด</td></tr>
+<tr><td>07</td><td><strong>เลขสาย 2 หลัก</strong></td><td>Rename 01–11 · สาย 10 ใส่ใหม่</td></tr>
+<tr><td>08</td><td><strong>สาย 12–15</strong></td><td>1.5-RD Insert default wire</td></tr>
+<tr><td>09</td><td><strong>ตรวจ + ทดสอบ</strong></td><td>START / STOP / JOG</td></tr>
+</table>
+<div class="tip"><strong>สิ่งที่ต้องมี:</strong> ไฟล์ Lab03.e3s (จาก Lab 03) · Database ที่มี Push Button NO NC · ผ่าน Lab 01–04 มาแล้ว (Rename สายจาก Lab 04)</div>
+<p><strong>15 เส้น</strong> กำลัง BK 01–06 · ควบคุม RD 07–10, 12–15 · N BU 11</p>
+
+<!-- slide 3 -->
+<h2>เป้าหมาย: START เดินค้าง · JOG เดินเฉพาะตอนกดค้าง</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-01.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-01.jpg" alt="เป้าหมาย: START เดินค้าง · JOG เดินเฉพาะตอนกดค้าง" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>-S2 STOP</strong> NC กดแล้วหยุด</span></li>
+    <li><span class="num">2</span><span class="text"><strong>-S1 START</strong> NO กดแล้วเดิน</span></li>
+    <li><span class="num">3</span><span class="text"><strong>-S3 JOG NO 1-2</strong> ขนาน START สั่งเดิน</span></li>
+    <li><span class="num">4</span><span class="text"><strong>-S3 JOG NC 3-4</strong> ตัดทางจับค้างตอนกด JOG</span></li>
+    <li><span class="num">5</span><span class="text"><strong>-K1 13-14</strong> หน้าสัมผัสจับค้าง (อนุกรมกับ NC 3-4)</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>โจทย์จากเกม:</strong> เครื่องตัดแผ่นเหล็ก: ช่างต้องขยับใบมีดทีละนิด กด JOG เดิน ปล่อยแล้วหยุดทันที แต่ตอนผลิตกด START แล้วเดินค้าง <a href="../game.html">เล่นด่านนี้ในเกม →</a></div>
+
+<!-- slide 4 -->
+<h2>ขั้นที่ 1: Open Lab03 แล้ว Save As Lab05</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-02.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-02.jpg" alt="ขั้นที่ 1: Open Lab03 แล้ว Save As Lab05" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>File → Open...</strong> โฟลเดอร์ Lab03 → work เลือก Lab03</span></li>
+    <li><span class="num">2</span><span class="text">กด <strong>Open</strong></span></li>
+    <li><span class="num">3</span><span class="text"><strong>F12</strong> Save As → โฟลเดอร์ Lab05 → work · File name: Lab05</span></li>
+    <li><span class="num">4</span><span class="text">กด <strong>Save</strong></span></li>
+  </ol></div>
+</div>
+
+<!-- slide 5 -->
+<h2>ขั้นที่ 2: Sheet 2 ลบสาย 9 และกิ่ง K1:13 เดิม</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-03.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-03.jpg" alt="ขั้นที่ 2: Sheet 2 ลบสาย 9 และกิ่ง K1:13 เดิม" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ Devices → &lt;Wires&gt; คลิกขวาสาย <strong>9</strong> (S2:2 → K1:13)</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Delete Forced</strong></span></li>
+    <li><span class="num">3</span><span class="text">คลิกเส้นกิ่ง K1:13 (แนวนอน y 208) → <strong>Delete</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำไมลบ:</strong> K1:13 จะไม่ต่อกับ STOP ตรง ๆ แล้ว แต่ต่อผ่าน NC 3-4 ของ JOG</div>
+
+<!-- slide 6 -->
+<h2>ขั้นที่ 3: ย้าย Coil, -S1 และ NO 13-14 ของ -K1</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-04.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-04.jpg" alt="ขั้นที่ 3: ย้าย Coil, -S1 และ NO 13-14 ของ -K1" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Coil -K1</strong> 132 / 116</span></li>
+    <li><span class="num">2</span><span class="text"><strong>-S1</strong> 132 / 184</span></li>
+    <li><span class="num">3</span><span class="text"><strong>-K1 13-14</strong> 180 / 184</span></li>
+    <li><span class="num">4</span><span class="text">ลาก Coil ลงที่ <strong>132 / 100</strong></span></li>
+    <li><span class="num">5</span><span class="text">ลาก -S1 ลงที่ <strong>132 / 180</strong></span></li>
+    <li><span class="num">6</span><span class="text">ลาก 13-14 ลงที่ <strong>180 / 160</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ดูตำแหน่ง:</strong> status bar มุมขวาล่างบอกพิกัด · ลากแนวตั้งอย่างเดียว ถ้าเลยให้ลากแก้อีกครั้ง</div>
+
+<!-- slide 7 -->
+<h2>ขั้นที่ 4: วาง Push Button NO NC ได้ -S3 (NO 1-2)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-05.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-05.jpg" alt="ขั้นที่ 4: วาง Push Button NO NC ได้ -S3 (NO 1-2)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ Component: <strong>General → Push Button NO NC</strong></span></li>
+    <li><span class="num">2</span><span class="text">ลากวางที่ <strong>228 / 184</strong> ได้หน้าสัมผัส NO 1-2 ของ -S3</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>Component ใหม่:</strong> ปุ่มเดียวมี 2 หน้าสัมผัส: NO 1-2 และ NC 3-4 · ลากจาก Component ได้ชุดแรก (NO) ก่อน</div>
+
+<!-- slide 8 -->
+<h2>ขั้นที่ 5: NC 3-4 จาก Device tree แล้วตั้งชื่อ -S3 JOG</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-06.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-06.jpg" alt="ขั้นที่ 5: NC 3-4 จาก Device tree แล้วตั้งชื่อ -S3 JOG" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">Devices: -S → -S3 ลาก <strong>NC (3,4)</strong></span></li>
+    <li><span class="num">2</span><span class="text">วางที่ <strong>180 / 196</strong> เหนือ 13-14 ของ -K1</span></li>
+    <li><span class="num">3</span><span class="text">คลิก -S3 → <strong>F2</strong> พิมพ์ -S3 JOG → Enter</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>Device เดียว:</strong> NO และ NC อยู่ใต้ -S3 ตัวเดียว เปลี่ยนชื่อครั้งเดียวได้ทั้ง 2 สัญลักษณ์ · ใต้ NC มี /2.C5 บอกว่า NO อยู่ไหน</div>
+
+<!-- slide 9 -->
+<h2>ขั้นที่ 6: Connection 4 เส้น แล้ว Angle connection 3 จุด</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-07.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-07.jpg" alt="ขั้นที่ 6: Connection 4 เส้น แล้ว Angle connection 3 จุด" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">NC:4 → K1:13</span></li>
+    <li><span class="num">2</span><span class="text">NO:1 → เส้น 132 / 216</span></li>
+    <li><span class="num">3</span><span class="text">NC:3 → เส้น y 216</span></li>
+    <li><span class="num">4</span><span class="text">NO:2 → มุมเส้น 180 / 140</span></li>
+    <li><span class="num">5</span><span class="text"><strong>Angle connection clockwise</strong> ใกล้จุดต่อ 132 / 216</span></li>
+    <li><span class="num">6</span><span class="text">จุดต่อ 180 / 216</span></li>
+    <li><span class="num">7</span><span class="text">จุดต่อ 180 / 140</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>วิธีจาก Lab 03:</strong> Insert → Connection คลิกขาต้นทางแล้วปลายทาง · กิ่งที่เป็นตัว T ต้องทำมุมเอียงก่อนจึงใส่สายได้</div>
+
+<!-- slide 10 -->
+<h2>ขั้นที่ 7: เปลี่ยนเลขสายเป็น 2 หลัก 01–11</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-08.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-08.jpg" alt="ขั้นที่ 7: เปลี่ยนเลขสายเป็น 2 หลัก 01–11" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">&lt;Wires&gt; คลิกสาย → <strong>F2</strong> พิมพ์เลขใหม่ → Enter</span></li>
+    <li><span class="num">2</span><span class="text">1–8 → <strong>01–08</strong></span></li>
+    <li><span class="num">3</span><span class="text">10 → <strong>09</strong> · 11 → <strong>10</strong> · 12 → <strong>11</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำไม 2 หลัก:</strong> เรียงในตารางสายได้ถูก (01, 02 … 15) · สาย 9 เดิมลบไปแล้ว จึงเลื่อนเลขให้ต่อเนื่อง</div>
+
+<!-- slide 11 -->
+<h2>ขั้นที่ 8: สาย 10 (K1:14 → S1:2) ลบแล้วใส่ใหม่บนแนว y 140</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-09.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-09.jpg" alt="ขั้นที่ 8: สาย 10 (K1:14 → S1:2) ลบแล้วใส่ใหม่บนแนว y 140" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">&lt;Wires&gt; คลิกขวาสาย <strong>10</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>Delete Forced</strong></span></li>
+    <li><span class="num">3</span><span class="text"><strong>Wire type → 1.5-RD</strong></span></li>
+    <li><span class="num">4</span><span class="text"><strong>Insert default wire</strong> คลิกแนว y 140 ฝั่งซ้าย ได้สาย 12 → F2 เป็น <strong>10</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำไมใส่ใหม่:</strong> ป้ายสาย 10 เดิมอยู่ใต้ 13-14 ซึ่งตอนนี้มีสาย 13 วิ่งร่วม · ใส่ใหม่ให้ป้าย 10 อยู่บนแนว y 140 ตามตัวอย่าง</div>
+
+<!-- slide 12 -->
+<h2>ขั้นที่ 9: สาย 12–15 ด้วย Insert default wire</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-10.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-10.jpg" alt="ขั้นที่ 9: สาย 12–15 ด้วย Insert default wire" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>12</strong> K1:13 → NC:4 คลิกเส้นตั้ง x 180</span></li>
+    <li><span class="num">2</span><span class="text"><strong>13</strong> K1:14 → NO:2 คลิกแนว y 140 ฝั่งขวา</span></li>
+    <li><span class="num">3</span><span class="text"><strong>14</strong> S2:2 → NO:1 คลิกแนว y 216 ฝั่งซ้าย</span></li>
+    <li><span class="num">4</span><span class="text"><strong>15</strong> NO:1 → NC:3 คลิกเส้นสั้นใต้จุดต่อ (เหนือ NC:3)</span></li>
+    <li><span class="num">5</span><span class="text"><strong>10</strong> ที่ใส่ในขั้นที่ 8</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ลำดับ = เลขสาย:</strong> กดปุ่ม Insert default wire ใหม่ทุกเส้น · ป้ายเกิดตรงจุดที่คลิก · คลิกแนว y 216 ฝั่งขวาแล้วไม่เกิดสาย ให้คลิกเส้นสั้นเหนือ NC:3</div>
+
+<!-- slide 13 -->
+<h2>ขั้นที่ 10: ซ่อนป้าย '10,13' ใต้ 13-14</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-11.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-11.jpg" alt="ขั้นที่ 10: ซ่อนป้าย '10,13' ใต้ 13-14" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ซูมเข้า ลากกรอบจากที่ว่างครอบป้ายใต้ K1:14 → คลิกขวา → <strong>Symbol Properties</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>Cross-section</strong> ☐</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Colour</strong> ☐ แล้ว OK</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ห้ามกด Delete ที่ป้าย:</strong> ลองลบป้ายแล้วเส้นแนว y 140 หายไปด้วย สาย 13 หลุด · ให้ซ่อนข้อความใน Symbol Properties แทน</div>
+
+<!-- slide 14 -->
+<h2>ขั้นที่ 11: Save แล้วทดสอบตามโจทย์</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/05-12.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/05-12.jpg" alt="ขั้นที่ 11: Save แล้วทดสอบตามโจทย์" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">กด STOP → K1 ปล่อย มอเตอร์หยุด</span></li>
+    <li><span class="num">2</span><span class="text">กด START → K1 ดูด → 13-14 ปิด ผ่าน NC 3-4 → เดินค้าง</span></li>
+    <li><span class="num">3</span><span class="text">กด JOG ค้าง → NO 1-2 ปิด K1 ดูด → มอเตอร์เดิน</span></li>
+    <li><span class="num">4</span><span class="text">ขณะกด JOG: NC 3-4 เปิด ตัดทางจับค้าง → ปล่อย JOG แล้วหยุดทันที</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตรวจครบ:</strong> สาย 15 เส้น 01–15 · -S3 JOG เป็น Device เดียว ไม่มีขาว่าง · File → Save</div>
+
+<!-- slide 15 -->
+<h2>ปัญหาที่พบบ่อย และวิธีแก้</h2>
+<table>
+<tr><th>อาการ</th><th>วิธีแก้</th></tr>
+<tr><td>ได้ -S3 และ -S4 (2 ปุ่ม)</td><td>หน้าสัมผัสที่ 2 ต้องลากจาก Device tree ของ -S3 ไม่ใช่จากแท็บ Component</td></tr>
+<tr><td>Rename -S3 แล้วชื่อเปลี่ยนแค่ตัวเดียว</td><td>แสดงว่าเป็นคนละ Device · ลบตัวที่เกินแล้วลาก NC จาก -S3</td></tr>
+<tr><td>ใส่สายบนกิ่งไม่เกิด</td><td>Angle connection ที่จุดต่อก่อน · หรือคลิกเส้นส่วนอื่นของกิ่ง</td></tr>
+<tr><td>เลขสายไม่ตรงตัวอย่าง</td><td>เลขใหม่ = สูงสุด + 1 · ใช้ F2 Rename ใน &lt;Wires&gt;</td></tr>
+<tr><td>กด Delete ที่ป้ายสายแล้วเส้นหาย</td><td>ปิดไฟล์ไม่บันทึก เปิดไฟล์ที่ Save ล่าสุด · ซ่อนป้ายด้วย Symbol Properties</td></tr>
+</table>
+
+        <div class="page-nav">
+          <a href="04.html">← ก่อนหน้า: 04. Overload + ไฟสถานะ</a>
+          <a href="06.html">ถัดไป: 06. เดินหน้า-ถอยหลัง (Interlock) →</a>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        Zuken E3 Tutorial
+      </footer>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="inner">
+      <nav id="menu">
+        <header class="major"><button class="sidebar-close" aria-label="ปิดเมนู">✕</button><h2>เมนู</h2></header>
+        <ul>
+          <li><a href="../index.html">หน้าแรก</a></li>
+          <li><a href="../pre-test.html">แบบทดสอบก่อนเรียน</a></li>
+          <li><a href="../lessons/00.html">00. หน้าจอและพื้นฐาน</a></li>
+          <li><a href="../lessons/01.html">01. วงจรไฟฟ้า E³.schematic</a></li>
+          <li><a href="../lessons/02.html">02. ออกแบบตู้ E³.panel</a></li>
+          <li><a href="../lessons/03.html">03. สร้าง Symbol และ Component</a></li>
+          <li><a href="../lessons/04.html">04. สร้าง Model ของตู้</a></li>
+          <li class="has-children expanded">
+            <a href="index.html">Motor Control Lab</a>
+            <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู lab">▾</button>
+            <ul class="submenu">
+              <li><a href="../game.html">เกม Motor Control Lab</a></li>
+              <li><a href="00.html">00. เตรียม Database</a></li>
+              <li><a href="01.html">01. First Light ไฟดวงแรก</a></li>
+              <li><a href="02.html">02. First Motor มอเตอร์ตัวแรก</a></li>
+              <li><a href="03.html">03. Self-holding กดครั้งเดียวค้าง</a></li>
+              <li><a href="04.html">04. Overload + ไฟสถานะ</a></li>
+              <li class="active"><a href="05.html">05. JOG เดินทีละนิด</a></li>
+              <li><a href="06.html">06. เดินหน้า-ถอยหลัง (Interlock)</a></li>
+            </ul>
+          </li>
+          <li><a href="../post-test.html">แบบทดสอบหลังเรียน และ Feedback</a></li>
+        </ul>
+      </nav>
+      <footer id="footer"><p class="copyright">Zuken E3 Tutorial</p></footer>
+    </div>
+  </div>
+  <div id="sidebar-overlay"></div>
+</div>
+<script src="../assets/main.js?v=30d529e9"></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>00. เตรียม Database — Zuken E3 Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=72b73deb">
+</head>
+<body>
+<div id="wrapper">
+  <div id="main">
+    <div class="inner">
+      <header id="header">
+        <a href="../index.html" class="logo"><span>Zuken E3 Tutorial</span></a>
+        <button class="menu-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
+      </header>
+
+      <main>
+        <h1>00. เตรียม Database</h1>
+
+        <div class="objectives">
+          <p>วัตถุประสงค์การเรียนรู้</p>
+          <ol>
+          <li>Copy Database ของคอร์สไปไว้ในโฟลเดอร์งานของตัวเอง</li>
+          <li>เพิ่ม Database ด้วย Configure Databases (Data Link → Access Database Engine 16.0) แล้วเลือกใช้</li>
+          <li>Backup Database และใช้ Compact and Repair ใน Microsoft Access</li>
+          <li>Backup โปรเจกต์ .e3s ก่อนแก้งานใหญ่</li>
+          </ol>
+        </div>
+
+<p class="lead" style="max-width:46em;">ก่อนเริ่ม Lab แรก ให้ E³ ใช้ Database ของผู้เรียนเองที่อยู่ในเครื่อง (ไม่ใช่ไฟล์บน Google Drive หรือ ไดรฟ์ที่แชร์) และรู้วิธี Backup Database กับโปรเจกต์ .e3s ไว้ก่อนลงมือ</p>
+
+<!-- slide 2 -->
+<h2>ภาพรวม: Database ของตัวเอง + Backup</h2>
+<table>
+<tr><th>ลำดับ</th><th>หัวข้อ</th><th>ทำอะไร</th></tr>
+<tr><td>01</td><td><strong>Copy .mdb</strong></td><td>ไปโฟลเดอร์งานบนเครื่อง ตั้งชื่อของตัวเอง</td></tr>
+<tr><td>02</td><td><strong>Configure Databases</strong></td><td>คลิกขวา root ของ Component tree</td></tr>
+<tr><td>03</td><td><strong>Add + Data Link</strong></td><td>Access Database Engine 16.0 + Test Connection</td></tr>
+<tr><td>04</td><td><strong>Select Database</strong></td><td>Component / Symbol / Configuration</td></tr>
+<tr><td>05</td><td><strong>ตรวจ Component tree</strong></td><td>Training_Student01 + General 9 ตัว</td></tr>
+<tr><td>06</td><td><strong>Backup .mdb</strong></td><td>ปิด E3 ก่อน · ไม่มี .ldb ค้าง</td></tr>
+<tr><td>07</td><td><strong>Compact and Repair</strong></td><td>Microsoft Access → Database Tools</td></tr>
+<tr><td>08</td><td><strong>ตรวจหลัง Compact</strong></td><td>เปิด E3 แล้ว Component ครบ</td></tr>
+<tr><td>09</td><td><strong>Backup โปรเจกต์</strong></td><td>Save As + Auto backup ทุก n นาที</td></tr>
+</table>
+<div class="tip"><strong>สิ่งที่ต้องมี:</strong> ไฟล์ DB_MotorControl_Lab01_04.mdb (จากผู้สอน) · E3.series 2027 · Microsoft Access (สำหรับ Compact) · โฟลเดอร์งาน C:\E3_Training\</div>
+<p><strong>1 ไฟล์</strong> Component + Symbol + Configuration อยู่ใน .mdb เดียว</p>
+
+<!-- slide 3 -->
+<h2>เป้าหมาย: E3 ใช้ Database ของตัวเอง และมี Backup</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-01.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-01.jpg" alt="เป้าหมาย: E3 ใช้ Database ของตัวเอง และมี Backup" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">root ของ Component tree = <strong>Training_Student01</strong></span></li>
+    <li><span class="num">2</span><span class="text">General: Contactor, Lamp, Motor, Overload relay, Push Button, Terminal …</span></li>
+    <li><span class="num">3</span><span class="text">ไฟล์ Backup มีวันที่ในชื่อ <strong>E3_DB_Student01_2026-11-15.mdb</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำไมต้องมี:</strong> แลปหลัง ๆ จะสร้าง Component เอง ถ้าทุกคนแก้ไฟล์ต้นฉบับพร้อมกันจะชนกัน และแก้ผิดแล้วย้อนไม่ได้</div>
+
+<!-- slide 4 -->
+<h2>ขั้นที่ 1: Copy Database ไปโฟลเดอร์งานของตัวเอง</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-02.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-02.jpg" alt="ขั้นที่ 1: Copy Database ไปโฟลเดอร์งานของตัวเอง" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ปิด E3 ทุกหน้าต่าง แล้วสร้างโฟลเดอร์ <strong>C:\E3_Training\DB\</strong> และ Backup\</span></li>
+    <li><span class="num">2</span><span class="text">Copy <strong>DB_MotorControl_Lab01_04.mdb</strong> มาวาง แล้วเปลี่ยนชื่อเป็น <strong>E3_DB_&lt;ชื่อ&gt;.mdb</strong></span></li>
+    <li><span class="num">3</span><span class="text">ตัวอย่างนี้ใช้ชื่อ E3_DB_Student01.mdb</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ห้ามวางบน Google Drive / OneDrive:</strong> ตอน E3 เปิด Database จะมีไฟล์ล็อก .ldb การ sync จะชนกับไฟล์นี้ ให้ใช้ไดรฟ์ในเครื่อง</div>
+
+<!-- slide 5 -->
+<h2>ขั้นที่ 2: คลิกขวา root ของ Component tree → Configure Databases</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-03.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-03.jpg" alt="ขั้นที่ 2: คลิกขวา root ของ Component tree → Configure Databases" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ Component คลิกขวาที่ root (ชื่อ Database ที่ใช้อยู่)</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Configure Databases...</strong></span></li>
+    <li><span class="num">3</span><span class="text">รายการ Database ที่ลงทะเบียนไว้ → กด <strong>Add...</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>2 เมนูที่ใช้คู่กัน:</strong> Configure Databases = ลงทะเบียนไฟล์ · Select Database = เลือกว่าจะใช้ไฟล์ไหน</div>
+
+<!-- slide 6 -->
+<h2>ขั้นที่ 2 (ต่อ): Data Link → Access Database Engine 16.0</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-04.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-04.jpg" alt="ขั้นที่ 2 (ต่อ): Data Link → Access Database Engine 16.0" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ Provider: <strong>Microsoft Office 16.0 Access Database Engine OLE DB Provider</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>Next &gt;&gt;</strong></span></li>
+    <li><span class="num">3</span><span class="text"><strong>Data Source</strong>: C:\E3_Training\DB\E3_DB_Student01.mdb</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Test Connection</strong> → Test connection succeeded → OK แล้ว OK</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>User name:</strong> ไฟล์ .mdb ของคอร์สไม่มีรหัสผ่าน ปล่อย Admin + Blank password ตามค่าเดิม</div>
+
+<!-- slide 7 -->
+<h2>ขั้นที่ 2 (ต่อ): ตั้งชื่อ Description แล้ว Finish</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-05.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-05.jpg" alt="ขั้นที่ 2 (ต่อ): ตั้งชื่อ Description แล้ว Finish" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Description</strong>: Training_&lt;ชื่อ&gt; (ชื่อที่จะเห็นใน E3)</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Next &gt;</strong></span></li>
+    <li><span class="num">3</span><span class="text">Summary: Database content = <strong>Components, Symbols, Configuration</strong></span></li>
+    <li><span class="num">4</span><span class="text"><strong>Finish</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ไฟล์เดียวครบ:</strong> E3 อ่านตารางในไฟล์แล้วรู้เองว่ามีทั้ง Component, Symbol และ Configuration</div>
+
+<!-- slide 8 -->
+<h2>ขั้นที่ 3: Select Database เลือก Training_Student01</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-06.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-06.jpg" alt="ขั้นที่ 3: Select Database เลือก Training_Student01" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ไฟล์ใหม่อยู่ในรายการแล้ว</span></li>
+    <li><span class="num">2</span><span class="text"><strong>OK</strong></span></li>
+    <li><span class="num">3</span><span class="text">คลิกขวา root อีกครั้ง → <strong>Select Database...</strong> → เปิดรายการ Component</span></li>
+    <li><span class="num">4</span><span class="text">เลือก <strong>Training_Student01</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>Symbol / Configuration:</strong> E3 เปลี่ยนให้อัตโนมัติเป็นไฟล์เดียวกัน ตรวจให้ครบ 3 ช่องก่อนกด OK</div>
+
+<!-- slide 9 -->
+<h2>ขั้นที่ 3 (ต่อ): ตรวจผลใน Component tree</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-07.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-07.jpg" alt="ขั้นที่ 3 (ต่อ): ตรวจผลใน Component tree" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">Component / Symbol / Configuration = Training_Student01</span></li>
+    <li><span class="num">2</span><span class="text"><strong>OK</strong></span></li>
+    <li><span class="num">3</span><span class="text">root ของ tree เปลี่ยนทันที ไม่ต้องเปิด E3 ใหม่</span></li>
+    <li><span class="num">4</span><span class="text">General มี 9 Component</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>E3 จำค่า:</strong> ค่า Database ที่เลือกบันทึกไว้ เปิด E3 ครั้งต่อไปใช้ไฟล์นี้ต่อ</div>
+
+<!-- slide 10 -->
+<h2>ขั้นที่ 4: Backup Database (ปิด E3 ก่อน)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-08.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-08.jpg" alt="ขั้นที่ 4: Backup Database (ปิด E3 ก่อน)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">E3 เปิดอยู่ = มีไฟล์ <strong>.ldb</strong> (Record-Locking) อย่า copy ตอนนี้</span></li>
+    <li><span class="num">2</span><span class="text">ปิด E3 → ไฟล์ .ldb หายไป</span></li>
+    <li><span class="num">3</span><span class="text">Copy ไป Backup\ ตั้งชื่อ <strong>&lt;ชื่อเดิม&gt;_YYYY-MM-DD.mdb</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ย้อนกลับ:</strong> ปิด E3 → copy ไฟล์ Backup ทับไฟล์เดิม · หรือลงทะเบียนไฟล์ Backup แล้ว Select Database ไปที่ไฟล์นั้น</div>
+
+<!-- slide 11 -->
+<h2>ขั้นที่ 5: Compact and Repair ใน Microsoft Access</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-09.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-09.jpg" alt="ขั้นที่ 5: Compact and Repair ใน Microsoft Access" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ปิด E3 → ดับเบิลคลิก .mdb เปิดใน Access → แท็บ <strong>Database Tools</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>Compact and Repair Database</strong> (Access ทำกับไฟล์ที่เปิดอยู่ แล้วเปิดใหม่ให้)</span></li>
+    <li><span class="num">3</span><span class="text">ปิด Access → ขนาดไฟล์ 8,964 KB → <strong>5,816 KB</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำเมื่อ:</strong> ไฟล์โตผิดปกติหลังแก้ Component / Symbol บ่อย ๆ, E3 เปิด Database ช้า หรือขึ้นว่าไฟล์เสีย · Backup ก่อนเสมอ</div>
+
+<!-- slide 12 -->
+<h2>ขั้นที่ 5 (ต่อ): เปิด E3 ตรวจหลัง Compact</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-10.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-10.jpg" alt="ขั้นที่ 5 (ต่อ): เปิด E3 ตรวจหลัง Compact" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">root ยังเป็น <strong>Training_Student01</strong> (ไม่ต้องตั้งค่าใหม่)</span></li>
+    <li><span class="num">2</span><span class="text">General มี Component ครบ 9 ตัว</span></li>
+    <li><span class="num">3</span><span class="text">ถ้าผิดปกติ: ปิด E3 แล้วเอาไฟล์ Backup กลับมา</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ชื่อไฟล์เดิม:</strong> Compact แบบนี้ได้ไฟล์ชื่อเดิม ค่าใน E3 จึงใช้ต่อได้เลย</div>
+
+<!-- slide 13 -->
+<h2>ขั้นที่ 6: Backup โปรเจกต์ .e3s</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/00-11.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/00-11.jpg" alt="ขั้นที่ 6: Backup โปรเจกต์ .e3s" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Tools → Settings...</strong> (ต้องเปิดโปรเจกต์อยู่) → General</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Automatically generate backup file after</strong> ☑</span></li>
+    <li><span class="num">3</span><span class="text">ตั้งเวลา เช่น <strong>10</strong> minutes → OK</span></li>
+    <li><span class="num">4</span><span class="text">เริ่มแลปใหม่ทุกครั้ง: <strong>File → Save As</strong> (Lab03 → Lab04) = เก็บไฟล์แลปก่อนไว้</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>2 ชั้น:</strong> Auto backup กันงานหายระหว่างทำ · Save As ทุกแลปทำให้ย้อนกลับไปแลปก่อนได้</div>
+
+<!-- slide 14 -->
+<h2>ข้อควรระวัง และวิธีแก้</h2>
+<table>
+<tr><th>อาการ / กรณี</th><th>วิธีแก้</th></tr>
+<tr><td>หาเมนูตั้งค่า Database ไม่เจอ</td><td>คลิกขวา root ของ Component tree → Configure / Select Database</td></tr>
+<tr><td>Test Connection ไม่ผ่าน</td><td>ตรวจ path และเลือก Provider Access Database Engine 16.0</td></tr>
+<tr><td>มีไฟล์ .ldb ค้าง</td><td>E3 / Database Editor / Access ยังเปิดอยู่ ปิดให้หมดก่อน copy หรือ Compact</td></tr>
+<tr><td>Database บน Google Drive / OneDrive</td><td>ย้ายไปไดรฟ์ในเครื่อง (C:\E3_Training\DB\)</td></tr>
+<tr><td>Compact แล้ว E3 เปิดไม่ได้</td><td>ปิด E3 แล้ว copy ไฟล์ Backup กลับมา</td></tr>
+<tr><td>ต้องการกลับไปใช้ Database ของผู้สอน</td><td>Select Database เลือกไฟล์เดิม (รายการยังอยู่)</td></tr>
+</table>
+
+        <div class="page-nav">
+          <a href="../lessons/04.html">← ก่อนหน้า: 04. สร้าง Model ของตู้</a>
+          <a href="01.html">ถัดไป: 01. First Light ไฟดวงแรก →</a>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        Zuken E3 Tutorial
+      </footer>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="inner">
+      <nav id="menu">
+        <header class="major"><button class="sidebar-close" aria-label="ปิดเมนู">✕</button><h2>เมนู</h2></header>
+        <ul>
+          <li><a href="../index.html">หน้าแรก</a></li>
+          <li><a href="../pre-test.html">แบบทดสอบก่อนเรียน</a></li>
+          <li><a href="../lessons/00.html">00. หน้าจอและพื้นฐาน</a></li>
+          <li><a href="../lessons/01.html">01. วงจรไฟฟ้า E³.schematic</a></li>
+          <li><a href="../lessons/02.html">02. ออกแบบตู้ E³.panel</a></li>
+          <li><a href="../lessons/03.html">03. สร้าง Symbol และ Component</a></li>
+          <li><a href="../lessons/04.html">04. สร้าง Model ของตู้</a></li>
+          <li class="has-children expanded">
+            <a href="index.html">Motor Control Lab</a>
+            <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู lab">▾</button>
+            <ul class="submenu">
+              <li><a href="../game.html">เกม Motor Control Lab</a></li>
+              <li class="active"><a href="00.html">00. เตรียม Database</a></li>
+              <li><a href="01.html">01. First Light ไฟดวงแรก</a></li>
+              <li><a href="02.html">02. First Motor มอเตอร์ตัวแรก</a></li>
+              <li><a href="03.html">03. Self-holding กดครั้งเดียวค้าง</a></li>
+              <li><a href="04.html">04. Overload + ไฟสถานะ</a></li>
+              <li><a href="05.html">05. JOG เดินทีละนิด</a></li>
+              <li><a href="06.html">06. เดินหน้า-ถอยหลัง (Interlock)</a></li>
+            </ul>
+          </li>
+          <li><a href="../post-test.html">แบบทดสอบหลังเรียน และ Feedback</a></li>
+        </ul>
+      </nav>
+      <footer id="footer"><p class="copyright">Zuken E3 Tutorial</p></footer>
+    </div>
+  </div>
+  <div id="sidebar-overlay"></div>
+</div>
+<script src="../assets/main.js?v=30d529e9"></script>
+</body>
+</html>

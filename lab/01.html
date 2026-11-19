@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01. First Light ไฟดวงแรก — Zuken E3 Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=72b73deb">
+</head>
+<body>
+<div id="wrapper">
+  <div id="main">
+    <div class="inner">
+      <header id="header">
+        <a href="../index.html" class="logo"><span>Zuken E3 Tutorial</span></a>
+        <button class="menu-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
+      </header>
+
+      <main>
+        <h1>01. First Light ไฟดวงแรก</h1>
+
+        <div class="objectives">
+          <p>วัตถุประสงค์การเรียนรู้</p>
+          <ol>
+          <li>สร้างโปรเจกต์ใหม่ ตั้ง Sheet A4 และ Title block</li>
+          <li>วาง Component, Signal reference และต่อ Connection</li>
+          <li>ตั้งชื่อ Signal (L1 / N) ใส่สาย H07V-K 1.5 mm² และให้ป้ายสายแสดงขนาดกับสี</li>
+          <li>ใช้ Device window ดู Placement, Jump และ Highlight</li>
+          </ol>
+        </div>
+
+<p class="lead" style="max-width:46em;">Lab แรกบน E³.schematic: จากโปรเจกต์เปล่าไปถึงวงจรสวิตช์กับหลอดไฟหนึ่งดวง ได้ฝึกวาง Component, Signal reference, Connection, ใส่สายและป้ายสาย</p>
+<div class="note"><strong>ด่านในเกม:</strong> Lab นี้ตรงกับด่าน 1 ของเกม Motor Control Lab — ลองต่อวงจรในเกมก่อน แล้วค่อยเขียนแบบเดียวกันใน E³ <a href="../game.html">ไปหน้าเกม →</a></div>
+
+<!-- slide 2 -->
+<h2>ภาพรวม: 9 ขั้นตอน จากโปรเจกต์เปล่าถึงวงจรไฟดวงแรก</h2>
+<table>
+<tr><th>ลำดับ</th><th>หัวข้อ</th><th>ทำอะไร</th></tr>
+<tr><td>01</td><td><strong>New Project</strong></td><td>File → New แล้ว Save As เป็น Lab01</td></tr>
+<tr><td>02</td><td><strong>Sheet Properties</strong></td><td>Format A4, Name, Customer, Order</td></tr>
+<tr><td>03</td><td><strong>Place Component</strong></td><td>-S1 Switch NO และ -H1 Lamp</td></tr>
+<tr><td>04</td><td><strong>Zoom</strong></td><td>Ctrl + ล้อเมาส์ / Fit To Window (O)</td></tr>
+<tr><td>05</td><td><strong>Signal reference</strong></td><td>DESTINATION_AUTO หัวและท้ายวงจร</td></tr>
+<tr><td>06</td><td><strong>Connection</strong></td><td>Insert → Connection (C)</td></tr>
+<tr><td>07</td><td><strong>Signal name</strong></td><td>เปลี่ยน #1 / #3 เป็น L1 / N</td></tr>
+<tr><td>08</td><td><strong>Wire + CoreName</strong></td><td>ใส่สาย H07V-K 1.5 mm² แสดงขนาด/สี</td></tr>
+<tr><td>09</td><td><strong>Device window</strong></td><td>Placement, Highlight แล้ว Save</td></tr>
+</table>
+<div class="tip"><strong>สิ่งที่ต้องมี:</strong> E3.series 2027 (E3.schematic) · Database: E3_DB_Symbol.mdb · Component: Switch NO, Lamp · Template: PROJECT_IEC</div>
+<p><strong>3 เส้น</strong> สาย H07V-K 1.5 mm² ในวงจรนี้</p>
+
+<!-- slide 3 -->
+<h2>เป้าหมาย: เปิดสวิตช์แล้วหลอดไฟติด ปิดสวิตช์แล้วหลอดไฟดับ</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-01.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-01.jpg" alt="เป้าหมาย: เปิดสวิตช์แล้วหลอดไฟติด ปิดสวิตช์แล้วหลอดไฟดับ" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>L1</strong> ไฟเข้าจาก Signal reference ด้านบน</span></li>
+    <li><span class="num">2</span><span class="text"><strong>-S1</strong> Switch NO (สวิตช์แบบกดค้าง)</span></li>
+    <li><span class="num">3</span><span class="text"><strong>-H1</strong> Lamp หลอดไฟ</span></li>
+    <li><span class="num">4</span><span class="text"><strong>N</strong> นิวทรัลกลับที่ Signal reference ด้านล่าง</span></li>
+    <li><span class="num">5</span><span class="text"><strong>Title block</strong> A4 · Basic Circuit · Hitachi / 01</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>โจทย์จากเกม:</strong> ห้องเก็บอะไหล่ยังไม่มีไฟ ช่วยต่อสวิตช์กับหลอดไฟให้หน่อย <a href="../game.html">เล่นด่านนี้ในเกม →</a></div>
+
+<!-- slide 4 -->
+<h2>ขั้นที่ 1: สร้างโปรเจกต์ใหม่ (File → New)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-02.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-02.jpg" alt="ขั้นที่ 1: สร้างโปรเจกต์ใหม่ (File → New)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">เมนู <strong>File → New</strong> (Ctrl+N)</span></li>
+    <li><span class="num">2</span><span class="text">E3 สร้างโปรเจกต์ <strong>Untitled</strong> ให้ทันที ไม่มีหน้าต่างถาม</span></li>
+    <li><span class="num">3</span><span class="text">ได้ <strong>Sheet 1</strong> มาพร้อมกัน จาก Template PROJECT_IEC</span></li>
+  </ol></div>
+</div>
+
+<!-- slide 5 -->
+<h2>ขั้นที่ 1 (ต่อ): บันทึกเป็น Lab01 (Save As)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-03.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-03.jpg" alt="ขั้นที่ 1 (ต่อ): บันทึกเป็น Lab01 (Save As)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">กด <strong>F12</strong> (File → Save As) แล้วเลือกโฟลเดอร์ทำงาน</span></li>
+    <li><span class="num">2</span><span class="text"><strong>File name</strong> พิมพ์ Lab01</span></li>
+    <li><span class="num">3</span><span class="text">กด <strong>Save</strong> ไฟล์จะเป็น Lab01.e3s</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ข้อควรจำ:</strong> บันทึกตั้งแต่ต้น แล้วกด Ctrl+S เป็นระยะ ชื่อบนหัวต่างจะเปลี่ยนจาก Untitled เป็น Lab01</div>
+
+<!-- slide 6 -->
+<h2>ขั้นที่ 2: เปิด Sheet Properties แล้วเลือก Format A4</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-04.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-04.jpg" alt="ขั้นที่ 2: เปิด Sheet Properties แล้วเลือก Format A4" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ <strong>Sheet</strong> คลิกขวาที่ Sheet 1 → <strong>Sheet Properties...</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>Format</strong> กดลูกศร dropdown</span></li>
+    <li><span class="num">3</span><span class="text">เลือก <strong>A4</strong></span></li>
+  </ol></div>
+</div>
+
+<!-- slide 7 -->
+<h2>ขั้นที่ 2 (ต่อ): ใส่ชื่อ Sheet, Customer และ Order number</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-05.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-05.jpg" alt="ขั้นที่ 2 (ต่อ): ใส่ชื่อ Sheet, Customer และ Order number" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Name (1)</strong> Basic Circuit</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Customer</strong> Hitachi</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Order number</strong> 01 (เลื่อนลงไปท้ายรายการ)</span></li>
+    <li><span class="num">4</span><span class="text">กด <strong>OK</strong></span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ระวัง:</strong> คลิกที่ช่อง Entry ให้ตรง อย่าคลิกโดน checkbox 'Prefer single pin placement'</div>
+
+<!-- slide 8 -->
+<h2>ขั้นที่ 2 (ผลลัพธ์): Sheet A4 พร้อม Title block</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-06.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-06.jpg" alt="ขั้นที่ 2 (ผลลัพธ์): Sheet A4 พร้อม Title block" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Hitachi / 01</strong> มาจาก Customer และ Order number</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Basic Circuit</strong> มาจาก Name (1)</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตรวจ:</strong> Messages แจ้ง 'Sheet border of sheet 1 changed from DINA3 to A4'</div>
+
+<!-- slide 9 -->
+<h2>ขั้นที่ 3: วาง Component -S1 Switch NO และ -H1 Lamp</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-07.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-07.jpg" alt="ขั้นที่ 3: วาง Component -S1 Switch NO และ -H1 Lamp" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ <strong>Component</strong> ขยายโฟลเดอร์ General</span></li>
+    <li><span class="num">2</span><span class="text">ลาก <strong>Switch NO</strong> มาวางที่ช่อง B4</span></li>
+    <li><span class="num">3</span><span class="text">E3 ตั้งชื่อให้เป็น <strong>-S1</strong> อัตโนมัติ</span></li>
+    <li><span class="num">4</span><span class="text">ลาก <strong>Lamp</strong> มาวางใต้ -S1 (ช่อง C4)</span></li>
+    <li><span class="num">5</span><span class="text">ได้ <strong>-H1</strong> ขา X1 / X2</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>เทคนิค:</strong> กดค้างแล้วลากช้า ๆ จนเห็นสัญลักษณ์ติดเมาส์ แล้วค่อยปล่อย ดูตำแหน่งที่ status bar ด้านล่าง</div>
+
+<!-- slide 10 -->
+<h2>ขั้นที่ 4: ซูมดูแบบ (Zoom / Fit To Window)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-08.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-08.jpg" alt="ขั้นที่ 4: ซูมดูแบบ (Zoom / Fit To Window)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Zoom (Z)</strong> ลากกรอบส่วนที่ต้องการขยาย</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Fit To Window (O)</strong> กลับมาเห็นทั้งแผ่น</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Ctrl + ล้อเมาส์</strong> ซูมเข้า-ออกที่ตำแหน่งเมาส์</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ข้อควรจำ:</strong> ปุ่ม O / Z ใช้ได้เมื่อคลิกบน Sheet ก่อน (focus อยู่ที่หน้าแบบ) ไม่ใช่ที่ Tree</div>
+
+<!-- slide 11 -->
+<h2>ขั้นที่ 5: วาง Signal reference (DESTINATION_AUTO)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-09.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-09.jpg" alt="ขั้นที่ 5: วาง Signal reference (DESTINATION_AUTO)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ <strong>Misc</strong> ขยาย Misc_Signal cross references</span></li>
+    <li><span class="num">2</span><span class="text">ลาก <strong>DESTINATION_AUTO</strong> (Incoming)</span></li>
+    <li><span class="num">3</span><span class="text">วางตัวแรกที่ช่อง A3 (จะเป็น L1)</span></li>
+    <li><span class="num">4</span><span class="text">วางตัวที่สองที่ช่อง C3 (จะเป็น N)</span></li>
+  </ol></div>
+</div>
+
+<!-- slide 12 -->
+<h2>ขั้นที่ 6: ต่อ Connection (Insert → Connection)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-10.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-10.jpg" alt="ขั้นที่ 6: ต่อ Connection (Insert → Connection)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">เมนู <strong>Insert → Connection</strong> (C)</span></li>
+    <li><span class="num">2</span><span class="text">คลิกที่ปลาย Signal reference บน → คลิกมุม → คลิกที่ขา 1 ของ -S1</span></li>
+    <li><span class="num">3</span><span class="text">เส้นจะจบเองเมื่อคลิกโดนขา</span></li>
+    <li><span class="num">4</span><span class="text">สั่ง Connection ใหม่ ต่อ -S1:2 → -H1:X1</span></li>
+    <li><span class="num">5</span><span class="text">ต่อ -H1:X2 → มุม → Signal reference ล่าง</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตรวจ:</strong> ปลายเส้นที่ต่อถูกจะแสดงชื่อ Signal (#1, #3) ที่ Signal reference</div>
+
+<!-- slide 13 -->
+<h2>ขั้นที่ 7: เปลี่ยนชื่อ Signal เป็น L1</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-11.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-11.jpg" alt="ขั้นที่ 7: เปลี่ยนชื่อ Signal เป็น L1" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">คลิกขวาที่เส้นด้านบน → <strong>Connection Properties...</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>Signal</strong> เปลี่ยน #1 เป็น L1 แล้วกด <strong>OK</strong></span></li>
+  </ol></div>
+</div>
+
+<!-- slide 14 -->
+<h2>ขั้นที่ 7 (ต่อ): เส้นล่างเป็น N แล้วตรวจใน Signal tree</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-12.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-12.jpg" alt="ขั้นที่ 7 (ต่อ): เส้นล่างเป็น N แล้วตรวจใน Signal tree" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ทำซ้ำกับเส้นล่าง: <strong>Signal = N</strong></span></li>
+    <li><span class="num">2</span><span class="text">เมนู <strong>View → Signal Tree</strong> ต้องเห็น <strong>L1, N</strong> และ #2 (เส้นระหว่าง -S1 กับ -H1)</span></li>
+  </ol></div>
+</div>
+
+<!-- slide 15 -->
+<h2>ขั้นที่ 8: เลือกชนิดสาย แล้วใส่สาย (Insert default wire)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-13.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-13.jpg" alt="ขั้นที่ 8: เลือกชนิดสาย แล้วใส่สาย (Insert default wire)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Wire group</strong> H07V-K</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Core</strong> 1.5-BN</span></li>
+    <li><span class="num">3</span><span class="text"><strong>CoreName_hori / CoreName_vert</strong> ป้ายบนสายแนวนอน / แนวตั้ง</span></li>
+    <li><span class="num">4</span><span class="text">กดปุ่ม <strong>Insert default wire</strong> แล้วคลิกบน Connection ทีละเส้น จาก L1 ลงไป N</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ข้อควรจำ:</strong> เลขสายรันตามลำดับที่ใส่ ใส่จากบนลงล่างจะได้สาย 1-2-3 เรียงตามวงจร</div>
+
+<!-- slide 16 -->
+<h2>ขั้นที่ 9: ให้ป้ายสายแสดงขนาดและสี (Symbol Properties)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-14.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-14.jpg" alt="ขั้นที่ 9: ให้ป้ายสายแสดงขนาดและสี (Symbol Properties)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">คลิกขวาที่ป้ายเลขสาย (CoreName) → <strong>Symbol Properties...</strong></span></li>
+    <li><span class="num">2</span><span class="text">ติ๊ก <strong>Cross-section</strong></span></li>
+    <li><span class="num">3</span><span class="text">ติ๊ก <strong>Colour</strong></span></li>
+    <li><span class="num">4</span><span class="text">ติ๊ก <strong>Wire group</strong> แล้วกด OK</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำซ้ำ:</strong> ทำกับป้ายสายครบทั้ง 3 เส้น</div>
+
+<!-- slide 17 -->
+<h2>ขั้นที่ 9 (ผลลัพธ์): ป้ายสายครบทั้ง 3 เส้น</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-15.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-15.jpg" alt="ขั้นที่ 9 (ผลลัพธ์): ป้ายสายครบทั้ง 3 เส้น" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>สาย 1</strong> L1 → -S1:1</span></li>
+    <li><span class="num">2</span><span class="text"><strong>สาย 2</strong> -S1:2 → -H1:X1 (ป้ายแนวตั้ง)</span></li>
+    <li><span class="num">3</span><span class="text"><strong>สาย 3</strong> -H1:X2 → N</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตรวจ:</strong> ทุกป้ายต้องแสดง 1.50 mm², สี และ H07V-K</div>
+
+<!-- slide 18 -->
+<h2>ขั้นที่ 10: เปลี่ยนสายเส้น N เป็นสีฟ้า (Wire Properties)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-16.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-16.jpg" alt="ขั้นที่ 10: เปลี่ยนสายเส้น N เป็นสีฟ้า (Wire Properties)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ <strong>Devices</strong> ขยาย &lt;Wires&gt;</span></li>
+    <li><span class="num">2</span><span class="text">คลิกขวาสาย <strong>3</strong> (H07V-K-1.5-BN)</span></li>
+    <li><span class="num">3</span><span class="text">เลือก <strong>Wire Properties...</strong></span></li>
+  </ol></div>
+</div>
+
+<!-- slide 19 -->
+<h2>ขั้นที่ 10 (ต่อ): Wire type = 1.5-BU</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-17.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-17.jpg" alt="ขั้นที่ 10 (ต่อ): Wire type = 1.5-BU" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Wire type</strong> คลิกช่อง เลือก 1.5-BU (ลากขยายคอลัมน์ได้ถ้าอ่านไม่ออก)</span></li>
+    <li><span class="num">2</span><span class="text">สายที่เลือกอยู่: <strong>3</strong> แล้วกด <strong>OK</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>มาตรฐานสี (IEC / มอก. 11):</strong> L1 และสายหลังสวิตช์ = BN สีน้ำตาล · N = BU สีฟ้า</div>
+
+<!-- slide 20 -->
+<h2>ขั้นที่ 11: Device window ดูตำแหน่ง (Placement)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-18.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-18.jpg" alt="ขั้นที่ 11: Device window ดูตำแหน่ง (Placement)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Placement</strong> -H1 อยู่ที่ /1.C4 (Sheet 1 แถว C คอลัมน์ 4)</span></li>
+    <li><span class="num">2</span><span class="text">-S1 อยู่ที่ <strong>/1.B4</strong></span></li>
+    <li><span class="num">3</span><span class="text">ลองลาก -H1 ไปคอลัมน์ 5 สายตามไปเอง Placement เปลี่ยนเป็น <strong>/1.C5</strong> จากนั้นกด <strong>Undo (Ctrl+Z)</strong> กลับตำแหน่งเดิม</span></li>
+  </ol></div>
+</div>
+
+<!-- slide 21 -->
+<h2>ขั้นที่ 12: Jump + Highlight แล้ว Reset highlight</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-19.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-19.jpg" alt="ขั้นที่ 12: Jump + Highlight แล้ว Reset highlight" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ดับเบิลคลิกที่ช่อง <strong>Placement</strong> ของ Lamp</span></li>
+    <li><span class="num">2</span><span class="text">E3 กระโดดไปที่ -H1 ซูมเข้าและ <strong>Highlight</strong> สีชมพู</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Reset highlight (Shift+F3)</strong> ล้าง highlight แล้วกด Fit To Window (O)</span></li>
+  </ol></div>
+</div>
+
+<!-- slide 22 -->
+<h2>ขั้นที่ 13: บันทึกและตรวจผล</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/01-20.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/01-20.jpg" alt="ขั้นที่ 13: บันทึกและตรวจผล" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>&lt;Wires&gt;</strong> สาย 1-2-3 = 1.5-BN / 1.5-BN / 1.5-BU</span></li>
+    <li><span class="num">2</span><span class="text">วงจร L1 → -S1 → -H1 → N ครบ แล้วกด <strong>Ctrl+S</strong> (Messages แจ้ง Lab01.e3s saved)</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทดสอบตามโจทย์:</strong> เปิดสวิตช์ -S1 แล้วไฟจาก L1 ไหลผ่าน -H1 ไป N หลอดติด / ปิดสวิตช์ วงจรขาด หลอดดับ</div>
+
+<!-- slide 23 -->
+<h2>ปัญหาที่พบบ่อย และวิธีแก้</h2>
+<table>
+<tr><th>อาการ</th><th>วิธีแก้</th></tr>
+<tr><td>ลาก Component มาแล้ววางไม่ลง</td><td>กดค้างแล้วลากช้า ๆ จนสัญลักษณ์ติดเมาส์ จึงปล่อยบน Sheet</td></tr>
+<tr><td>ไม่เจอ Switch NO / Lamp ในแท็บ Component</td><td>ตรวจว่า E3 ใช้ Database E3_DB_Symbol.mdb ของคอร์ส</td></tr>
+<tr><td>Connection ไม่ติดขา (ไม่มีชื่อ Signal ที่ปลาย)</td><td>คลิกให้โดนปลายขาพอดี หรือซูมเข้าก่อนต่อเส้น</td></tr>
+<tr><td>Insert → Default Wire แล้วไม่มีสาย</td><td>ใช้ปุ่ม Insert default wire บน toolbar แล้วคลิกบนเส้น</td></tr>
+<tr><td>ป้ายสายแสดงแค่เลข</td><td>Symbol Properties ติ๊ก Cross-section, Colour, Wire group</td></tr>
+<tr><td>ช่อง Customer / Order หายไปหลังเปลี่ยน A4</td><td>เลื่อนลงในรายการ ช่องอยู่ท้ายสุด</td></tr>
+<tr><td>กด O แล้วไม่ Fit</td><td>คลิกบน Sheet ก่อนให้ focus อยู่ที่หน้าแบบ</td></tr>
+</table>
+
+        <div class="page-nav">
+          <a href="00.html">← ก่อนหน้า: 00. เตรียม Database</a>
+          <a href="02.html">ถัดไป: 02. First Motor มอเตอร์ตัวแรก →</a>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        Zuken E3 Tutorial
+      </footer>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="inner">
+      <nav id="menu">
+        <header class="major"><button class="sidebar-close" aria-label="ปิดเมนู">✕</button><h2>เมนู</h2></header>
+        <ul>
+          <li><a href="../index.html">หน้าแรก</a></li>
+          <li><a href="../pre-test.html">แบบทดสอบก่อนเรียน</a></li>
+          <li><a href="../lessons/00.html">00. หน้าจอและพื้นฐาน</a></li>
+          <li><a href="../lessons/01.html">01. วงจรไฟฟ้า E³.schematic</a></li>
+          <li><a href="../lessons/02.html">02. ออกแบบตู้ E³.panel</a></li>
+          <li><a href="../lessons/03.html">03. สร้าง Symbol และ Component</a></li>
+          <li><a href="../lessons/04.html">04. สร้าง Model ของตู้</a></li>
+          <li class="has-children expanded">
+            <a href="index.html">Motor Control Lab</a>
+            <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู lab">▾</button>
+            <ul class="submenu">
+              <li><a href="../game.html">เกม Motor Control Lab</a></li>
+              <li><a href="00.html">00. เตรียม Database</a></li>
+              <li class="active"><a href="01.html">01. First Light ไฟดวงแรก</a></li>
+              <li><a href="02.html">02. First Motor มอเตอร์ตัวแรก</a></li>
+              <li><a href="03.html">03. Self-holding กดครั้งเดียวค้าง</a></li>
+              <li><a href="04.html">04. Overload + ไฟสถานะ</a></li>
+              <li><a href="05.html">05. JOG เดินทีละนิด</a></li>
+              <li><a href="06.html">06. เดินหน้า-ถอยหลัง (Interlock)</a></li>
+            </ul>
+          </li>
+          <li><a href="../post-test.html">แบบทดสอบหลังเรียน และ Feedback</a></li>
+        </ul>
+      </nav>
+      <footer id="footer"><p class="copyright">Zuken E3 Tutorial</p></footer>
+    </div>
+  </div>
+  <div id="sidebar-overlay"></div>
+</div>
+<script src="../assets/main.js?v=30d529e9"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เกม Motor Control Lab — Zuken E3 Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css?v=72b73deb">
+</head>
+<body>
+<div id="wrapper">
+  <div id="main">
+    <div class="inner">
+      <header id="header">
+        <a href="index.html" class="logo"><span>Zuken E3 Tutorial</span></a>
+        <button class="menu-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
+      </header>
+
+      <main>
+        <h1>เกม Motor Control Lab</h1>
+        <p class="lead" style="max-width:46em;">เกมต่อวงจรควบคุมมอเตอร์ 10 ด่าน ใช้เป็นแบบทดสอบก่อนเข้า Lab:
+        ลากอุปกรณ์ลงแผง ต่อสาย แล้วกดทดสอบว่าวงจรทำงานตามโจทย์หรือไม่ — แต่ละ Lab ใน E³ คือวงจรของด่านนั้น</p>
+
+        <p>
+          <a class="download-btn" href="assets/game/MotorControlLab.html" target="_blank" rel="noopener">▶ เล่นในเบราว์เซอร์</a>
+          &nbsp;
+          <a class="download-btn" href="assets/game/MotorControlLab.zip" download>⬇ ดาวน์โหลดสำหรับ Windows (.zip)</a>
+        </p>
+
+        <div class="tip"><strong>เล่นในเบราว์เซอร์:</strong> เปิดได้ทั้ง Chrome และ Edge บนคอมพิวเตอร์ ดาว คะแนน และวงจรที่ต่อไว้
+        เก็บไว้ในเบราว์เซอร์ของเครื่องนั้น ถ้าจะเริ่มใหม่ให้กดปุ่ม "ล้างความคืบหน้า" ในหน้าแรกของเกม</div>
+        <div class="note"><strong>ไฟล์สำหรับ Windows:</strong> แตกไฟล์ zip ก่อน แล้วดับเบิลคลิก <code>MotorControlLab.exe</code>
+        (Windows 10/11 64 บิต ไม่ต้องติดตั้ง และไม่ต้องต่ออินเทอร์เน็ต) ครั้งแรก Windows อาจขึ้นหน้าต่าง "Windows protected your PC"
+        เพราะไฟล์ไม่ได้ลงลายเซ็นดิจิทัล ให้กด More info แล้วกด Run anyway — ถ้าเครื่องไหนเปิด exe ไม่ได้ ให้เปิด
+        <code>MotorControlLab.html</code> ในโฟลเดอร์เดียวกันแทน</div>
+
+        <h2>ด่านในเกม และ Lab ที่คู่กัน</h2>
+        <table>
+        <tr><th>ด่าน</th><th>ชื่อด่าน / สถานที่</th><th>โจทย์</th><th>Lab ใน E³</th></tr>
+<tr><td>1</td><td><strong>ไฟดวงแรก</strong><br>ห้องเก็บอะไหล่</td><td>เปิดสวิตช์แล้วหลอดไฟติด ปิดสวิตช์แล้วหลอดไฟดับ</td><td><a href="lab/01.html">Lab 01</a></td></tr>
+<tr><td>2</td><td><strong>มอเตอร์ตัวแรก</strong><br>สายพานลำเลียง ไลน์บรรจุ</td><td>กด START ค้าง มอเตอร์หมุนเดินหน้า ปล่อยแล้วหยุด</td><td><a href="lab/02.html">Lab 02</a></td></tr>
+<tr><td>3</td><td><strong>กดครั้งเดียวค้าง</strong><br>ปั๊มน้ำหล่อเย็น</td><td>กด START แล้วปล่อย มอเตอร์ยังหมุนค้าง กด STOP แล้วหยุด</td><td><a href="lab/03.html">Lab 03</a></td></tr>
+<tr><td>4</td><td><strong>กันมอเตอร์ไหม้</strong><br>พัดลมระบายอากาศ</td><td>START/STOP เดินค้าง OL ทริปแล้วมอเตอร์หยุด ไฟเขียวตอนทำงาน ไฟแดงตอน OL ทริป</td><td><a href="lab/04.html">Lab 04</a></td></tr>
+<tr><td>5</td><td><strong>เดินทีละนิด</strong><br>เครื่องตัดแผ่นเหล็ก</td><td>START เดินค้าง STOP หยุด JOG เดินเฉพาะตอนกดค้าง</td><td><a href="lab/05.html">Lab 05</a></td></tr>
+<tr><td>6</td><td><strong>สั่งได้สองจุด</strong><br>ลิฟต์ขนของ</td><td>START ตัวไหนก็เดินค้างได้ STOP ตัวไหนก็หยุดได้</td><td>—</td></tr>
+<tr><td>7</td><td><strong>เดินหน้า-ถอยหลัง</strong><br>ประตูม้วนคลังสินค้า</td><td>FWD เดินหน้าค้าง REV ถอยหลังค้าง กดสลับขณะหมุนต้องไม่ลัดวงจร</td><td><a href="lab/06.html">Lab 06</a></td></tr>
+<tr><td>8</td><td><strong>ตู้ที่มีปัญหา</strong><br>ตู้ปั๊มน้ำทิ้ง งานซ่อม</td><td>ซ่อมจนกด START แล้วมอเตอร์เดินหน้าค้าง กด STOP แล้วหยุด</td><td>—</td></tr>
+<tr><td>9</td><td><strong>เดินตามลำดับ</strong><br>สายพานสองตอน</td><td>START แล้ว M1 เดินทันที M2 เดินตามเมื่อครบ 3 วินาที STOP หยุดทั้งคู่</td><td>—</td></tr>
+<tr><td>10</td><td><strong>สตาร์-เดลต้า</strong><br>ปั๊มน้ำดิบขนาดใหญ่</td><td>START ออกตัวแบบสตาร์ ครบ 3 วินาทีสลับเป็นเดลต้า STOP หยุด</td><td>—</td></tr>
+        </table>
+        <p>ด่าน 6 และ 8–10 ยังไม่มี Lab ใน E³ — เล่นในเกมเพื่อฝึกอ่านวงจรได้เลย</p>
+
+        <div class="page-nav">
+          <a href="index.html">← กลับหน้าแรก</a>
+          <a href="lab/00.html">เริ่ม Lab 00. เตรียม Database →</a>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        Zuken E3 Tutorial
+      </footer>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="inner">
+      <nav id="menu">
+        <header class="major"><button class="sidebar-close" aria-label="ปิดเมนู">✕</button><h2>เมนู</h2></header>
+        <ul>
+          <li><a href="index.html">หน้าแรก</a></li>
+          <li><a href="pre-test.html">แบบทดสอบก่อนเรียน</a></li>
+          <li><a href="lessons/00.html">00. หน้าจอและพื้นฐาน</a></li>
+          <li><a href="lessons/01.html">01. วงจรไฟฟ้า E³.schematic</a></li>
+          <li><a href="lessons/02.html">02. ออกแบบตู้ E³.panel</a></li>
+          <li><a href="lessons/03.html">03. สร้าง Symbol และ Component</a></li>
+          <li><a href="lessons/04.html">04. สร้าง Model ของตู้</a></li>
+          <li class="has-children expanded">
+            <a href="lab/index.html">Motor Control Lab</a>
+            <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู lab">▾</button>
+            <ul class="submenu">
+              <li class="active"><a href="game.html">เกม Motor Control Lab</a></li>
+              <li><a href="lab/00.html">00. เตรียม Database</a></li>
+              <li><a href="lab/01.html">01. First Light ไฟดวงแรก</a></li>
+              <li><a href="lab/02.html">02. First Motor มอเตอร์ตัวแรก</a></li>
+              <li><a href="lab/03.html">03. Self-holding กดครั้งเดียวค้าง</a></li>
+              <li><a href="lab/04.html">04. Overload + ไฟสถานะ</a></li>
+              <li><a href="lab/05.html">05. JOG เดินทีละนิด</a></li>
+              <li><a href="lab/06.html">06. เดินหน้า-ถอยหลัง (Interlock)</a></li>
+            </ul>
+          </li>
+          <li><a href="post-test.html">แบบทดสอบหลังเรียน และ Feedback</a></li>
+        </ul>
+      </nav>
+      <footer id="footer"><p class="copyright">Zuken E3 Tutorial</p></footer>
+    </div>
+  </div>
+  <div id="sidebar-overlay"></div>
+</div>
+<script src="assets/main.js?v=30d529e9"></script>
+</body>
+</html>

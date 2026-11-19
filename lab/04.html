@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04. Overload + ไฟสถานะ — Zuken E3 Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=72b73deb">
+</head>
+<body>
+<div id="wrapper">
+  <div id="main">
+    <div class="inner">
+      <header id="header">
+        <a href="../index.html" class="logo"><span>Zuken E3 Tutorial</span></a>
+        <button class="menu-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
+      </header>
+
+      <main>
+        <h1>04. Overload + ไฟสถานะ</h1>
+
+        <div class="objectives">
+          <p>วัตถุประสงค์การเรียนรู้</p>
+          <ol>
+          <li>แทรก Overload relay บนสายกำลัง 3 เส้นแล้วใส่สายใหม่</li>
+          <li>แทรกหน้าสัมผัส NC 95-96 ก่อน STOP และใช้ NO 97-98 สั่งไฟ TRIP</li>
+          <li>เปลี่ยนเลขสาย (F2 / Wire Properties) ให้เรียงตามแบบ</li>
+          <li>ตรวจแบบแล้วทดสอบตามโจทย์</li>
+          </ol>
+        </div>
+
+<p class="lead" style="max-width:46em;">ต่อจาก Lab 03: เพิ่ม Overload relay -F1 กันมอเตอร์ไหม้ พร้อมไฟเขียว RUN และไฟแดง TRIP</p>
+<div class="note"><strong>ด่านในเกม:</strong> Lab นี้ตรงกับด่าน 4 ของเกม Motor Control Lab — ลองต่อวงจรในเกมก่อน แล้วค่อยเขียนแบบเดียวกันใน E³ <a href="../game.html">ไปหน้าเกม →</a></div>
+
+<!-- slide 2 -->
+<h2>ภาพรวม: Overload relay, ไฟ RUN / TRIP และสายใหม่</h2>
+<table>
+<tr><th>ลำดับ</th><th>หัวข้อ</th><th>ทำอะไร</th></tr>
+<tr><td>01</td><td><strong>Open Lab03</strong></td><td>Save As Lab04</td></tr>
+<tr><td>02</td><td><strong>Sheet 1: -F1</strong></td><td>ย้าย -K1 ขึ้น วาง Overload relay บน 3 เส้น</td></tr>
+<tr><td>03</td><td><strong>สายกำลังใหม่</strong></td><td>ลบสายที่ถูกแบ่ง ใส่ใหม่ 1.5-BK + เปลี่ยนเลข</td></tr>
+<tr><td>04</td><td><strong>Sheet 2: ย้ายอุปกรณ์</strong></td><td>Coil, -S1 + 13-14, -S2 ลง · กิ่ง K1:13 ใหม่</td></tr>
+<tr><td>05</td><td><strong>NC 95-96</strong></td><td>จาก Device tree แทรกก่อน STOP</td></tr>
+<tr><td>06</td><td><strong>NO 97-98 + -H1 / -H2</strong></td><td>ไฟ RUN และ TRIP</td></tr>
+<tr><td>07</td><td><strong>Connection + Angle</strong></td><td>เส้นใหม่ และกิ่ง H1 → S1–A1</td></tr>
+<tr><td>08</td><td><strong>Terminal</strong></td><td>-X3:2, -X4:2, -X4:3 บนจุดต่อ</td></tr>
+<tr><td>09</td><td><strong>สาย 17–22 + ป้ายสาย</strong></td><td>RD / BU แสดงเลข ขนาด สี</td></tr>
+</table>
+<div class="tip"><strong>สิ่งที่ต้องมี:</strong> ไฟล์ Lab03.e3s (จาก Lab 03) · Database: E3_DB_Symbol.mdb · Component: Overload relay, Lamp · ผ่าน Lab 01–03 มาแล้ว</div>
+<p><strong>21 เส้น</strong> กำลัง BK 1–6, 13–15 · ควบคุม RD / N BU 7–22</p>
+
+<!-- slide 3 -->
+<h2>เป้าหมาย: OL ทริปแล้วมอเตอร์หยุด ไฟเขียว RUN ไฟแดง TRIP</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-01.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-01.jpg" alt="เป้าหมาย: OL ทริปแล้วมอเตอร์หยุด ไฟเขียว RUN ไฟแดง TRIP" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>-F1</strong> Overload relay 1-2 / 3-4 / 5-6</span></li>
+    <li><span class="num">2</span><span class="text"><strong>NC 95-96</strong> ทริปแล้วตัดวงจรควบคุมทั้งหมด</span></li>
+    <li><span class="num">3</span><span class="text"><strong>NO 97-98</strong> ทริปแล้วปิด จ่ายไฟให้ -H2</span></li>
+    <li><span class="num">4</span><span class="text"><strong>-H1 RUN</strong> ติดตอน K1 ทำงาน</span></li>
+    <li><span class="num">5</span><span class="text"><strong>-H2 TRIP</strong> ติดตอน OL ทริป</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>โจทย์จากเกม:</strong> มอเตอร์ทำงานเกินกำลังแล้วไหม้ ต้องมี Overload ตัดวงจร และมีไฟบอกสถานะให้ช่างเห็นจากหน้าตู้ <a href="../game.html">เล่นด่านนี้ในเกม →</a></div>
+
+<!-- slide 4 -->
+<h2>ขั้นที่ 1: Open Lab03 แล้ว Save As Lab04</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-02.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-02.jpg" alt="ขั้นที่ 1: Open Lab03 แล้ว Save As Lab04" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>File → Open...</strong> โฟลเดอร์ Lab03 → work เลือก Lab03</span></li>
+    <li><span class="num">2</span><span class="text">กด <strong>Open</strong></span></li>
+    <li><span class="num">3</span><span class="text"><strong>F12</strong> Save As → โฟลเดอร์ Lab04 → work · File name: Lab04</span></li>
+    <li><span class="num">4</span><span class="text">กด <strong>Save</strong></span></li>
+  </ol></div>
+</div>
+
+<!-- slide 5 -->
+<h2>ขั้นที่ 2: ย้าย -K1 ขึ้น เว้นที่ให้ Overload relay</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-03.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-03.jpg" alt="ขั้นที่ 2: ย้าย -K1 ขึ้น เว้นที่ให้ Overload relay" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>-K1</strong> เดิม 132 / 164</span></li>
+    <li><span class="num">2</span><span class="text">ลาก <strong>-K1</strong> ขึ้นไปที่ 132 / 188 (/1.C3)</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ดูตำแหน่ง:</strong> status bar มุมขวาล่างบอกพิกัด · 1 grid = 4 mm · ลากแนวตั้งอย่างเดียว เส้นยืดตามเอง</div>
+
+<!-- slide 6 -->
+<h2>ขั้นที่ 3: Overload relay ลากวางบน 3 เส้นทีเดียว</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-04.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-04.jpg" alt="ขั้นที่ 3: Overload relay ลากวางบน 3 เส้นทีเดียว" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ Component: <strong>General → Overload relay</strong></span></li>
+    <li><span class="num">2</span><span class="text">ลากวางบนเส้น K1 → X2 ที่ 132 / 132 (/1.D3) ได้ <strong>-F1</strong> ขา 1-2 / 3-4 / 5-6</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>E3 แทรกให้เอง:</strong> ขา 1 / 3 / 5 ตรงกับเส้น L1 L2 L3 → E3 ตัดเส้นและแบ่งสายให้ แต่ป้ายสายของสายที่ถูกแบ่งหายไป</div>
+
+<!-- slide 7 -->
+<h2>ขั้นที่ 3 (ต่อ): ลบสายที่ถูกแบ่ง 4–6 และ 13–15 (Delete Forced)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-05.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-05.jpg" alt="ขั้นที่ 3 (ต่อ): ลบสายที่ถูกแบ่ง 4–6 และ 13–15 (Delete Forced)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ Devices → &lt;Wires&gt; คลิกสาย 4 แล้ว <strong>Shift+คลิก</strong> สาย 6</span></li>
+    <li><span class="num">2</span><span class="text">คลิกขวา → <strong>Delete Forced</strong> · ทำซ้ำกับ 13–15</span></li>
+    <li><span class="num">3</span><span class="text">เหลือ 1–3 และ 7–12</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ลบเฉพาะสาย:</strong> Delete Forced ใน &lt;Wires&gt; ลบสาย (core) เส้น Connection บนแบบยังอยู่ครบ</div>
+
+<!-- slide 8 -->
+<h2>ขั้นที่ 3 (ต่อ): ใส่สายใหม่ 1.5-BK K1 → F1 ก่อน แล้ว F1 → X2</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-06.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-06.jpg" alt="ขั้นที่ 3 (ต่อ): ใส่สายใหม่ 1.5-BK K1 → F1 ก่อน แล้ว F1 → X2" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Wire type → 1.5-BK</strong></span></li>
+    <li><span class="num">2</span><span class="text">ปุ่ม <strong>Insert default wire</strong> แล้วคลิกเส้น (กดปุ่มใหม่ทุกเส้น)</span></li>
+    <li><span class="num">3</span><span class="text">K1 → F1 ที่ y 152 : ได้เลข <strong>13–15</strong></span></li>
+    <li><span class="num">4</span><span class="text">F1 → X2 ที่ y 104 : ได้เลข <strong>16–18</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตำแหน่งป้ายสาย:</strong> ป้ายเกิดตรงจุดที่คลิก · เลขใหม่ = เลขสูงสุด + 1 จึงใส่ K1 → F1 ก่อนให้ได้ 13–15 ตามตัวอย่าง</div>
+
+<!-- slide 9 -->
+<h2>ขั้นที่ 3 (ต่อ): เปลี่ยนเลข 16–18 เป็น 4–6 และตั้งป้ายสาย</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-07.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-07.jpg" alt="ขั้นที่ 3 (ต่อ): เปลี่ยนเลข 16–18 เป็น 4–6 และตั้งป้ายสาย" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">&lt;Wires&gt; คลิกสาย 16 → <strong>F2</strong> พิมพ์ 4 → Enter · 17 → 5 · 18 → 6</span></li>
+    <li><span class="num">2</span><span class="text">ลากกรอบครอบป้าย 13–15 → คลิกขวา → <strong>Symbol Properties</strong> แบบ Lab 03</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Core in connection</strong> ☐ · <strong>Cross-section</strong> ☑ · <strong>Colour</strong> ☑ · ทำซ้ำกับ 4–6</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ผลลัพธ์:</strong> 4–6 = F1 → X2 · 13–15 = K1 → F1 · ป้ายแสดง 1.50 mm² Black เหมือนสาย 1–3</div>
+
+<!-- slide 10 -->
+<h2>ขั้นที่ 4: Sheet 2 ย้าย Coil, -S1 + 13-14, -S2 ลง</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-08.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-08.jpg" alt="ขั้นที่ 4: Sheet 2 ย้าย Coil, -S1 + 13-14, -S2 ลง" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ลาก <strong>Coil -K1</strong> 132 / 116 → 96</span></li>
+    <li><span class="num">2</span><span class="text">คลิก <strong>-S1</strong> + Shift+คลิก NO 13-14 ลาก 184 → 172</span></li>
+    <li><span class="num">3</span><span class="text">คลิกเส้นกิ่ง K1:13 และ K1:14 (แนวนอน) → <strong>Delete</strong></span></li>
+    <li><span class="num">4</span><span class="text">ลาก <strong>-S2</strong> 236 → 208</span></li>
+    <li><span class="num">5</span><span class="text">เส้นประ = สาย 9 / 11 ที่ไม่มีเส้นแล้ว</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำไมลบกิ่ง:</strong> กิ่งเดิมต่ออยู่ที่ y 210 ถ้าย้าย -S2 ลงทั้งที่มีกิ่ง จุดต่อจะไปอยู่ผิดฝั่งของ -S2</div>
+
+<!-- slide 11 -->
+<h2>ขั้นที่ 4 (ต่อ): ลบสาย 11 แล้วต่อกิ่ง K1:13 ใหม่ที่ y 192</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-09.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-09.jpg" alt="ขั้นที่ 4 (ต่อ): ลบสาย 11 แล้วต่อกิ่ง K1:13 ใหม่ที่ y 192" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">&lt;Wires&gt; คลิกขวาสาย <strong>11</strong> (K1:14 → S1:2)</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Delete Forced</strong> · สาย 9 เก็บไว้</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Insert → Connection</strong> คลิกขา K1:13</span></li>
+    <li><span class="num">4</span><span class="text">คลิกเส้นตั้งที่ 132 / 192 แล้ว <strong>Angle connection clockwise</strong> ใกล้จุดต่อ</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>สาย 9 ต่อเอง:</strong> เมื่อมีเส้นกิ่งใหม่ สาย 9 (S2:2 → K1:13) กลับมาต่อบนเส้นเอง · สาย 11 ถูกแทนด้วยกิ่งของไฟ RUN</div>
+
+<!-- slide 12 -->
+<h2>ขั้นที่ 5: NC 95-96 ของ -F1 แทรกก่อน STOP</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-10.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-10.jpg" alt="ขั้นที่ 5: NC 95-96 ของ -F1 แทรกก่อน STOP" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ Devices: -F → -F1 ลาก <strong>NC (95,96)</strong></span></li>
+    <li><span class="num">2</span><span class="text">E3 แบ่งสายให้: 7 = F1:95 → X3:1</span></li>
+    <li><span class="num">3</span><span class="text">16 = S2:1 → F1:96 (ไม่มีป้าย)</span></li>
+    <li><span class="num">4</span><span class="text">วางบนเส้น X3 → S2 ที่ 132 / 236 (/2.B3)</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>Device เดียวกัน:</strong> NC ต้องลากจาก -F1 ตัวเดิม · OL ทริป → 95-96 เปิด → ตัดทั้งคอยล์ K1 และไฟ RUN</div>
+
+<!-- slide 13 -->
+<h2>ขั้นที่ 5 (ต่อ): สาย 7, 8, 9 ใส่ใหม่ 1.5-RD ให้มีป้ายสาย</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-11.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-11.jpg" alt="ขั้นที่ 5 (ต่อ): สาย 7, 8, 9 ใส่ใหม่ 1.5-RD ให้มีป้ายสาย" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">Delete Forced สาย 8, 9, 16 · Rename 7 → <strong>16</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>1.5-RD</strong> + Insert default wire: S2:1–F1:96, S1:1–S2:2, กิ่ง K1:13 ได้ 17–19</span></li>
+    <li><span class="num">3</span><span class="text">Rename 17 → <strong>7</strong> · 18 → <strong>8</strong> · 19 → <strong>9</strong></span></li>
+    <li><span class="num">4</span><span class="text">ลากกรอบป้าย → Symbol Properties: <strong>Core in connection</strong> ☐</span></li>
+    <li><span class="num">5</span><span class="text"><strong>Cross-section</strong> ☑</span></li>
+    <li><span class="num">6</span><span class="text"><strong>Colour</strong> ☑ แล้ว OK</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ระวังตอนลากกรอบ:</strong> เริ่มลากจากที่ว่าง ถ้าเริ่มบนเส้น เส้นจะถูกลากย้ายไปแทน (แก้ด้วยการลากกลับ)</div>
+
+<!-- slide 14 -->
+<h2>ขั้นที่ 6: NO 97-98 ของ -F1 และไฟ -H1 / -H2</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-12.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-12.jpg" alt="ขั้นที่ 6: NO 97-98 ของ -F1 และไฟ -H1 / -H2" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">Devices: -F1 ลาก <strong>NO (97,98)</strong></span></li>
+    <li><span class="num">2</span><span class="text">วางที่ 220 / 172 (/2.C5)</span></li>
+    <li><span class="num">3</span><span class="text">Component: <strong>General → Lamp</strong> วางที่ 180 / 80 ได้ -H1</span></li>
+    <li><span class="num">4</span><span class="text">Lamp อีกตัววางที่ 220 / 80 ได้ -H2</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตำแหน่ง:</strong> -H1 อยู่ใต้ 13-14 ของ -K1 (x 180) · -H2 อยู่ใต้ 97-98 ของ -F1 (x 220) · ขา X2 อยู่ล่าง</div>
+
+<!-- slide 15 -->
+<h2>ขั้นที่ 7: Connection ไฟ RUN / TRIP และกิ่ง H1 → S1–A1</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-13.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-13.jpg" alt="ขั้นที่ 7: Connection ไฟ RUN / TRIP และกิ่ง H1 → S1–A1" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">F1:97 → bus L1</span></li>
+    <li><span class="num">2</span><span class="text">F1:98 → H2:X1</span></li>
+    <li><span class="num">3</span><span class="text">K1:14 → H1:X1</span></li>
+    <li><span class="num">4</span><span class="text">H1:X2 → bus N</span></li>
+    <li><span class="num">5</span><span class="text">H2:X2 → bus N</span></li>
+    <li><span class="num">6</span><span class="text">กิ่ง y 128 (x 180 → 132) + <strong>Angle clockwise</strong> 2 ปลาย</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำไมต้องเอียง 2 ปลาย:</strong> กิ่งนี้มีจุดต่อแบบตัว T ทั้งซ้ายและขวา มุมเอียงบอก E3 ว่าสายไป S1:2 กับ H1:X1</div>
+
+<!-- slide 16 -->
+<h2>ขั้นที่ 8: Terminal -X3:2, -X4:2, -X4:3 บนจุดต่อ</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-14.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-14.jpg" alt="ขั้นที่ 8: Terminal -X3:2, -X4:2, -X4:3 บนจุดต่อ" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">Devices: -X → -X3 คลิกขวาขั้ว <strong>1</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>Insert Terminal</strong> ได้ขั้ว 2</span></li>
+    <li><span class="num">3</span><span class="text">ลากขั้ว 2 วางบนจุดต่อ L1 ที่ 220 / 272</span></li>
+    <li><span class="num">4</span><span class="text">-X4: Insert Terminal 2 ครั้ง ลากขั้ว 2 ไป 180 / 56</span></li>
+    <li><span class="num">5</span><span class="text">ลากขั้ว 3 ไป 220 / 56</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำหลังต่อเส้น:</strong> ต้องมีเส้นลงก่อนจึงเกิดจุดต่อให้วาง Terminal · E3 เตือน pins aren't linked ได้ ไม่กระทบ</div>
+
+<!-- slide 17 -->
+<h2>ขั้นที่ 9: สาย 17–22 (RD / BU) ตามลำดับ</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-15.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-15.jpg" alt="ขั้นที่ 9: สาย 17–22 (RD / BU) ตามลำดับ" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">17 H1:X2 → X4:2 <strong>BU</strong></span></li>
+    <li><span class="num">2</span><span class="text">18 กิ่ง H1:X1 → S1:2 <strong>RD</strong></span></li>
+    <li><span class="num">3</span><span class="text">19 H1:X1 → K1:14 <strong>RD</strong></span></li>
+    <li><span class="num">4</span><span class="text">20 F1:97 → X3:2 <strong>RD</strong></span></li>
+    <li><span class="num">5</span><span class="text">21 F1:98 → H2:X1 <strong>RD</strong></span></li>
+    <li><span class="num">6</span><span class="text">22 H2:X2 → X4:3 <strong>BU</strong></span></li>
+    <li><span class="num">7</span><span class="text"><strong>1.5-BU</strong> สำหรับ N</span></li>
+    <li><span class="num">8</span><span class="text"><strong>1.5-RD</strong> สำหรับวงจรควบคุม</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ลำดับ = เลขสาย:</strong> ใส่ตามลำดับ 17 → 22 · เปลี่ยน Wire type ก่อนเส้นที่สีต่าง · กดปุ่ม Insert default wire ทุกเส้น</div>
+
+<!-- slide 18 -->
+<h2>ขั้นที่ 9 (ต่อ): ป้ายสายใหม่แสดงเลข ขนาด สี</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-16.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-16.jpg" alt="ขั้นที่ 9 (ต่อ): ป้ายสายใหม่แสดงเลข ขนาด สี" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ป้าย 10,18 เลือกแล้วลากลงไปใต้จุดต่อ (132 / 116) เหลือ <strong>10</strong></span></li>
+    <li><span class="num">2</span><span class="text">Symbol Properties: <strong>Cross-section</strong> ☑ <strong>Colour</strong> ☑ (เลขสายคงไว้)</span></li>
+    <li><span class="num">3</span><span class="text">ทำแบบเดียวกันกับ 17, 19, 21, 22</span></li>
+    <li><span class="num">4</span><span class="text">ผล: เลข + 1.50 mm² + สี</span></li>
+    <li><span class="num">5</span><span class="text">ป้าย 20: Core in connection ☐ (ตามตัวอย่าง)</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตั้งใจแสดงเลข:</strong> ป้ายสายใหม่แสดงเลขสายด้วย เพื่อให้ตรวจกับตารางสายได้ง่าย (ตามไฟล์ตัวอย่างของผู้สอน)</div>
+
+<!-- slide 19 -->
+<h2>ขั้นที่ 10: ตั้งชื่อไฟ -H1 RUN / -H2 TRIP แล้ว Save</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-17.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-17.jpg" alt="ขั้นที่ 10: ตั้งชื่อไฟ -H1 RUN / -H2 TRIP แล้ว Save" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">Devices: -H → คลิก -H1 → <strong>F2</strong></span></li>
+    <li><span class="num">2</span><span class="text">พิมพ์ <strong>-H1 RUN</strong> → Enter</span></li>
+    <li><span class="num">3</span><span class="text">-H2 → F2 → <strong>-H2 TRIP</strong> → Enter</span></li>
+    <li><span class="num">4</span><span class="text"><strong>File → Save</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ชื่อบนแบบ:</strong> ชื่อ Device แสดงข้างหลอดทันที ช่างรู้ว่าดวงไหนคือ RUN ดวงไหนคือ TRIP</div>
+
+<!-- slide 20 -->
+<h2>ขั้นที่ 11: ตรวจแบบ แล้วทดสอบตามโจทย์</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/04-18.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/04-18.jpg" alt="ขั้นที่ 11: ตรวจแบบ แล้วทดสอบตามโจทย์" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>/2.C5 /2.B3</strong> cross reference บอกว่า NO / NC อยู่ที่ไหน</span></li>
+    <li><span class="num">2</span><span class="text">OL ทริป → 95-96 เปิด → K1 ปล่อย มอเตอร์หยุด</span></li>
+    <li><span class="num">3</span><span class="text">97-98 ปิด → -H2 TRIP ติด</span></li>
+    <li><span class="num">4</span><span class="text">START → K1 ดูด จับค้าง → -H1 RUN ติด</span></li>
+    <li><span class="num">5</span><span class="text">STOP → หยุด · -H1 ดับ</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตรวจครบ:</strong> สาย 21 เส้น: 1–10, 12–22 · ไม่มีสาย 11 · ระหว่างขั้ว X3:1–X3:2 และ X4:1–X4:3 ยังไม่ใส่สาย (ข้ามไปก่อน)</div>
+
+<!-- slide 21 -->
+<h2>ปัญหาที่พบบ่อย และวิธีแก้</h2>
+<table>
+<tr><th>อาการ</th><th>วิธีแก้</th></tr>
+<tr><td>วาง Overload relay แล้วป้ายสายหาย</td><td>Delete Forced สายที่ถูกแบ่ง แล้ว Insert default wire ใหม่</td></tr>
+<tr><td>เลขสายใหม่ไม่ตรงตัวอย่าง</td><td>เลขใหม่ = สูงสุด + 1 · ใช้ F2 Rename ใน &lt;Wires&gt; (ชื่อชนกันให้ใช้ชื่อชั่วคราว)</td></tr>
+<tr><td>ลากกรอบแล้วเส้นถูกย้าย</td><td>เริ่มลากกรอบจากที่ว่าง · ลากเส้นกลับที่เดิม</td></tr>
+<tr><td>Undo แล้วไม่กลับ</td><td>แก้ด้วยมือ (ลากกลับ) แล้วตรวจตำแหน่งที่ status bar</td></tr>
+<tr><td>คลิกขวาป้ายแล้วไม่มี Symbol Properties</td><td>คลิกโดนข้อความ ให้ลากกรอบครอบป้ายแทน</td></tr>
+<tr><td>ใส่สายบนกิ่งได้ขาเดียว</td><td>Angle connection ที่จุดต่อก่อน (กิ่ง H1 ทำทั้ง 2 ปลาย)</td></tr>
+<tr><td>Ctrl+S ไม่บันทึก</td><td>ใช้ปุ่ม Save บน toolbar หรือ File → Save</td></tr>
+</table>
+
+        <div class="page-nav">
+          <a href="03.html">← ก่อนหน้า: 03. Self-holding กดครั้งเดียวค้าง</a>
+          <a href="05.html">ถัดไป: 05. JOG เดินทีละนิด →</a>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        Zuken E3 Tutorial
+      </footer>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="inner">
+      <nav id="menu">
+        <header class="major"><button class="sidebar-close" aria-label="ปิดเมนู">✕</button><h2>เมนู</h2></header>
+        <ul>
+          <li><a href="../index.html">หน้าแรก</a></li>
+          <li><a href="../pre-test.html">แบบทดสอบก่อนเรียน</a></li>
+          <li><a href="../lessons/00.html">00. หน้าจอและพื้นฐาน</a></li>
+          <li><a href="../lessons/01.html">01. วงจรไฟฟ้า E³.schematic</a></li>
+          <li><a href="../lessons/02.html">02. ออกแบบตู้ E³.panel</a></li>
+          <li><a href="../lessons/03.html">03. สร้าง Symbol และ Component</a></li>
+          <li><a href="../lessons/04.html">04. สร้าง Model ของตู้</a></li>
+          <li class="has-children expanded">
+            <a href="index.html">Motor Control Lab</a>
+            <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู lab">▾</button>
+            <ul class="submenu">
+              <li><a href="../game.html">เกม Motor Control Lab</a></li>
+              <li><a href="00.html">00. เตรียม Database</a></li>
+              <li><a href="01.html">01. First Light ไฟดวงแรก</a></li>
+              <li><a href="02.html">02. First Motor มอเตอร์ตัวแรก</a></li>
+              <li><a href="03.html">03. Self-holding กดครั้งเดียวค้าง</a></li>
+              <li class="active"><a href="04.html">04. Overload + ไฟสถานะ</a></li>
+              <li><a href="05.html">05. JOG เดินทีละนิด</a></li>
+              <li><a href="06.html">06. เดินหน้า-ถอยหลัง (Interlock)</a></li>
+            </ul>
+          </li>
+          <li><a href="../post-test.html">แบบทดสอบหลังเรียน และ Feedback</a></li>
+        </ul>
+      </nav>
+      <footer id="footer"><p class="copyright">Zuken E3 Tutorial</p></footer>
+    </div>
+  </div>
+  <div id="sidebar-overlay"></div>
+</div>
+<script src="../assets/main.js?v=30d529e9"></script>
+</body>
+</html>

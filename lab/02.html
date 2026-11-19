@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02. First Motor มอเตอร์ตัวแรก — Zuken E3 Tutorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=72b73deb">
+</head>
+<body>
+<div id="wrapper">
+  <div id="main">
+    <div class="inner">
+      <header id="header">
+        <a href="../index.html" class="logo"><span>Zuken E3 Tutorial</span></a>
+        <button class="menu-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
+      </header>
+
+      <main>
+        <h1>02. First Motor มอเตอร์ตัวแรก</h1>
+
+        <div class="objectives">
+          <p>วัตถุประสงค์การเรียนรู้</p>
+          <ol>
+          <li>แยกวงจรกำลังและวงจรควบคุมเป็น 2 Sheet ขนาด A3</li>
+          <li>ใช้ Signal reference, Autoconnect และ Multi-Connection ต่อ L1 L2 L3 N</li>
+          <li>วาง Contactor -K1, Motor -M1, Push Button -S1 และ Coil ของ -K1</li>
+          <li>ซ่อน/แสดงเส้นนำสีเทาด้วย View → Levels และไฟล์ .vis</li>
+          </ol>
+        </div>
+
+<p class="lead" style="max-width:46em;">วงจรกำลัง 3 เฟส (Sheet 1) กับวงจรควบคุม (Sheet 2) ของมอเตอร์ตัวแรก: กด START ค้างมอเตอร์หมุน ปล่อยแล้วหยุด</p>
+<div class="note"><strong>ด่านในเกม:</strong> Lab นี้ตรงกับด่าน 2 ของเกม Motor Control Lab — ลองต่อวงจรในเกมก่อน แล้วค่อยเขียนแบบเดียวกันใน E³ <a href="../game.html">ไปหน้าเกม →</a></div>
+
+<!-- slide 2 -->
+<h2>ภาพรวม: วงจรกำลัง + วงจรควบคุม บน 2 Sheet</h2>
+<table>
+<tr><th>ลำดับ</th><th>หัวข้อ</th><th>ทำอะไร</th></tr>
+<tr><td>01</td><td><strong>New Project</strong></td><td>Sheet A3: Motor Control / Power</td></tr>
+<tr><td>02</td><td><strong>Signal reference</strong></td><td>DESTINATION / SOURCE ด้วย Last Symbol (D)</td></tr>
+<tr><td>03</td><td><strong>Autoconnect</strong></td><td>Horizontal ได้ bus 4 เส้น</td></tr>
+<tr><td>04</td><td><strong>Rename signal</strong></td><td>Signals tree + F2: L1 L2 L3 N</td></tr>
+<tr><td>05</td><td><strong>-K1 + -M1</strong></td><td>Contactor และ Motor, Autoconnect Vertical</td></tr>
+<tr><td>06</td><td><strong>Multi-Connection</strong></td><td>ต่อ bus ลง K1:1/3/5 ทีเดียว 3 เส้น</td></tr>
+<tr><td>07</td><td><strong>New Sheet</strong></td><td>A3: Motor Control / Control</td></tr>
+<tr><td>08</td><td><strong>Copy / Paste</strong></td><td>ย้าย L1 และ N ไป Sheet 2</td></tr>
+<tr><td>09</td><td><strong>-S1 + Coil -K1</strong></td><td>Push Button NO และ Coil จาก Device tree</td></tr>
+</table>
+<div class="tip"><strong>สิ่งที่ต้องมี:</strong> E3.series 2027 (E3.schematic) · Database: E3_DB_Symbol.mdb · Component: Contactor, Motor, Push Button NO · ผ่าน Lab 01 มาแล้ว</div>
+<p><strong>2 Sheet</strong> Power (กำลัง) + Control (ควบคุม)</p>
+
+<!-- slide 3 -->
+<h2>เป้าหมาย: กด START ค้าง มอเตอร์หมุนเดินหน้า ปล่อยแล้วหยุด</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-01.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-01.jpg" alt="เป้าหมาย: กด START ค้าง มอเตอร์หมุนเดินหน้า ปล่อยแล้วหยุด" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>L1 L2 L3 N</strong> bus จาก Signal reference</span></li>
+    <li><span class="num">2</span><span class="text"><strong>-K1</strong> Contactor หน้าสัมผัสหลัก 1-2 / 3-4 / 5-6</span></li>
+    <li><span class="num">3</span><span class="text"><strong>-M1</strong> Motor 3 เฟส U V W</span></li>
+    <li><span class="num">4</span><span class="text"><strong>-S1</strong> Push Button NO (START กดค้าง)</span></li>
+    <li><span class="num">5</span><span class="text"><strong>Coil -K1</strong> A1 จาก -S1, A2 ไป N</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>โจทย์จากเกม:</strong> สายพานใช้มอเตอร์ 3 เฟส ปุ่มกดรับกระแสไม่ไหว จึงใช้ Contactor ตัดต่อไฟ ต้องหมุนเดินหน้าเท่านั้น <a href="../game.html">เล่นด่านนี้ในเกม →</a></div>
+
+<!-- slide 4 -->
+<h2>ขั้นที่ 1: New Project + Save As Lab02</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-02.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-02.jpg" alt="ขั้นที่ 1: New Project + Save As Lab02" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>File → New</strong> ได้โปรเจกต์ Untitled + Sheet 1</span></li>
+    <li><span class="num">2</span><span class="text"><strong>F12</strong> Save As → File name: Lab02</span></li>
+    <li><span class="num">3</span><span class="text">กด <strong>Save</strong></span></li>
+  </ol></div>
+</div>
+
+<!-- slide 5 -->
+<h2>ขั้นที่ 1 (ต่อ): Sheet Properties → A3, Motor Control / Power</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-03.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-03.jpg" alt="ขั้นที่ 1 (ต่อ): Sheet Properties → A3, Motor Control / Power" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Format</strong> A3</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Name (1)</strong> Motor Control</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Name (2)</strong> Power แล้วกด OK</span></li>
+    <li><span class="num">4</span><span class="text">Title block แสดง <strong>Motor Control / Power</strong></span></li>
+  </ol></div>
+</div>
+
+<!-- slide 6 -->
+<h2>ขั้นที่ 2: DESTINATION_AUTO ตัวแรก แล้ว Last Symbol (D)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-04.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-04.jpg" alt="ขั้นที่ 2: DESTINATION_AUTO ตัวแรก แล้ว Last Symbol (D)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ <strong>Misc</strong> ลาก DESTINATION_AUTO มาวางมุมบนซ้าย</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Insert → Last Symbol (D)</strong> สัญลักษณ์ล่าสุดติดเมาส์ คลิกวางต่ำลง 1 ช่อง (4 mm)</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทำซ้ำ:</strong> Last Symbol อีก 2 ครั้ง ได้ DESTINATION 4 ตัว ห่างกัน 4 mm (L1 L2 L3 N) · ใช้เส้นนำสีเทาใน Sheet format เป็นจุดอ้างอิงให้ตรงกันทุก Sheet</div>
+
+<!-- slide 7 -->
+<h2>ขั้นที่ 2–3: DESTINATION ×4 ซ้าย และ SOURCE ×4 ขวา</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-05.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-05.jpg" alt="ขั้นที่ 2–3: DESTINATION ×4 ซ้าย และ SOURCE ×4 ขวา" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>DESTINATION_AUTO ×4</strong> x เดียวกัน ห่างกัน 4 mm</span></li>
+    <li><span class="num">2</span><span class="text"><strong>SOURCE_AUTO ×4</strong> วางแบบเดียวกันทางขวา (ตัวแรกลากจาก Misc แล้ว Last Symbol)</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตรวจ:</strong> ทั้ง 8 ตัวต้องอยู่แถวเดียวกันคู่ซ้าย-ขวา Autoconnect จึงต่อได้</div>
+
+<!-- slide 8 -->
+<h2>ขั้นที่ 4: Autoconnect → Inside Area Horizontal</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-06.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-06.jpg" alt="ขั้นที่ 4: Autoconnect → Inside Area Horizontal" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Insert → Autoconnect</strong></span></li>
+    <li><span class="num">2</span><span class="text"><strong>Inside Area Horizontal</strong></span></li>
+    <li><span class="num">3</span><span class="text">ลากกรอบจากมุมซ้ายบน</span></li>
+    <li><span class="num">4</span><span class="text">ถึงมุมขวาล่าง ครอบ DESTINATION + SOURCE ทั้งหมด → ได้ bus 4 เส้น</span></li>
+  </ol></div>
+</div>
+
+<!-- slide 9 -->
+<h2>ขั้นที่ 5: Signals tree → Rename (F2) เป็น L1 L2 L3 N</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-07.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-07.jpg" alt="ขั้นที่ 5: Signals tree → Rename (F2) เป็น L1 L2 L3 N" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>View → Signal Tree</strong> เลือก #1 แล้วกด <strong>F2</strong> พิมพ์ L1 Enter</span></li>
+    <li><span class="num">2</span><span class="text">ทำต่อ #2 → L2, #3 → L3, #4 → N</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ลำดับ:</strong> #1 คือเส้นบนสุด ดูได้จากข้อความที่ Signal reference (#1.1, #2.2 …)</div>
+
+<!-- slide 10 -->
+<h2>ขั้นที่ 6: วาง -K1 Contactor และ -M1 Motor</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-08.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-08.jpg" alt="ขั้นที่ 6: วาง -K1 Contactor และ -M1 Motor" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>General → Contactor</strong> ลากมาวางใต้ bus</span></li>
+    <li><span class="num">2</span><span class="text"><strong>General → Motor</strong> ลากมาวางใต้ -K1</span></li>
+    <li><span class="num">3</span><span class="text"><strong>-K1</strong> ขา 1 / 3 / 5 ด้านบน</span></li>
+    <li><span class="num">4</span><span class="text"><strong>-M1</strong> ขา U / V / W ตรงแนวขา 2 / 4 / 6</span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ระวัง:</strong> ขา U V W ต้องตรงแนวกับ 2 4 6 (x เดียวกัน) Autoconnect Vertical จึงต่อได้</div>
+
+<!-- slide 11 -->
+<h2>ขั้นที่ 7: Autoconnect → Inside Area Vertical (K1 → M1)</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-09.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-09.jpg" alt="ขั้นที่ 7: Autoconnect → Inside Area Vertical (K1 → M1)" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Insert → Autoconnect → Inside Area Vertical</strong></span></li>
+    <li><span class="num">2</span><span class="text">ลากกรอบครอบ -K1 และ -M1</span></li>
+    <li><span class="num">3</span><span class="text">ได้ K1:2→U, K1:4→V, K1:6→W</span></li>
+  </ol></div>
+</div>
+
+<!-- slide 12 -->
+<h2>ขั้นที่ 8: Multi-Connection ลากกรอบครอบขา K1:1/3/5</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-10.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-10.jpg" alt="ขั้นที่ 8: Multi-Connection ลากกรอบครอบขา K1:1/3/5" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Insert → Multi-Connection</strong></span></li>
+    <li><span class="num">2</span><span class="text">ลากกรอบครอบปลายขา 1 / 3 / 5 ของ -K1</span></li>
+    <li><span class="num">3</span><span class="text">เลื่อนเมาส์ขึ้น จะเห็นเส้นยางยืด 3 เส้นพร้อมกัน</span></li>
+  </ol></div>
+</div>
+
+<!-- slide 13 -->
+<h2>ขั้นที่ 8 (ต่อ): กด Shift ค้าง วางเมาส์ขวาของขากลางเล็กน้อย ที่ระดับ L3 แล้วคลิก</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-11.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-11.jpg" alt="ขั้นที่ 8 (ต่อ): กด Shift ค้าง วางเมาส์ขวาของขากลางเล็กน้อย ที่ระดับ L3 แล้วคลิก" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>K1:1 → L1</strong> (เส้นซ้ายยาวที่สุด)</span></li>
+    <li><span class="num">2</span><span class="text"><strong>K1:3 → L2</strong></span></li>
+    <li><span class="num">3</span><span class="text"><strong>K1:5 → L3</strong> ตรงตำแหน่งเมาส์</span></li>
+    <li><span class="num">4</span><span class="text">คลิกวาง → วงจรกำลังเสร็จ</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตำแหน่งเมาส์สำคัญ:</strong> Shift = ต่อหลายเส้นเป็นขั้นบันได ห่างกัน 1 grid. เมาส์ตรงหรือซ้ายของขากลางจะได้ลำดับกลับ (K1:1→L3) = มอเตอร์หมุนถอยหลัง · ดูภาพก่อนคลิก</div>
+
+<!-- slide 14 -->
+<h2>ขั้นที่ 9: New Sheet A3 → Motor Control / Control</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-12.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-12.jpg" alt="ขั้นที่ 9: New Sheet A3 → Motor Control / Control" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>Insert → Sheet...</strong> Format: A3</span></li>
+    <li><span class="num">2</span><span class="text">กด <strong>OK</strong> ได้ Sheet 2</span></li>
+    <li><span class="num">3</span><span class="text">Sheet Properties: <strong>Name (2) = Control</strong> (ค่าเดิม Power ติดมา ต้องลบก่อนพิมพ์)</span></li>
+  </ol></div>
+</div>
+
+<!-- slide 15 -->
+<h2>ขั้นที่ 10: เลือกแถว L1 บน Sheet 1 แล้ว Copy</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-13.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-13.jpg" alt="ขั้นที่ 10: เลือกแถว L1 บน Sheet 1 แล้ว Copy" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">คลิก DESTINATION L1</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Shift+คลิก</strong> เส้นท่อนซ้าย</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Shift+คลิก</strong> เส้นท่อนขวา (เส้นถูกแบ่งที่จุดต่อ K1)</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Shift+คลิก</strong> SOURCE L1 แล้ว <strong>Edit → Copy</strong></span></li>
+  </ol></div>
+</div>
+<div class="note"><strong>ระวัง:</strong> คลิกช้า ๆ ทีละตัว Shift+คลิกเร็วเกินจะกลายเป็นดับเบิลคลิกและยกเลิกการเลือก. ที่เลือกแล้วเป็นเส้นประ</div>
+
+<!-- slide 16 -->
+<h2>ขั้นที่ 10 (ต่อ): Paste บน Sheet 2 แล้วทำซ้ำกับ N</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-14.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-14.jpg" alt="ขั้นที่ 10 (ต่อ): Paste บน Sheet 2 แล้วทำซ้ำกับ N" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">Sheet 2: <strong>Edit → Paste</strong> เลื่อนเมาส์จน status bar แสดง <strong>56 / 272</strong> (ตำแหน่งเดิมบนเส้นนำ) แล้วคลิก → L1</span></li>
+    <li><span class="num">2</span><span class="text">กลับ Sheet 1 เลือกแถว N, Copy แล้ว Paste ที่ <strong>56 / 64</strong> (ด้านล่าง) → N</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ตรวจ:</strong> Signal reference แสดง cross-reference สีเขียว (/1.A…) ชื่อ Signal ยังเป็น L1 และ N</div>
+
+<!-- slide 17 -->
+<h2>ขั้นที่ 11–12: วาง -S1 Push Button NO และ Coil ของ -K1</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-15.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-15.jpg" alt="ขั้นที่ 11–12: วาง -S1 Push Button NO และ Coil ของ -K1" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">แท็บ Component: ลาก <strong>Push Button NO</strong> → ได้ -S1</span></li>
+    <li><span class="num">2</span><span class="text">แท็บ Devices: -K → -K1 ลาก <strong>Coil</strong> (ไอคอนสีส้ม = ยังไม่ได้วาง)</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>สำคัญ:</strong> Coil ต้องลากจาก Device tree ของ -K1 ตัวเดิม ถ้าลาก Contactor ใหม่จาก Component จะได้ -K2</div>
+
+<!-- slide 18 -->
+<h2>ขั้นที่ 13: ต่อ Connection วงจรควบคุม แล้ว Save</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-16.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-16.jpg" alt="ขั้นที่ 13: ต่อ Connection วงจรควบคุม แล้ว Save" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>-S1</strong> Push Button NO</span></li>
+    <li><span class="num">2</span><span class="text"><strong>Coil -K1</strong> A1 บน / A2 ล่าง</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Insert → Connection:</strong> S1:1 ขึ้นไป L1</span></li>
+    <li><span class="num">4</span><span class="text">S1:2 → A1</span></li>
+    <li><span class="num">5</span><span class="text">A2 → N แล้ว <strong>File → Save</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ทดสอบตามโจทย์:</strong> กด -S1 ค้าง: L1 → S1 → Coil K1 → N K1 ดูด หน้าสัมผัส 1-2/3-4/5-6 ต่อ มอเตอร์หมุน ปล่อยปุ่ม K1 ปล่อย มอเตอร์หยุด</div>
+
+<!-- slide 19 -->
+<h2>ขั้นที่ 14: ซ่อนเส้นนำสีเทาด้วย View → Levels</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-17.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-17.jpg" alt="ขั้นที่ 14: ซ่อนเส้นนำสีเทาด้วย View → Levels" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>View → Levels...</strong> (คีย์ L)</span></li>
+    <li><span class="num">2</span><span class="text">แถว <strong>Level 3</strong> = เส้นนำสีเทาใน Sheet format</span></li>
+    <li><span class="num">3</span><span class="text">คลิกช่อง <strong>Symbol Graphic</strong> ให้เป็น ☐ (ไม่แสดง)</span></li>
+    <li><span class="num">4</span><span class="text">กด <strong>OK</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>คอลัมน์:</strong> Symbol · Symbol Graphic · Symbol Text · Empty Text · Graphic · Text · Connections เส้นนำเป็นกราฟิกของ Sheet format จึงอยู่ใน Symbol Graphic</div>
+
+<!-- slide 20 -->
+<h2>ขั้นที่ 14 (ต่อ): ก่อน / หลังซ่อนเส้นนำ</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-18.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-18.jpg" alt="ขั้นที่ 14 (ต่อ): ก่อน / หลังซ่อนเส้นนำ" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text"><strong>ก่อน</strong> เห็นเส้นนำสีเทา ใช้วาง Signal reference ให้ตรงกันทุก Sheet</span></li>
+    <li><span class="num">2</span><span class="text"><strong>หลัง</strong> เส้นนำหายไป แบบพร้อมพิมพ์ / ส่งออก PDF</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>เมื่อไหร่ใช้:</strong> เปิดเส้นนำตอนวางตำแหน่ง ปิดตอนตรวจแบบหรือพิมพ์ · บันทึกชุดการตั้งค่าเป็นไฟล์ .vis ได้ด้วย Write Configuration</div>
+
+<!-- slide 21 -->
+<h2>ขั้นที่ 14 (ต่อ): บันทึกชุด Level เป็นไฟล์ .vis</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-19.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-19.jpg" alt="ขั้นที่ 14 (ต่อ): บันทึกชุด Level เป็นไฟล์ .vis" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">ตั้ง Level ให้เสร็จก่อน (แถว 3 <strong>Symbol Graphic ☐</strong>)</span></li>
+    <li><span class="num">2</span><span class="text">กด <strong>Write Configuration</strong></span></li>
+    <li><span class="num">3</span><span class="text"><strong>File name:</strong> Guides_Off (นามสกุล .vis)</span></li>
+    <li><span class="num">4</span><span class="text">กด <strong>Save</strong></span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>ใช้ทำอะไร:</strong> ไฟล์ .vis เก็บเฉพาะการแสดง / ซ่อนของทุก Level ใช้กับโปรเจกต์อื่นได้ ผู้สอนแจกไฟล์เดียวให้ทุกคนตั้งค่าเหมือนกัน</div>
+
+<!-- slide 22 -->
+<h2>ขั้นที่ 14 (ต่อ): เปิดเส้นนำกลับ และเรียกไฟล์ .vis ด้วย Read Configuration</h2>
+<div class="side-by-side">
+  <div><figure class="screenshot">
+  <a href="../assets/images/lab/02-20.jpg" target="_blank" rel="noopener"><img src="../assets/images/lab/02-20.jpg" alt="ขั้นที่ 14 (ต่อ): เปิดเส้นนำกลับ และเรียกไฟล์ .vis ด้วย Read Configuration" loading="lazy"></a>
+</figure></div>
+  <div><ol class="step-list">
+    <li><span class="num">1</span><span class="text">เปิดกลับ: คลิกช่อง <strong>Symbol Graphic</strong> แถว 3 ให้เป็น ☑</span></li>
+    <li><span class="num">2</span><span class="text">กด <strong>OK</strong> เส้นนำกลับมา</span></li>
+    <li><span class="num">3</span><span class="text"><strong>Read Configuration</strong> เลือก Guides_Off.vis</span></li>
+    <li><span class="num">4</span><span class="text"><strong>Reload level visibility</strong> ต้องเป็น ☑</span></li>
+    <li><span class="num">5</span><span class="text"><strong>Open</strong> แล้ว OK เส้นนำหายอีกครั้งในคลิกเดียว</span></li>
+  </ol></div>
+</div>
+<div class="tip"><strong>สลับเร็ว:</strong> ระหว่างวางตำแหน่งเปิดเส้นนำ (☑) · ก่อนพิมพ์ / ส่งออก PDF เรียก Guides_Off.vis</div>
+
+<!-- slide 23 -->
+<h2>ปัญหาที่พบบ่อย และวิธีแก้</h2>
+<table>
+<tr><th>อาการ</th><th>วิธีแก้</th></tr>
+<tr><td>Multi-Connection ต่อผิดลำดับเฟส (K1:1→L3)</td><td>วางเมาส์ตรงขากลางที่ระดับ L3 ไม่ใช่ขาซ้าย / Undo แล้วทำใหม่</td></tr>
+<tr><td>Multi-Connection ไปจบที่ bus เดียวกัน</td><td>ต้องกด Shift ค้างตอนคลิกวาง</td></tr>
+<tr><td>เส้นขั้นบันไดไม่ลงบน bus</td><td>bus ต้องห่างกัน 1 grid (4 mm) ตอนวาง Signal reference</td></tr>
+<tr><td>Insert → Last Symbol ขึ้น 'No symbol type selected'</td><td>ต้องวางสัญลักษณ์อย่างน้อย 1 ครั้งก่อน</td></tr>
+<tr><td>Paste แล้วเส้นขาดเป็นช่วง</td><td>เลือกเส้นทุกท่อน (เส้นถูกแบ่งที่จุดต่อ) ก่อน Copy</td></tr>
+<tr><td>ได้ -K2 แทน Coil ของ -K1</td><td>ลบ -K2 แล้วลาก Coil จาก Device tree ของ -K1</td></tr>
+<tr><td>Name (2) ได้ PowerControl</td><td>ลบข้อความเดิมก่อนพิมพ์ (End + Backspace)</td></tr>
+<tr><td>ปิด Level 3 แล้วเส้นนำไม่หาย</td><td>ต้องปิดคอลัมน์ Symbol Graphic ไม่ใช่ Symbol หรือ Text</td></tr>
+</table>
+
+        <div class="page-nav">
+          <a href="01.html">← ก่อนหน้า: 01. First Light ไฟดวงแรก</a>
+          <a href="03.html">ถัดไป: 03. Self-holding กดครั้งเดียวค้าง →</a>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        Zuken E3 Tutorial
+      </footer>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="inner">
+      <nav id="menu">
+        <header class="major"><button class="sidebar-close" aria-label="ปิดเมนู">✕</button><h2>เมนู</h2></header>
+        <ul>
+          <li><a href="../index.html">หน้าแรก</a></li>
+          <li><a href="../pre-test.html">แบบทดสอบก่อนเรียน</a></li>
+          <li><a href="../lessons/00.html">00. หน้าจอและพื้นฐาน</a></li>
+          <li><a href="../lessons/01.html">01. วงจรไฟฟ้า E³.schematic</a></li>
+          <li><a href="../lessons/02.html">02. ออกแบบตู้ E³.panel</a></li>
+          <li><a href="../lessons/03.html">03. สร้าง Symbol และ Component</a></li>
+          <li><a href="../lessons/04.html">04. สร้าง Model ของตู้</a></li>
+          <li class="has-children expanded">
+            <a href="index.html">Motor Control Lab</a>
+            <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู lab">▾</button>
+            <ul class="submenu">
+              <li><a href="../game.html">เกม Motor Control Lab</a></li>
+              <li><a href="00.html">00. เตรียม Database</a></li>
+              <li><a href="01.html">01. First Light ไฟดวงแรก</a></li>
+              <li class="active"><a href="02.html">02. First Motor มอเตอร์ตัวแรก</a></li>
+              <li><a href="03.html">03. Self-holding กดครั้งเดียวค้าง</a></li>
+              <li><a href="04.html">04. Overload + ไฟสถานะ</a></li>
+              <li><a href="05.html">05. JOG เดินทีละนิด</a></li>
+              <li><a href="06.html">06. เดินหน้า-ถอยหลัง (Interlock)</a></li>
+            </ul>
+          </li>
+          <li><a href="../post-test.html">แบบทดสอบหลังเรียน และ Feedback</a></li>
+        </ul>
+      </nav>
+      <footer id="footer"><p class="copyright">Zuken E3 Tutorial</p></footer>
+    </div>
+  </div>
+  <div id="sidebar-overlay"></div>
+</div>
+<script src="../assets/main.js?v=30d529e9"></script>
+</body>
+</html>

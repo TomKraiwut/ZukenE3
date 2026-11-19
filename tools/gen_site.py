@@ -44,7 +44,29 @@ SECTIONS = {
             "สร้าง Model ของตู้",
         ],
     },
+    # Motor Control Lab: one lab per level of the Motor Control Lab game (game.html), decks in
+    # 02_ZukenE3/04_MotorControlLab/LabNN_*/ -> pages by tools/deck_to_lab.py
+    "lab": {
+        "label": "Motor Control Lab",
+        "hub": "lab.html",
+        "pad": True,            # chapter numbers shown as "00".."06" although the section is a group
+        "ids": list(range(0, 7)),
+        "chapters": [
+            "เตรียม Database",
+            "First Light ไฟดวงแรก",
+            "First Motor มอเตอร์ตัวแรก",
+            "Self-holding กดครั้งเดียวค้าง",
+            "Overload + ไฟสถานะ",
+            "JOG เดินทีละนิด",
+            "เดินหน้า-ถอยหลัง (Interlock)",
+        ],
+    },
 }
+
+# Motor Control Lab game, played in the browser (assets/game/MotorControlLab.html, a single offline HTML file) or
+# downloaded for Windows (assets/game/MotorControlLab.zip = exe + html + README). Page written by gen_index.py.
+GAME_PAGE = "game.html"
+GAME_TITLE = "เกม Motor Control Lab"
 
 # Pre-/post-test pages, written by gen_quiz.py. "form" is the Google Form link for learners (the .../viewform URL that
 # _No_Upload/quiz/Code.gs prints when you run createAll); empty = the page says the test is not open yet.
@@ -55,7 +77,7 @@ QUIZ_PAGES = {
                        "form": "https://docs.google.com/forms/d/e/1FAIpQLSeSBWAHnCh9EhN5ORFOF5U-1_AJwdXYjzmiN1kAwX5vbUjS3Q/viewform"},
 }
 
-SECTION_ORDER = ["lessons"]
+SECTION_ORDER = ["lessons", "lab"]
 
 
 def _chapter_stem(idx):
@@ -84,7 +106,7 @@ def chapter_download(section, idx):
 
 def chapter_label(section, idx):
     """Chapter number as shown to readers: lessons are "01".."09", other sections "1".."N"."""
-    if SECTIONS[section].get("flat") and isinstance(idx, int):
+    if (SECTIONS[section].get("flat") or SECTIONS[section].get("pad")) and isinstance(idx, int):
         return f"{idx:02d}"
     return str(idx).upper()
 
@@ -117,6 +139,9 @@ def sidebar_html(expand_section=None, active_top=None, active_chapter=None):
         parts.append(f'            <a href="{info["hub"]}">{info["label"]}</a>')
         parts.append(f'            <button class="submenu-toggle" aria-label="แสดง/ซ่อนเมนู {sec}">▾</button>')
         parts.append('            <ul class="submenu">')
+        if sec == "lab":            # the game is the first item of the Motor Control Lab menu
+            game_active = ' class="active"' if active_top == GAME_PAGE else ''
+            parts.append(f'              <li{game_active}><a href="{GAME_PAGE}">{GAME_TITLE}</a></li>')
         for i in chapter_numbers(sec):
             fname = chapter_filename(sec, i)
             li_active = ' class="active"' if (active_top == sec and active_chapter == i) else ''
@@ -213,6 +238,10 @@ def hub_page(section):
 HUB_INTRO = {
     "lessons": "ชุดสอน Step by Step บน Zuken E³.series บท 00–04 ทุกบทใช้โปรเจกต์ตัวอย่าง <code>Cooling water pump.e3s</code> "
                "ที่มากับโปรแกรม (ระบบปั๊มน้ำหล่อเย็น) — บท 00–02 ทำบนโปรเจกต์ บท 03–04 ทำใน Database Editor บนสำเนาฐานข้อมูล",
+    "lab": "ชุดฝึกวงจรควบคุมมอเตอร์บน E³.series 2027 (E³.schematic) — หนึ่ง Lab ต่อหนึ่งด่านของ"
+           ' <a href="game.html">เกม Motor Control Lab</a>: ลองต่อวงจรในเกมให้ผ่านก่อน แล้วเขียนแบบวงจรเดียวกันใน E³ ทีละขั้น'
+           " เริ่มจาก Lab 00 เตรียม Database ของตัวเอง แล้ว Lab 01 ไฟดวงแรก ไปจนถึง Lab 06 เดินหน้า-ถอยหลัง"
+           " (Lab 03 ต่อจาก Lab 02 ส่วน Lab 04, 05, 06 แต่ละ Lab เริ่มจากไฟล์ Lab 03)",
 }
 
 HUB_CARD_DESC = {
@@ -222,6 +251,15 @@ HUB_CARD_DESC = {
         "วาง -Q6 จากแท็บ Not Placed ลงราง, เพิ่ม Cable Duct / Mount TS 35 mm, Panel Autoconnect, ดูตู้ 3D และ Wiring list — 10 ขั้น",
         "Database Editor: วาด Symbol คอยล์และวาง Node, Component Wizard จากตัวเดิม, Pin Assignment และ Save To Database — 9 ขั้น",
         "New Model, Model Properties, Mounting Description ให้ตรงกับราง, Insert Slot และปิด E³.dbe โดยไม่บันทึก — 6 ขั้น",
+    ],
+    "lab": [
+        "Copy Database ไปโฟลเดอร์ของตัวเอง, Configure Databases, เลือกใช้ แล้ว Backup / Compact and Repair — 6 ขั้น",
+        "ด่าน 1: สวิตช์กับหลอดไฟบน Sheet A4 — Component, Signal reference, Connection, สายและป้ายสาย — 13 ขั้น",
+        "ด่าน 2: วงจรกำลัง 3 เฟส + วงจรควบคุมบน 2 Sheet, Autoconnect, Multi-Connection, View → Levels — 14 ขั้น",
+        "ด่าน 3: Terminal บนจุดต่อ bus, STOP + NO 13-14 จับค้าง, Angle connection, สาย BK / RD / BU — 14 ขั้น",
+        "ด่าน 4: Overload relay -F1, NC 95-96 / NO 97-98, ไฟ RUN / TRIP และเปลี่ยนเลขสาย — 11 ขั้น",
+        "ด่าน 5: ปุ่ม JOG (Push Button NO NC) ต่อขนานกับวงจรจับค้าง, เลขสาย 2 หลัก — 11 ขั้น",
+        "ด่าน 7: -K2 สลับเฟส, Interlock NC 21-22 ทั้งสองฝั่ง, Angle connection — 9 ขั้น",
     ],
 }
 
@@ -274,6 +312,7 @@ def _build_old_to_new():
         "index.html": "index.html",
         "pre-test.html": "pre-test.html",
         "post-test.html": "post-test.html",
+        GAME_PAGE: GAME_PAGE,
         "assets/style.css": "assets/style.css",
         "assets/main.js": "assets/main.js",
     }
